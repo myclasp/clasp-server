@@ -1,0 +1,20 @@
+postgres:
+  image: postgres:9.4.5
+  environment:
+    POSTGRES_USER: clasp
+    POSTGRES_PASSWORD: mypassword
+  ports:
+    - '5433:5432'
+  volumes:
+    - clasp-postgres:/var/lib/postgresql/data
+
+clasp:
+  build: .
+  links:
+    - postgres
+  volumes:
+    - .:/clasp
+  ports:
+    - '8000:8000'
+  env_file:
+    - .clasp.env
