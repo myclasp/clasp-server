@@ -15,3 +15,23 @@ In the docker-compose.yml file, we're referencing volumes that do not exist. We 
 
 `docker volume create --name clasp-postgres`
 
+
+-------------------
+
+First time running: 
+
+1. Install docker and docker-compose
+
+2. Setup environment in `.clasp.env`
+
+3. Create volume `docker volume create --name clasp-postgres`
+
+4. Init containers for first time `docker-compose up` (this should error, CTRL+C once it has stopped logging)
+
+5. Setup db:
+
+```
+  docker-compose run --user "$(id -u):$(id -g)" clasp rake db:reset
+  docker-compose run --user "$(id -u):$(id -g)" clasp rake db:migrate
+```
+
