@@ -8,6 +8,8 @@
 
 `docker-compose run clasp rails g model Moment state:string timestamp:timestamp latitude:float longitude:float`
 
+`docker-compose run clasp rake db:migrate`
+
 
 ## Project creation
 
