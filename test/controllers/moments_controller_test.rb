@@ -3,13 +3,11 @@ require 'test_helper'
 class MomentsControllerTest < ActionDispatch::IntegrationTest
   
   test "should create moments" do
-
     new_moments = [{ timestamp: Time.now, state: 'up', latitude: 12.00, longitude: -12.00 }]
-    
     expected = Moment.count+new_moments.size
 
     post '/moments',
-      params: new_moments.to_json,
+      params: { moments: new_moments.to_json },
       headers: { 'Accept' => Mime[:json], 'Content-Type' => Mime[:json].to_s },
       env: {},
       xhr: false,
