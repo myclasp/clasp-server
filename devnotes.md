@@ -10,6 +10,8 @@
 
 `docker-compose run clasp rake db:migrate`
 
+After generating files this way I had to change owner: `sudo chown -R digitalwestie:digitalwestie ./` to give permission to edit files.
+
 
 ## Project creation
 
