@@ -6,6 +6,8 @@
 
 `docker-compose run clasp rails g controller Pages home`
 
+`docker-compose run clasp rails g model Moment state:string timestamp:timestamp latitude:float longitude:float`
+
 
 ## Project creation
 
