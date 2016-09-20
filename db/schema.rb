@@ -16,7 +16,8 @@ ActiveRecord::Schema.define(version: 20160918162010) do
   enable_extension "plpgsql"
 
   create_table "moments", force: :cascade do |t|
-    t.string   "state"
+    t.integer  "identifier"
+    t.integer  "state"
     t.datetime "timestamp"
     t.float    "latitude"
     t.float    "longitude"
