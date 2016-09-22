@@ -7,6 +7,8 @@ end
 
 class MomentsController < ApplicationController
 
+  protect_from_forgery :except => [:create]
+
   rescue_from MomentsFormatError, :with => :rescue_from_moments_format_error
 
   def create
