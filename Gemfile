@@ -45,3 +45,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'unicorn', '~> 4.9'
 gem 'pg', '~> 0.18.3'
+gem 'devise'
