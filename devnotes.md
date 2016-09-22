@@ -31,3 +31,8 @@ docker run -it --rm --user "$(id -u):$(id -g)" \
 ```
 
 Then removed references to sidekiq / resq which we don't need.
+
+
+## Sending Requests
+
+curl -X POST -H "Content-Type: application/json" -d "{\"email\":\"giannichan@gmail.com\",\"password\":\"password\"}" http://localhost:8000/auth_user
