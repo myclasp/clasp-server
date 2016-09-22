@@ -35,4 +35,12 @@ Then removed references to sidekiq / resq which we don't need.
 
 ## Sending Requests
 
+Get user id:
+
 curl -X POST -H "Content-Type: application/json" -d "{\"email\":\"giannichan@gmail.com\",\"password\":\"password\"}" http://localhost:8000/auth_user
+
+Create moments
+
+curl -X POST -H "Content-Type: application/json" -d "{\"user_id\":\"c893dda4ae\", \"moments\":[{\"identifier\":1,\"timestamp\":\"2016-09-22 18:22:19 +0100\",\"state\":0,\"latitude\":12.0,\"longitude\":-12.0}]}" http://localhost:8000/moments
+
+

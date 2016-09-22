@@ -17,13 +17,14 @@ class MomentsController < ApplicationController
 
     raise MomentsFormatError.new("Needs a user id.") if user.blank?
     raise MomentsFormatError.new("Moments should be a collection.") unless moments.class.eql?(Array)
-    
+
     passed = []
     failed = []
     errors = {}
 
     moments.each do |moment|
-      m = user.moments.create(moment)
+      moment_attributes = moment.permit([:identifier, :timestamp, :state, :latitude, :longitude])
+      m = user.moments.create(moment_attributes)
       raise MomentsFormatError.new("Blank identifier for moment.") if m.identifier.blank?
       
       if m.valid?

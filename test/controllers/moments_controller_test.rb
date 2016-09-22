@@ -11,7 +11,7 @@ class MomentsControllerTest < ActionDispatch::IntegrationTest
     expected = Moment.count+new_moments.size
 
     post '/moments',
-      params: { user_id: @user.uuid, moments: new_moments.to_json },
+      params: { user_id: @user.uuid, moments: new_moments },
       headers: { 'Accept' => Mime[:json], 'Content-Type' => Mime[:json].to_s },
       env: {},
       xhr: false,
