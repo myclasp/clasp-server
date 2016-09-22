@@ -12,7 +12,9 @@ class MomentsController < ApplicationController
   def create
     moments = nil
     moments = JSON.parse(params[:moments]) unless params[:moments].blank?
-    
+    user = User.find_by(uuid: params[:user_id])
+
+    raise MomentsFormatError.new("Needs a user id.") if user.blank?
     raise MomentsFormatError.new("Moments should be a collection.") unless moments.class.eql?(Array)
     
     passed = []
@@ -20,7 +22,7 @@ class MomentsController < ApplicationController
     errors = {}
 
     moments.each do |moment|
-      m = Moment.create(moment)
+      m = user.moments.create(moment)
       raise MomentsFormatError.new("Blank identifier for moment.") if m.identifier.blank?
       
       if m.valid?

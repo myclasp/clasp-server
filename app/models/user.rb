@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :moments, dependent: :destroy
+
   before_save :set_uuid
 
   def set_uuid
