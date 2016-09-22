@@ -12,9 +12,8 @@ class MomentsController < ApplicationController
   rescue_from MomentsFormatError, :with => :rescue_from_moments_format_error
 
   def create
-    moments = nil
-    moments = JSON.parse(params[:moments]) unless params[:moments].blank?
-    user = User.find_by(uuid: params[:user_id])
+    moments = params[:moments]
+    user = User.find_by(uuid: params[:user_id]) 
 
     raise MomentsFormatError.new("Needs a user id.") if user.blank?
     raise MomentsFormatError.new("Moments should be a collection.") unless moments.class.eql?(Array)
