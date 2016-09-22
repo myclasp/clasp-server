@@ -1,5 +1,7 @@
 class AuthenticationController < ApplicationController
 
+  protect_from_forgery :except => [:authenticate_user]
+
   def authenticate_user
     user = User.find_for_database_authentication(email: params[:email])
     if user.valid_password?(params[:password])
