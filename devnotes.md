@@ -1,5 +1,11 @@
 # Clasp Devnotes
 
+## Adding gems
+
+Add gems to Gemfile as you would normally, don't run `bundle install`, this is done during the docker build process, ie: 
+
+`docker-compose build` 
+
 ## Running commands via docker 
 
 ### Example: Generate a controller
