@@ -11,6 +11,11 @@ class MomentsController < ApplicationController
 
   rescue_from MomentsFormatError, :with => :rescue_from_moments_format_error
 
+  def index
+    authenticate_user!
+    @moments = current_user.moments
+  end
+
   def create
     moments = params[:moments]
     user = User.find_by(uuid: params[:user_id]) 
