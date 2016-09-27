@@ -1,6 +1,6 @@
 # Clasp Server
 
-First time running: 
+## Installing and running for the first time: 
 
 1. Install docker and docker-compose
 
@@ -24,7 +24,18 @@ First time running:
 
 6. Run `docker-compose up -d` and check it on `http://localhost:8000` (`-d` means detached)
 
-# Running the app on osx:
+
+## Running the application
+
+### On Linux:
+
+To start the app: `docker-compose up`
+
+Then open in the browser with port 8000 e.g. `http://localhost:8000`
+
+When you are done, hit `CTRL+C` and `docker-compose down`
+
+### On osx:
 
 To start the app: `docker-compose up`
 
@@ -37,3 +48,42 @@ When you are done, hit `Control+C` and `docker-compose down`
 If you get:  ERROR: Couldn't connect to Docker daemon - you might need to run `docker-machine start default`.
 
 `eval "$(docker-machine env default)"`
+
+
+## API Specification
+
+FORMAT:
+
+POST /v1/users
+
+  {"user":{"email":"test@test.com", "password":"passwurd", "password_confirmation":"passwurd"}}
+
+Response:
+
+  {"success":true,"email":"test@test.com","id":"70b74dacfa"}
+
+  or
+  
+  {"success":false,"errors":{"password_confirmation":["doesn't match Password"]}}
+
+POST /v1/auth_user
+
+  { "email": "test@test.com", "password": "passwurd" }
+
+Response:
+
+  {"success":true,"email":"test@test.com","id":"70b74dacfa"}
+
+  or 
+
+  {"success":false,"errors":["Invalid Username/Password"]}
+
+POST /v1/moments
+
+  {"user_id":"70b74dacfa", "moments":[
+    {"identifier":1, "timestamp":2016-09-27 12:09:28 +0000, "state":0, "latitude":12.0, "longitude":-12.0}
+  ]}
+
+Response: 
+
+  {"success":true,"passed":[1],"failed":[],"errors":{}}
