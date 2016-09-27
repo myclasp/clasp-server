@@ -52,38 +52,36 @@ If you get:  ERROR: Couldn't connect to Docker daemon - you might need to run `d
 
 ## API Specification
 
-FORMAT:
-
 POST /v1/users
 
-  {"user":{"email":"test@test.com", "password":"passwurd", "password_confirmation":"passwurd"}}
+  `{"user":{"email":"test@test.com", "password":"passwurd", "password_confirmation":"passwurd"}}`
 
 Response:
 
-  {"success":true,"email":"test@test.com","id":"70b74dacfa"}
+  `{"success":true,"email":"test@test.com","id":"70b74dacfa"}`
 
   or
   
-  {"success":false,"errors":{"password_confirmation":["doesn't match Password"]}}
+  `{"success":false,"errors":{"password_confirmation":["doesn't match Password"]}}`
 
 POST /v1/auth_user
 
-  { "email": "test@test.com", "password": "passwurd" }
+  `{ "email": "test@test.com", "password": "passwurd" }`
 
 Response:
 
-  {"success":true,"email":"test@test.com","id":"70b74dacfa"}
+  `{"success":true,"email":"test@test.com","id":"70b74dacfa"}`
 
   or 
 
-  {"success":false,"errors":["Invalid Username/Password"]}
+  `{"success":false,"errors":["Invalid Username/Password"]}`
 
 POST /v1/moments
-
+```
   {"user_id":"70b74dacfa", "moments":[
     {"identifier":1, "timestamp":2016-09-27 12:09:28 +0000, "state":0, "latitude":12.0, "longitude":-12.0}
   ]}
-
+```
 Response: 
 
-  {"success":true,"passed":[1],"failed":[],"errors":{}}
+  `{"success":true,"passed":[1],"failed":[],"errors":{}}`
