@@ -16,7 +16,8 @@ class SignupController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params[:user][:password_confirmation] = "" unless params[:user].has_key? :password_confirmation 
+    params.require(:user).permit(:email, :password, :password_confirmation)
   end
 
 end
