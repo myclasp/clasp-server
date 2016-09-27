@@ -4,7 +4,7 @@ class AuthenticationControllerTest < ActionDispatch::IntegrationTest
   test "authenticates and returns user details" do
     u = User.create({ email: "test@test.com", password: "passwurd" })
 
-    post '/auth_user',
+    post '/v1/auth_user',
       params: { email: "test@test.com", password: "passwurd" },
       headers: { 'Accept' => Mime[:json], 'Content-Type' => Mime[:json].to_s },
       env: {},
@@ -18,7 +18,7 @@ class AuthenticationControllerTest < ActionDispatch::IntegrationTest
   test "fails authentication" do
     u = User.create({ email: "test@test.com", password: "passwurd" })
 
-    post '/auth_user',
+    post '/v1/auth_user',
       params: { email: "test@test.com", password: "wrongpasswurd" },
       headers: { 'Accept' => Mime[:json], 'Content-Type' => Mime[:json].to_s },
       env: {},

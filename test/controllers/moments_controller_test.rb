@@ -10,7 +10,7 @@ class MomentsControllerTest < ActionDispatch::IntegrationTest
     new_moments = [{ identifier:1, timestamp: Time.now, state: 0, latitude: 12.00, longitude: -12.00 }]
     expected = Moment.count+new_moments.size
 
-    post '/moments',
+    post '/v1/moments',
       params: { user_id: @user.uuid, moments: new_moments },
       headers: { 'Accept' => Mime[:json], 'Content-Type' => Mime[:json].to_s },
       env: {},
@@ -23,7 +23,7 @@ class MomentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should respond with 400 error for format" do
-    post '/moments',
+    post '/v1/moments',
       params: { user_id: @user.uuid, moments: { timestamp: Time.now }.to_json },
       headers: { 'Accept' => Mime[:json], 'Content-Type' => Mime[:json].to_s },
       env: {},
@@ -36,7 +36,7 @@ class MomentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should respond with 400 error for missing identifier" do
-    post '/moments',
+    post '/v1/moments',
       params: { user_id: @user.uuid, moments: [{ timestamp: Time.now }].to_json },
       headers: { 'Accept' => Mime[:json], 'Content-Type' => Mime[:json].to_s },
       env: {},
