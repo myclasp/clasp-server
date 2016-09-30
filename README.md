@@ -85,3 +85,15 @@ POST /v1/users/[user_id]/moments
 Response: 
 
   `{"success":true,"passed":[1],"failed":[],"errors":{}}`
+
+GET /v1/users/[user_id]/moments?from=100000&to=1000000
+
+- Optional `from` & `to` params can be used to specify a time range. These should be in unix timestamp.
+
+Response:
+
+```
+  { success:true, "moments":[
+    {"identifier":1, "timestamp":2016-09-27 12:09:28 +0000, "state":0, "latitude":12.0, "longitude":-12.0}
+  ]}
+```
