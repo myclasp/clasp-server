@@ -7,13 +7,25 @@ end
 
 class MomentsController < ApplicationController
 
-  protect_from_forgery :except => [:create]
+  protect_from_forgery :except => [:create, :v1_user_moments]
 
   rescue_from MomentsFormatError, :with => :rescue_from_moments_format_error
 
   def index
     authenticate_user!
     @moments = current_user.moments
+  end
+
+
+  def v1_user_moments
+    user = User.find_by(uuid: params[:user_id])
+    
+    query = user.moments
+    query = query.from(Time.at(params[:from].to_i)) unless params[:from].to_i.eql?(0) 
+    query = query.to(Time.at(params[:to].to_i)) unless params[:to].to_i.eql?(0)
+
+
+    render json: { success: true, moments: query.all, params: { from: params[:from], to: params[:to] } }
   end
 
   def create
