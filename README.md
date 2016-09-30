@@ -50,6 +50,11 @@ If you get:  ERROR: Couldn't connect to Docker daemon - you might need to run `d
 `eval "$(docker-machine env default)"`
 
 
+### Running tests
+
+Run: `docker-compose clasp rake test`
+
+
 ## API Specification
 
 POST /v1/users
