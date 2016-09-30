@@ -1,4 +1,4 @@
-# Clasp Server
+# Snapp Server
 
 ## Installing and running for the first time: 
 
