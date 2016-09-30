@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   scope 'v1' do
     post 'auth_user', to: 'authentication#authenticate_user'
     post 'users', to: 'signup#create_user'
-    post 'moments', to: 'moments#create', as: :v1_moments
+    post '/users/:user_id/moments', to: 'moments#create', as: :v1_user_moments
   end
 
   get 'moments', to: 'moments#index', as: :moments

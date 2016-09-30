@@ -76,9 +76,9 @@ Response:
 
   `{"success":false,"errors":["Invalid Username/Password"]}`
 
-POST /v1/moments
+POST /v1/users/[user_id]/moments
 ```
-  {"user_id":"70b74dacfa", "moments":[
+  { "moments":[
     {"identifier":1, "timestamp":2016-09-27 12:09:28 +0000, "state":0, "latitude":12.0, "longitude":-12.0}
   ]}
 ```
