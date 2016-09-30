@@ -24,3 +24,5 @@
 .clasp.env
 docker-compose.yml
 .DS_Store
+
+/rory-resources/*
