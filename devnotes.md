@@ -41,4 +41,4 @@ curl -X POST -H "Content-Type: application/json" -d "{\"email\":\"giannichan@gma
 
 Create moments
 
-curl -X POST -H "Content-Type: application/json" -d "{\"user_id\":\"c893dda4ae\", \"moments\":[{\"identifier\":1,\"timestamp\":\"2016-09-22 18:22:19 +0100\",\"state\":0,\"latitude\":12.0,\"longitude\":-12.0}]}" http://localhost:8000/v1/moments
+curl -X POST -H "Content-Type: application/json" -d "{  \"moments\":[{\"identifier\":1,\"timestamp\":\"2016-09-22 18:22:19 +0100\",\"state\":0,\"latitude\":12.0,\"longitude\":-12.0}]}" http://localhost:8000/v1/users/c893dda4ae/moments
