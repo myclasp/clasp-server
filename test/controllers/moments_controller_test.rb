@@ -1,17 +1,13 @@
 require 'test_helper'
 
 class MomentsControllerTest < ActionDispatch::IntegrationTest
-  
-  def setup
-    @user = User.create({ email: "test@test.com", password: "passwurd" }) 
-  end
 
   test "should create moments" do
     new_moments = [{ identifier:1, timestamp: Time.now, state: 0, latitude: 12.00, longitude: -12.00 }]
     expected = Moment.count+new_moments.size
 
-    post "/v1/users/#{@user.uuid}/moments",
-      params: { user_id: @user.uuid, moments: new_moments },
+    post "/v1/users/#{User.first.uuid}/moments",
+      params: { user_id: User.first.uuid, moments: new_moments },
       headers: { 'Accept' => Mime[:json], 'Content-Type' => Mime[:json].to_s },
       env: {},
       xhr: false,
@@ -23,8 +19,8 @@ class MomentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should respond with 400 error for format" do
-    post "/v1/users/#{@user.uuid}/moments",
-      params: { user_id: @user.uuid, moments: { timestamp: Time.now }.to_json },
+    post "/v1/users/#{User.first.uuid}/moments",
+      params: { user_id: User.first.uuid, moments: { timestamp: Time.now }.to_json },
       headers: { 'Accept' => Mime[:json], 'Content-Type' => Mime[:json].to_s },
       env: {},
       xhr: false,
@@ -36,8 +32,8 @@ class MomentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should respond with 400 error for missing identifier" do
-    post "/v1/users/#{@user.uuid}/moments",
-      params: { user_id: @user.uuid, moments: [{ timestamp: Time.now }].to_json },
+    post "/v1/users/#{User.first.uuid}/moments",
+      params: { user_id: User.first.uuid, moments: [{ timestamp: Time.now }].to_json },
       headers: { 'Accept' => Mime[:json], 'Content-Type' => Mime[:json].to_s },
       env: {},
       xhr: false,
