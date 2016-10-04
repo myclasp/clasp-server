@@ -7,8 +7,7 @@ class Group < ApplicationRecord
   has_many :users, through: :memberships
 
   def self.default_preferences
-    { visualisations: [:line_graph, :map, :calendar, :bar], 
-      private: false, data_available: false }
+    { visualisations: [:line_graph, :map, :calendar, :bar], data_available: false }
   end
 
   def preferences
