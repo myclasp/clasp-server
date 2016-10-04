@@ -6,13 +6,15 @@ class Group < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
 
+  def self.default_preferences
+    { visualisations: [:line_graph, :map, :calendar, :bar], 
+      private: false, data_available: false }
+  end
+
   def preferences
     prefs = read_attribute(:preferences)
     
-    default = { visualisations: [:line_graph, :map, :calendar, :bar], 
-      private: false, data_available: false }
-    
-    default.each do |key,value|
+    Group.default_preferences.each do |key,value|
       prefs[key] = value if prefs[key].nil?
     end
     
