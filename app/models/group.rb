@@ -19,4 +19,8 @@ class Group < ApplicationRecord
     return prefs
   end
 
+  def admins
+    memberships.where(role: "admin")
+  end
+
 end
