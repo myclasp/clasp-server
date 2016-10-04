@@ -3,6 +3,9 @@ class Group < ApplicationRecord
   validates :name, presence: true
   serialize :preferences, Hash
 
+  has_many :memberships, dependent: :destroy
+  has_many :users, through: :memberships
+
   def preferences
     prefs = read_attribute(:preferences)
     
