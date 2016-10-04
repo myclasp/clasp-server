@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+#<%= {:show_email => true, :allow_pm => :false}.to_yaml.inspect  %>
+one:
+  name: MyString
+  description: MyText
+  preferences: 
+
+two:
+  name: MyString
+  description: MyText
+  preferences: 
