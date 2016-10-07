@@ -76,8 +76,8 @@ class MomentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should respond with a collection of group's moments" do
-
-    get "/v1/groups/#{Group.first.id}/moments",
+    g = Group.find_by(name: "GroupOne")
+    get "/v1/groups/#{g.id}/moments",
       params: {},
       headers: { 'Accept' => Mime[:json], 'Content-Type' => Mime[:json].to_s },
       xhr: false,
