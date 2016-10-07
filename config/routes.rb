@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     post 'users', to: 'signup#create_user'
     post '/users/:user_id/moments', to: 'moments#create', as: :v1_user_moments
     get '/users/:user_id/moments', to: 'moments#v1_user_moments', as: :v1_select_user_moments
+    get '/groups/:group_id/moments', to: 'moments#v1_group_moments', as: :v1_select_group_moments
   end
 
   get 'moments', to: 'moments#index', as: :moments

@@ -24,6 +24,15 @@ class MomentsController < ApplicationController
     query = query.from(Time.at(params[:from].to_i)) unless params[:from].to_i.eql?(0) 
     query = query.to(Time.at(params[:to].to_i)) unless params[:to].to_i.eql?(0)
 
+    render json: { success: true, moments: query.all, params: { from: params[:from], to: params[:to] } }
+  end
+
+  def v1_group_moments
+    group = Group.find(params[:group_id])
+    
+    query = group.moments
+    query = query.from(Time.at(params[:from].to_i)) unless params[:from].to_i.eql?(0) 
+    query = query.to(Time.at(params[:to].to_i)) unless params[:to].to_i.eql?(0)
 
     render json: { success: true, moments: query.all, params: { from: params[:from], to: params[:to] } }
   end

@@ -28,4 +28,8 @@ class Group < ApplicationRecord
     where(is_private: false)
   end
 
+  def moments
+    Moment.joins(user: :groups).where('groups.id = ? ', id)
+  end
+
 end
