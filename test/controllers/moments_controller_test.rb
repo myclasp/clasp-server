@@ -90,4 +90,20 @@ class MomentsControllerTest < ActionDispatch::IntegrationTest
     assert_equal true, (result["moments"].size > 0)
   end
 
+  test "should respond with group's moments created before a set time" do
+    g = Group.find_by(name: "GroupOne")
+    count  = g.moments.count-1
+    toTime = g.moments.last.timestamp.to_i-1
+
+    get "/v1/groups/#{g.id}/moments?to=#{toTime}",
+      params: {},
+      headers: { 'Accept' => Mime[:json], 'Content-Type' => Mime[:json].to_s },
+      xhr: false
+
+    result = JSON.parse(response.body)
+    assert_response(200)
+    assert_equal true, result["success"]
+    assert_equal count, result["moments"].size
+  end
+
 end
