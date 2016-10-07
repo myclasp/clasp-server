@@ -3,7 +3,7 @@ class PagesController < ApplicationController
     if current_user
       @groups = Group.all
     else
-      @groups = Group.where(is_private: false).all
+      @groups = Group.open.all
     end
   end
 end

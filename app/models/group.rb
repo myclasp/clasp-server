@@ -24,4 +24,8 @@ class Group < ApplicationRecord
     memberships.where(role: "admin")
   end
 
+  def self.open
+    where(is_private: false)
+  end
+
 end
