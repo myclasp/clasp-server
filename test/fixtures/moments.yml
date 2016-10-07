@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user_id: 1
+  user: one
   state: 0
   identifier: 1
   timestamp: 2016-09-18 16:20:10
@@ -9,7 +9,7 @@ one:
   longitude: 1.5
 
 two:
-  user_id: 1
+  user: one
   state: 1
   identifier: 2
   timestamp: 2016-09-20 16:20:10
@@ -17,7 +17,7 @@ two:
   longitude: 1.5
 
 three:
-  user_id: 2
+  user: two
   state: 0
   identifier: 1
   timestamp: 2016-09-20 16:23:10

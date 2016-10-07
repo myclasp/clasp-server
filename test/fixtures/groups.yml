@@ -1,12 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 #<%= {:show_email => true, :allow_pm => :false}.to_yaml.inspect  %>
 one:
-  name: MyString
+  name: GroupOne
   description: MyText
   preferences: 
 
 two:
-  name: MuhGroup
+  name: GroupTwo
   description: MyText
   preferences: 
   is_private: true

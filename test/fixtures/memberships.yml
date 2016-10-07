@@ -3,9 +3,9 @@
 one:
   user: one
   group: one
-  role: MyString
+  role: normal
 
 two:
   user: two
-  group: two
-  role: MyString
+  group: one
+  role: normal
