@@ -44,8 +44,9 @@ class MomentsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "application/json", response.content_type
   end
 
-  test "should respond with a collection of moments" do
-    get "/v1/users/#{User.first.uuid}/moments",
+  test "should respond with a collection of user's moments" do
+    user   = User.find_by(uuid: "a123456789")
+    get "/v1/users/#{user.uuid}/moments",
       params: {},
       headers: { 'Accept' => Mime[:json], 'Content-Type' => Mime[:json].to_s },
       xhr: false,
@@ -58,11 +59,12 @@ class MomentsControllerTest < ActionDispatch::IntegrationTest
     assert_equal true, (result["moments"].size > 0)
   end
 
-  test "should respond with moments created before a set time" do
-    count  = User.first.moments.count-1
-    toTime = User.first.moments.last.timestamp.to_i-1
+  test "should respond with user's moments created before a set time" do
+    user   = User.find_by(uuid: "a123456789")
+    count  = user.moments.count-1
+    toTime = user.moments.last.timestamp.to_i-1
 
-    get "/v1/users/#{User.first.uuid}/moments?to=#{toTime}",
+    get "/v1/users/#{user.uuid}/moments?to=#{toTime}",
       params: {},
       headers: { 'Accept' => Mime[:json], 'Content-Type' => Mime[:json].to_s },
       xhr: false
@@ -71,6 +73,21 @@ class MomentsControllerTest < ActionDispatch::IntegrationTest
     assert_response(200)
     assert_equal true, result["success"]
     assert_equal count, result["moments"].size
+  end
+
+  test "should respond with a collection of group's moments" do
+
+    get "/v1/groups/#{Group.first.id}/moments",
+      params: {},
+      headers: { 'Accept' => Mime[:json], 'Content-Type' => Mime[:json].to_s },
+      xhr: false,
+      as: :json
+
+    result = JSON.parse(response.body)
+
+    assert_response(200)
+    assert_equal true, result["success"]
+    assert_equal true, (result["moments"].size > 0)
   end
 
 end
