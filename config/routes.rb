@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   devise_for :users
   
   scope 'v1' do
@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
 
   get 'moments', to: 'moments#index', as: :moments
+  get 'groups/:id', to: 'groups#show', as: :group 
 
   get '/pages/home', as: :pages_home
   root to: 'pages#home'
