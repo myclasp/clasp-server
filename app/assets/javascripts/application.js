@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require leaflet
+//= require leaflet.markercluster
 //= require_tree .

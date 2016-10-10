@@ -14,4 +14,10 @@ class Moment < ApplicationRecord
   def self.to(t)
     where("timestamp <= ?", t)
   end
+
+  def has_location?
+    return false if (latitude.blank? or longitude.blank?)
+    return false if (latitude.eql?(0.0) and longitude.eql?(0.0))
+    return true
+  end
 end

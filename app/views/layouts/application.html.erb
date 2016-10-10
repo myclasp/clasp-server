@@ -11,4 +11,8 @@
   <body>
     <%= yield %>
   </body>
+
+  <%= javascript_tag do %>
+    <%= yield :script %>
+  <% end %>
 </html>
