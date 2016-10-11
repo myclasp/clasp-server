@@ -47,5 +47,8 @@ gem 'unicorn', '~> 4.9'
 gem 'pg', '~> 0.18.3'
 gem 'devise'
 
-gem 'rails-assets-leaflet', source: 'https://rails-assets.org'
-gem 'rails-assets-leaflet.markercluster', source: 'https://rails-assets.org'
+source 'https://rails-assets.org' do
+  gem 'rails-assets-bootstrap'
+  gem 'rails-assets-leaflet'
+  gem 'rails-assets-leaflet.markercluster'
+end
