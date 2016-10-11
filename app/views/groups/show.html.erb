@@ -1,10 +1,22 @@
-<h1><%= @group.name %></h1>
+<div class="group">
 
-<p>Description</p>
+  <h1>
+  <%= @group.name %> / <%= pluralize @group.memberships.count, "member" %>
+  </h1>
 
-<code><%= @group.moments.inspect %></code>
+  <nav>
+    <ul class="nav navbar-nav" style=""> 
+      <li><%= link_to 'Map', '#' %></li>
+      <li><%= link_to 'Hour', '#' %></li>
+      <li><%= link_to 'Week', '#' %></li>
+      <li><%= link_to 'Month', '#' %></li>
+      <li><%= link_to 'Last 7 days', '#' %></li>
+    </ul>
+  </nav>
 
-<div id='map'></div>
+  <div class="clear" id='map'></div>
+
+</div>
 
 <%= content_for :script do %>
   var map = L.map('map');

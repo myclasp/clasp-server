@@ -17,4 +17,9 @@
  *= require leaflet.markercluster
  */
 
-#map { height:60vh; }
+#map { height:75vh; }
+.clear { clear:both; }
+
+@media all and (max-width: 767px) {
+  #map { height:54vh; }
+}
