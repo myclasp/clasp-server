@@ -20,7 +20,7 @@
 
 <%= content_for :script do %>
   var map = L.map('map');
-  map.setView([51.52238797921441, -0.08366235665359283], 8);
+  map.setView([54.04354, -2.78502], 15);
 
   L.tileLayer('http://a.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
@@ -36,13 +36,25 @@
     shadowAnchor: [13, 41]
   });
 
-  var markers = L.markerClusterGroup();
+  var markers = L.markerClusterGroup();  
+  var str = '';
+  var marker;
 
   <% for marker in @markers %>
-    var marker = L.marker(<%= marker[:latlng] %>, {icon: normalIcon});
-    marker.bindPopup('<%= marker[:popup] %>');
-    markers.addLayer(marker);
+    marker = L.marker(<%= marker[:latlng] %>, {icon: normalIcon});
+    marker.bindPopup('<%= marker[:popup] %>'); 
+    markers.addLayer(marker); 
   <% end %>
- 
+  
   map.addLayer(markers);
+
+  /*var popup = L.popup();
+  var x = 4;
+  function onMapClick(e) {
+    x++;
+    popup.setLatLng(e.latlng).setContent("hello").openOn(map);
+  }
+  map.on('click', onMapClick);*/
+
+
 <% end %>
