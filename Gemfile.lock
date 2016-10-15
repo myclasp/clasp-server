@@ -108,6 +108,7 @@ GEM
       sprockets-rails (>= 2.0.0)
     rails-assets-bootstrap (3.3.7)
       rails-assets-jquery (>= 1.9.1, < 4)
+    rails-assets-chartjs (2.3.0)
     rails-assets-jquery (3.1.1)
     rails-assets-leaflet (1.0.1)
     rails-assets-leaflet.markercluster (1.0.0)
@@ -187,6 +188,7 @@ DEPENDENCIES
   pg (~> 0.18.3)
   rails (~> 5.0.0, >= 5.0.0.1)
   rails-assets-bootstrap!
+  rails-assets-chartjs!
   rails-assets-leaflet!
   rails-assets-leaflet.markercluster!
   sass-rails (~> 5.0)
