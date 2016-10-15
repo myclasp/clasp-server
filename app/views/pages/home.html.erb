@@ -3,6 +3,7 @@
   <li>
     <h2><%= group.name %></h2>
     <p><%= group.description %></p>
+    <%= image_tag group.image_url %>
     <%= link_to "view", group_path(group) %>
   </li>
 <% end %>
