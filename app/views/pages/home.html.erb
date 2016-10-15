@@ -1,19 +1,9 @@
-<h1>Hello World</h1>
-<p>Snapp</p>
-
-<ul>
-<% if user_signed_in? %>
-  <li>You have saved <%= current_user.moments.count %> <%= link_to 'moments.', moments_path %></li>
-  <li><%= link_to('Settings', edit_user_registration_path) %></li>
-  <li><%= link_to('Sign out', destroy_user_session_path, :method => :delete) %></li>
-<% else %>
-  <li><%= link_to('Sign in', new_user_session_path) %></li>
-  <li><%= link_to('Register', new_user_registration_path) %></li>
-<% end %>
-</ul>
-
 <ul>
 <% for group in @groups %>
-  <li><%= group.name %></li>
+  <li>
+    <h2><%= group.name %></h2>
+    <p><%= group.description %></p>
+    <%= link_to "view", group_path(group) %>
+  </li>
 <% end %>
 </ul>
