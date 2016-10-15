@@ -10,15 +10,100 @@
       <li><%= link_to 'Hour', '#' %></li>
       <li><%= link_to 'Week', '#' %></li>
       <li><%= link_to 'Month', '#' %></li>
-      <li><%= link_to 'Last 7 days', '#' %></li>
+      <li><%= link_to 'Last 5 days', '#' %></li>
     </ul>
   </nav>
 
+  <h2 class="clear">Hour</h2>
+  <canvas id="hour" width="400" height="200"></canvas>
+
+  <h2>Week</h2>
+  <canvas id="week" width="400" height="200"></canvas>
+
+  <h2 class="clear">Month</h2>
+  <div id="month" class="" style="height:400px; width:90%; background-color:gray;">
+  </div>
+
+  <h2 class="clear">Last 5 Days</h2>
+  <canvas id="5days" width="400" height="200"></canvas>
+
+  <h2>Map</h2>
   <div class="clear" id='map'></div>
 
 </div>
 
 <%= content_for :script do %>
+  //LINE
+
+  var hourCanvas = document.getElementById("hour");
+  var scatterChart = new Chart(hourCanvas, {
+    type: 'line',
+    data: {
+      datasets: [
+      { label: 'Ups', fill: false, backgroundColor: "rgba(255,153,0,0.4)", borderColor: "rgba(255,153,0,0.4)", 
+        data: [{ x: 0, y: 0 }, { x: 5, y: 10 }, { x: 10, y: 5 }] },
+      
+      { label: 'Downs', fill: false, backgroundColor: "#36A2EB", borderColor: "#36A2EB",
+        data: [{ x: 0, y: 1 }, { x: 5, y: 3 }, { x: 10, y: 6 }] }
+      ]
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          type: 'linear',
+          position: 'bottom'
+        }]
+      }
+    }
+  });
+
+
+  var weekCanvas = document.getElementById("week");
+  var scatterChart = new Chart(weekCanvas, {
+    type: 'line',
+    data: {
+      datasets: [
+      { label: 'Ups', fill: false, backgroundColor: "rgba(255,153,0,0.4)", borderColor: "rgba(255,153,0,0.4)", 
+        data: [{ x: 0, y: 0 }, { x: 5, y: 10 }, { x: 10, y: 5 }] },
+      
+      { label: 'Downs', fill: false, backgroundColor: "#36A2EB", borderColor: "#36A2EB",
+        data: [{ x: 0, y: 1 }, { x: 5, y: 3 }, { x: 10, y: 6 }] }
+      ]
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          type: 'linear',
+          position: 'bottom'
+        }]
+      }
+    }
+  });
+
+
+  //TEST
+  var data = {
+    labels : ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    datasets : [
+      {
+        fillColor : "rgba(220,220,220,0.5)",
+        strokeColor : "rgba(220,220,220,1)",
+        data : [65,59,90,81,56,55,40]
+      },
+      {
+        fillColor : "rgba(151,187,205,0.5)",
+        strokeColor : "rgba(151,187,205,1)",
+        data : [68,48,40,59,-100,127,100]
+      }
+    ]
+  }
+
+  var ctx = document.getElementById("5days").getContext("2d");
+  var myNewChart = new Chart(ctx, { type:'bar', data: data, options: { animation : false } });
+
+
+
+  //MAP
   var map = L.map('map');
   map.setView([54.04354, -2.78502], 15);
 
