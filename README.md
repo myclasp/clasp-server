@@ -24,6 +24,12 @@
 
 6. Run `docker-compose up -d` and check it on `http://localhost:8000` (`-d` means detached)
 
+7. Run `docker-compose down` to shut down any containers
+
+8. (Optionally, you can add dummy data:
+  
+  `docker-compose run clasp rake snapp:dummy`
+
 
 ## Running the application
 
