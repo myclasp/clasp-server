@@ -12,6 +12,13 @@
   </div>
 </div>
 
+<h2>Members</h2>
+<ul>
+<%for user in @group.users%>
+<li><%=  user.email %></li>
+<%end%>
+</ul>
+
 <code>
   <%= @group.inspect %>
 </code>
