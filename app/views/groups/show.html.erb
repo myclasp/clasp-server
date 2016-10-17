@@ -2,6 +2,7 @@
 
   <h1>
   <%= @group.name %> / <%= pluralize @group.memberships.count, "member" %>
+  <%= link_to '(Edit)', edit_group_path(@group) if @group.is_admin?(current_user) %>
   </h1>
 
   <div class="row">
@@ -175,7 +176,7 @@
     //marker = L.marker(<%= marker[:latlng] %>, {icon: normalIcon});
     
     if (<%=marker[:state]%>){ color = "orange"; } else { color = "blue"; }
-    marker = L.circle(<%= marker[:latlng] %>, 4, {color: color });
+    marker = L.circle(<%= marker[:latlng] %>, 3, {color: color });
     marker.bindPopup('<%= marker[:popup] %>'); 
     markers.addLayer(marker); 
   <% end %>

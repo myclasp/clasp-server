@@ -21,7 +21,11 @@ class Group < ApplicationRecord
   end
 
   def admins
-    memberships.where(role: "admin")
+    User.joins(:memberships).where('memberships.role = ?', 'admin').where('memberships.group_id = ?', self.id)
+  end
+
+  def is_admin?(user)
+    admins.include?(user)
   end
 
   def self.open

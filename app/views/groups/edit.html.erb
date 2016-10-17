@@ -1,0 +1,17 @@
+<h1>
+<%= @group.name %> / <%= pluralize @group.memberships.count, "member" %>
+</h1>
+
+<div class="row">
+  <div class="col-md-6">
+  <p><%= @group.description%></p>
+  </div>
+
+  <div class="col-md-6">
+  <%= image_tag @group.image_url unless @group.image_url.blank? %>
+  </div>
+</div>
+
+<code>
+  <%= @group.inspect %>
+</code>
