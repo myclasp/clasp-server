@@ -33,20 +33,41 @@
 </div>
 
 <%= content_for :script do %>
-  //LINE
+  //HOUR LINE
+
+  function generateData(points, baseline){
+    if (baseline==undefined){ baseline=15 }
+
+    var d = [];
+    for (i=0; i<points; i++){
+      d.push({ x: i, y: Math.round(Math.random()*10)+baseline });
+    }
+    return d;
+  };
+
+  var hour_datasets = [
+    { label: 'Ups', fill: false, backgroundColor: "rgba(255,153,0,0.4)", borderColor: "rgba(255,153,0,0.4)", data: generateData(24) },
+    
+    { label: 'Downs', fill: false, backgroundColor: "#36A2EB", borderColor: "#36A2EB",
+      data: generateData(24),
+    }
+  ];
+
+  <% if user_signed_in? %>
+    hour_datasets.push({ label: 'My Ups', fill: false, backgroundColor: "rgba(255,153,0,0.4)", 
+      borderColor: "rgba(255,153,0,0.4)", data: generateData(24,0), 
+      borderDash: [10.0, 10.0], borderDashOffset: 1.0
+    })
+
+    hour_datasets.push({ label: 'My downs', fill: false, backgroundColor: "#36A2EB", borderColor: "#36A2EB", data: generateData(24,0),
+      borderDash: [10.0, 10.0], borderDashOffset: 1.0
+    });
+  <% end %>
 
   var hourCanvas = document.getElementById("hour");
   var scatterChart = new Chart(hourCanvas, {
     type: 'line',
-    data: {
-      datasets: [
-      { label: 'Ups', fill: false, backgroundColor: "rgba(255,153,0,0.4)", borderColor: "rgba(255,153,0,0.4)", 
-        data: [{ x: 0, y: 0 }, { x: 5, y: 10 }, { x: 10, y: 5 }] },
-      
-      { label: 'Downs', fill: false, backgroundColor: "#36A2EB", borderColor: "#36A2EB",
-        data: [{ x: 0, y: 1 }, { x: 5, y: 3 }, { x: 10, y: 6 }] }
-      ]
-    },
+    data: { datasets: hour_datasets },
     options: {
       scales: {
         xAxes: [{
@@ -58,17 +79,29 @@
   });
 
 
+  // WEEK LINE
+  var week_datasets = [
+    { label: 'Ups', fill: false, backgroundColor: "rgba(255,153,0,0.4)", borderColor: "rgba(255,153,0,0.4)", data: generateData(7) },
+    
+    { label: 'Downs', fill: false, backgroundColor: "#36A2EB", borderColor: "#36A2EB",
+      data: generateData(7),
+    }
+  ];
+
+  <% if user_signed_in? %>
+    week_datasets.push({ label: 'My Ups', fill: false, backgroundColor: "rgba(255,153,0,0.4)", 
+      borderColor: "rgba(255,153,0,0.4)", data: generateData(7,0), 
+      borderDash: [10.0, 10.0], borderDashOffset: 1.0
+    })
+
+    week_datasets.push({ label: 'My downs', fill: false, backgroundColor: "#36A2EB", borderColor: "#36A2EB", data: generateData(7,0), borderDash: [10.0, 10.0], borderDashOffset: 1.0
+    });
+  <% end %>
+  
   var weekCanvas = document.getElementById("week");
   var scatterChart = new Chart(weekCanvas, {
     type: 'line',
-    data: {
-      datasets: [
-      { label: 'Ups', fill: false, backgroundColor: "rgba(255,153,0,0.4)", borderColor: "rgba(255,153,0,0.4)",  data: [{ x: 0, y: 0 }, { x: 5, y: 10 }, { x: 10, y: 5 }] },
-      
-      { label: 'Downs', fill: false, backgroundColor: "#36A2EB", borderColor: "#36A2EB",
-        data: [{ x: 0, y: 1 }, { x: 5, y: 3 }, { x: 10, y: 6 }] }
-      ]
-    },
+    data: { datasets: week_datasets },
     options: {
       scales: {
         xAxes: [{
@@ -80,7 +113,7 @@
   });
 
 
-  //TEST
+  //5DAY
   var data = {
     labels : ["Monday","Tuesday","Wednesday","Thursday","Friday"],
     datasets : [
