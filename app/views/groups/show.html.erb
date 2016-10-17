@@ -4,6 +4,16 @@
   <%= @group.name %> / <%= pluralize @group.memberships.count, "member" %>
   </h1>
 
+  <div class="row">
+    <div class="col-md-6">
+    <p><%= @group.description%></p>
+    </div>
+
+    <div class="col-md-6">
+    <%= image_tag @group.image_url unless @group.image_url.blank? %>
+    </div>
+  </div>
+  
   <nav>
     <ul class="nav navbar-nav" style=""> 
       <li><%= link_to 'Map', '#map' %></li>
@@ -46,20 +56,20 @@
   };
 
   var hour_datasets = [
-    { label: 'Ups', fill: false, backgroundColor: "rgba(255,153,0,0.4)", borderColor: "rgba(255,153,0,0.4)", data: generateData(24) },
+    { label: 'Ups', fill: false, backgroundColor: "orange", borderColor: "orange", data: generateData(24) },
     
-    { label: 'Downs', fill: false, backgroundColor: "#36A2EB", borderColor: "#36A2EB",
+    { label: 'Downs', fill: false, backgroundColor: "blue", borderColor: "blue",
       data: generateData(24),
     }
   ];
 
   <% if user_signed_in? %>
-    hour_datasets.push({ label: 'My Ups', fill: false, backgroundColor: "rgba(255,153,0,0.4)", 
-      borderColor: "rgba(255,153,0,0.4)", data: generateData(24,0), 
+    hour_datasets.push({ label: 'My Ups', fill: false, backgroundColor: "orange", 
+      borderColor: "orange", data: generateData(24,0), 
       borderDash: [10.0, 10.0], borderDashOffset: 1.0
     })
 
-    hour_datasets.push({ label: 'My downs', fill: false, backgroundColor: "#36A2EB", borderColor: "#36A2EB", data: generateData(24,0),
+    hour_datasets.push({ label: 'My downs', fill: false, backgroundColor: "blue", borderColor: "blue", data: generateData(24,0),
       borderDash: [10.0, 10.0], borderDashOffset: 1.0
     });
   <% end %>
@@ -81,20 +91,21 @@
 
   // WEEK LINE
   var week_datasets = [
-    { label: 'Ups', fill: false, backgroundColor: "rgba(255,153,0,0.4)", borderColor: "rgba(255,153,0,0.4)", data: generateData(7) },
+    { label: 'Ups', fill: false, backgroundColor: "orange", 
+      borderColor: "orange", data: generateData(7) },
     
-    { label: 'Downs', fill: false, backgroundColor: "#36A2EB", borderColor: "#36A2EB",
+    { label: 'Downs', fill: false, backgroundColor: "blue", borderColor: "blue",
       data: generateData(7),
     }
   ];
 
   <% if user_signed_in? %>
-    week_datasets.push({ label: 'My Ups', fill: false, backgroundColor: "rgba(255,153,0,0.4)", 
-      borderColor: "rgba(255,153,0,0.4)", data: generateData(7,0), 
+    week_datasets.push({ label: 'My Ups', fill: false, backgroundColor: "orange", 
+      borderColor: "orange", data: generateData(7,0), 
       borderDash: [10.0, 10.0], borderDashOffset: 1.0
     })
 
-    week_datasets.push({ label: 'My downs', fill: false, backgroundColor: "#36A2EB", borderColor: "#36A2EB", data: generateData(7,0), borderDash: [10.0, 10.0], borderDashOffset: 1.0
+    week_datasets.push({ label: 'My downs', fill: false, backgroundColor: "blue", borderColor: "blue", data: generateData(7,0), borderDash: [10.0, 10.0], borderDashOffset: 1.0
     });
   <% end %>
   
@@ -119,12 +130,12 @@
     datasets : [
       { 
         label: "up",
-        backgroundColor: "#36A2EB", borderColor: "#36A2EB",
+        backgroundColor: "orange", borderColor: "orange",
         data : [65,59,90,81,56,55,40]
       },
       {
         label: "down",
-        backgroundColor: "rgba(255,153,0,0.4)", borderColor: "rgba(255,153,0,0.4)",
+        backgroundColor: "blue", borderColor: "blue",
         data : [-68,-48,-40,-59,-100,-127,-100]
       }
     ]
@@ -158,9 +169,13 @@
   var markers = L.markerClusterGroup();  
   var str = '';
   var marker;
+  var color = '';
 
   <% for marker in @markers %>
-    marker = L.marker(<%= marker[:latlng] %>, {icon: normalIcon});
+    //marker = L.marker(<%= marker[:latlng] %>, {icon: normalIcon});
+    
+    if (<%=marker[:state]%>){ color = "orange"; } else { color = "blue"; }
+    marker = L.circle(<%= marker[:latlng] %>, 4, {color: color });
     marker.bindPopup('<%= marker[:popup] %>'); 
     markers.addLayer(marker); 
   <% end %>

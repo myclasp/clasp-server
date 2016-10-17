@@ -15,6 +15,7 @@ class GroupsController < ApplicationController
       
       @markers.push({
         latlng: [moment.latitude, moment.longitude],
+        state: moment.state,
         popup: popup
       })
     end
