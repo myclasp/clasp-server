@@ -2,8 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
-.day span.up, .day span.down, .day span.split  {  padding:0.5em; border-radius:1em; }
+.day span  { padding:0.5em; border-radius:1em; }
 .day span.up { background-color: orange; color:white; }
 .day span.down { background-color: blue; color:white; }
 .day span.split { background-color: red; color:white; }
