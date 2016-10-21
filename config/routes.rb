@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get 'moments', to: 'moments#index', as: :moments
   get 'groups/:id', to: 'groups#show', as: :group 
   get 'groups/:id/edit', to: 'groups#edit', as: :edit_group
-  get 'groups/:id/month', to: 'groups#month', as: :group_month
+  get 'groups/:id/calendar_moments', to: 'groups#calendar_moments', as: :group_calendar_moments
 
   get '/pages/home', as: :pages_home
   root to: 'pages#home'

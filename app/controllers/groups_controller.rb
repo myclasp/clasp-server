@@ -27,10 +27,9 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
   end
 
-  def month
+  def calendar_moments
     group   = Group.find(params[:id])
     month   = DateTime.strptime(params[:month],"%m-%Y")
-    moments = group.moments(from: month.beginning_of_month, to: month.end_of_month)
     render  "_month.js.erb", locals: { month: month, group: group } 
   end
 
