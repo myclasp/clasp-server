@@ -67,7 +67,7 @@
     data: { datasets: hour_datasets },
     options: {
       scales: { 
-        xAxes: [{ type: 'linear', position: 'bottom' }],
+        xAxes: [{ type: 'linear', position: 'bottom', ticks: { min: 0, max: 24 } }],
         yAxes: [{ ticks: { max: 100, min: -100 } }]
       }
     }
