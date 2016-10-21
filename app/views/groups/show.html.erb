@@ -132,7 +132,7 @@
     if (<%= marker[:state] %>){ opts.color = "orange"; } else { opts.color = "blue"; }
     if (<%= marker[:is_mine] %>){ opts.fillColor = "white"; } else { opts.fillColor = opts.color; }
     marker = L.circle(<%= marker[:latlng] %>, 5, opts);
-    marker.bindPopup('<%= marker[:popup] %>'); 
+    marker.bindPopup('<%= escape_javascript(render partial: "popup", locals: { moment: marker[:moment] }) %>'); 
     markers.addLayer(marker);
   <% end %>
   
