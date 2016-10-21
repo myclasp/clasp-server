@@ -2,7 +2,7 @@
 
 ## Installing and running for the first time: 
 
-1. Install docker and docker-compose
+1. Install docker and docker-compose, or on OSx just install [docker toolbox](https://docs.docker.com/engine/installation/mac/)
 
 2. Setup environment configs:
 
