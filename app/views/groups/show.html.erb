@@ -21,7 +21,6 @@
       <li><%= link_to 'Hour', '#hour' %></li>
       <li><%= link_to 'Week', '#week' %></li>
       <li><%= link_to 'Month', '#month' %></li>
-      <li><%= link_to 'Last 5 days', '#5days' %></li>
     </ul>
   </nav>
 
@@ -34,9 +33,6 @@
   <h2 class="clear">Month</h2>
   <div id="month" class="" style="height:400px; width:90%; background-color:gray;">
   </div>
-
-  <h2 class="clear">Last 5 Days</h2>
-  <canvas id="5days" width="300" height="100"></canvas>
 
   <h2>Map</h2>
   <div class="clear" id='map'></div>
@@ -107,30 +103,6 @@
       }
     }
   });
-
-
-  //5DAY
-  var data = {
-    labels : ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-    datasets : [
-      { 
-        label: "up",
-        backgroundColor: "orange", borderColor: "orange",
-        data : [65,59,90,81,56,55,40]
-      },
-      {
-        label: "down",
-        backgroundColor: "blue", borderColor: "blue",
-        data : [-68,-48,-40,-59,-100,-127,-100]
-      }
-    ]
-  }
-
-  var ctx = document.getElementById("5days").getContext("2d");
-  var myNewChart = new Chart(ctx, { type:'bar', data: data, 
-  options: { animation : false,
-    scales: { xAxes: [{ stacked: true }], yAxes: [{ stacked: true }] } } });
-
 
 
   //MAP
