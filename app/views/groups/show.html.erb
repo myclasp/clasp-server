@@ -31,8 +31,7 @@
   <canvas id="week" width="300" height="100"></canvas>
 
   <h2 class="clear">Month</h2>
-  <div id="month" class="" style="height:400px; width:90%; background-color:gray;">
-  </div>
+  <%= render 'calendar', { date_range: date_range } %>
 
   <h2>Map</h2>
   <div class="clear" id='map'></div>
@@ -99,6 +98,7 @@
     options: {
       scales: {
         xAxes: [{ type: 'linear', position: 'bottom' }],
+        //xAxes: [{ type: 'time', position: 'bottom', ticks: { isoWeekday: true } }],
         yAxes: [{ ticks: { max: 100, min: -100 } }]
       }
     }

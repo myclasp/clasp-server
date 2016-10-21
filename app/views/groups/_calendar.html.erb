@@ -1,0 +1,29 @@
+<div id="month" class="simple-calendar">
+  <div class="calendar-heading">
+    <%= link_to 'Previous', '#' %>
+    <%= content_tag :h3, date_range[0].strftime('%B'), title: date_range[0].strftime('%d %b %Y'), class: "calendar-title"  %>
+    <%= link_to 'Next', '#' %>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <% date_range.slice(0, 7).each do |day| %>
+          <th><%= t('date.abbr_day_names')[day.wday] %></th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% date_range.each_slice(7) do |week| %>
+        <tr>
+          <% week.each do |day| %>
+            <%= content_tag :td, class: "day" do %>
+              <%= day.day %>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
