@@ -8,11 +8,11 @@ class Moment < ApplicationRecord
   default_scope { order('timestamp') } 
 
   def self.from(t)
-    where("timestamp >= ?", t)
+    where("moments.timestamp >= ?", t)
   end
 
   def self.to(t)
-    where("timestamp <= ?", t)
+    where("moments.timestamp <= ?", t)
   end
 
   def has_location?

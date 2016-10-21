@@ -32,8 +32,11 @@ class Group < ApplicationRecord
     where(is_private: false)
   end
 
-  def moments
-    Moment.joins(user: :groups).where('groups.id = ? ', id)
+  def moments(opts={})
+    result = Moment.joins(user: :groups).where('groups.id = ? ', id)
+    result = result.where("moments.timestamp >= ?", opts[:from]) if opts[:from]
+    result = result.where("moments.timestamp <= ?", opts[:to]) if opts[:to]
+    result
   end
 
 end
