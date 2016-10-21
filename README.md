@@ -4,10 +4,10 @@
 
 1. Install docker and docker-compose, or on OSx just install [docker toolbox](https://docs.docker.com/engine/installation/mac/)
 
-2. Setup environment configs:
+2. Setup environment configs (nb make sure db passwords match):
 
   * `.clasp.env` based on example `.example.env`
-  * `docker-compose.yml` based on example `docker-compose.example.yml`
+  * `docker-compose.yml` based on example `docker-compose.example.yml` 
 
 3. Create volume `docker volume create --name clasp-postgres`
 
