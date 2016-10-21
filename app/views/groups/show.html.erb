@@ -167,29 +167,19 @@
     shadowAnchor: [13, 41]
   });
 
-  var markers = L.markerClusterGroup();  
+  var markers = L.markerClusterGroup({ spiderfyOnMaxZoom: false, disableClusteringAtZoom: 16 });  
   var str = '';
   var marker;
-  var color = '';
+  var opts = { color: "orange", fillColor: 'white', fillOpacity: 1, weight: 4 };
 
-  <% for marker in @markers %>
-    //marker = L.marker(<%= marker[:latlng] %>, {icon: normalIcon});
-    
-    if (<%=marker[:state]%>){ color = "orange"; } else { color = "blue"; }
-    marker = L.circle(<%= marker[:latlng] %>, 3, {color: color });
+  <% for marker in @markers %>   
+    if (<%= marker[:state] %>){ opts.color = "orange"; } else { opts.color = "blue"; }
+    if (<%= marker[:is_mine] %>){ opts.fillColor = "white"; } else { opts.fillColor = opts.color; }
+    marker = L.circle(<%= marker[:latlng] %>, 5, opts);
     marker.bindPopup('<%= marker[:popup] %>'); 
-    markers.addLayer(marker); 
+    markers.addLayer(marker);
   <% end %>
   
   map.addLayer(markers);
-
-  /*var popup = L.popup();
-  var x = 4;
-  function onMapClick(e) {
-    x++;
-    popup.setLatLng(e.latlng).setContent("hello").openOn(map);
-  }
-  map.on('click', onMapClick);*/
-
 
 <% end %>
