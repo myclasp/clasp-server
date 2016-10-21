@@ -12,7 +12,7 @@ class GroupsController < ApplicationController
         " identifier: " + moment.identifier.to_s+
         " state: " +      moment.state.to_s  +
         " timestamp: " +  moment.timestamp.to_s
-              
+
       @markers.push({
         latlng: [moment.latitude, moment.longitude],
         state: moment.state,
@@ -25,6 +25,13 @@ class GroupsController < ApplicationController
 
   def edit
     @group = Group.find(params[:id])
+  end
+
+  def month
+    group   = Group.find(params[:id])
+    month   = DateTime.strptime(params[:month],"%m-%Y")
+    moments = group.moments(from: month.beginning_of_month, to: month.end_of_month)
+    render  "_month.js.erb", locals: { month: month, group: group } 
   end
 
   def update

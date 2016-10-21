@@ -1,21 +1,25 @@
 <div id="month" class="simple-calendar">
   <div class="calendar-heading">
-    <%= link_to 'Previous', '#' %>
-    <%= content_tag :h3, date_range[0].strftime('%B'), title: date_range[0].strftime('%d %b %Y'), class: "calendar-title"  %>
-    <%= link_to 'Next', '#' %>
+    <% range = defined?(month) ? date_range(month) : date_range() %>
+
+    <%= link_to 'Previous', group_month_path(group, month: range[0].advance(months:-1).strftime('%m-%Y')), method: :get, remote: true %>
+    
+    <%= content_tag :h3, range[0].strftime('%B %Y'), title: range[0].strftime('%d %b %Y'), class: "calendar-title"  %>
+
+    <%= link_to 'Next', group_month_path(group, month: range[0].advance(months:1).strftime('%m-%Y')), method: :get, remote: true %>
   </div>
 
   <table class="table table-striped">
     <thead>
       <tr>
-        <% date_range.slice(0, 7).each do |day| %>
+        <% range.slice(0, 7).each do |day| %>
           <th><%= t('date.abbr_day_names')[day.wday] %></th>
         <% end %>
       </tr>
     </thead>
 
     <tbody>
-      <% date_range.each_slice(7) do |week| %>
+      <% range.each_slice(7) do |week| %>
         <tr>
           <% week.each do |day| %>
             <%= content_tag :td, class: "day" do %>
