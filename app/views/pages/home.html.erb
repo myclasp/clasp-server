@@ -3,6 +3,7 @@
   <li>
     <h2><%= group.name %></h2>
     <p><%= group.description %></p>
+    <p><%= group.memberships.count %> members</p>
     <%= image_tag(group.image_url) unless group.image_url.blank? %>
     <%= link_to "view", group_path(group) %>
   </li>
