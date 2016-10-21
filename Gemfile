@@ -52,4 +52,5 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-leaflet'
   gem 'rails-assets-leaflet.markercluster'
   gem 'rails-assets-chartjs'
+  gem 'rails-assets-momentjs'
 end

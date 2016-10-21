@@ -17,4 +17,5 @@
 //= require leaflet
 //= require leaflet.markercluster
 //= require chartjs
+//= require momentjs
 //= require_tree .

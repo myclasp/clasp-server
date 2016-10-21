@@ -113,6 +113,7 @@ GEM
     rails-assets-leaflet (1.0.1)
     rails-assets-leaflet.markercluster (1.0.0)
       rails-assets-leaflet (>= 1.0.0)
+    rails-assets-momentjs (2.15.1)
     rails-dom-testing (2.0.1)
       activesupport (>= 4.2.0, < 6.0)
       nokogiri (~> 1.6.0)
@@ -191,6 +192,7 @@ DEPENDENCIES
   rails-assets-chartjs!
   rails-assets-leaflet!
   rails-assets-leaflet.markercluster!
+  rails-assets-momentjs!
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
