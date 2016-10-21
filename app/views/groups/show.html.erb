@@ -31,7 +31,7 @@
   <canvas id="week" width="300" height="100"></canvas>
 
   <h2 class="clear">Month</h2>
-  <%= render partial: 'calendar', locals: { group: @group } %>
+  <%= render partial: 'calendar', locals: { group: @group, calendar_moments: @calendar_moments } %>
 
   <h2>Map</h2>
   <div class="clear" id='map'></div>

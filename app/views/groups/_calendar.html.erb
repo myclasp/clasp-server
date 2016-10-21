@@ -1,7 +1,7 @@
 <div id="month" class="simple-calendar">
   <div class="calendar-heading">
     <% range = defined?(month) ? date_range(month) : date_range() %>
-
+    
     <%= link_to 'Previous', group_calendar_moments_path(group, month: range[0].advance(months:-1).strftime('%m-%Y')), method: :get, remote: true %>
     
     <%= content_tag :h3, range[0].strftime('%B %Y'), title: range[0].strftime('%d %b %Y'), class: "calendar-title"  %>
@@ -23,7 +23,7 @@
         <tr>
           <% week.each do |day| %>
             <%= content_tag :td, class: "day" do %>
-              <%= day.day %>
+              <span class="<%= calendar_moments[day.day][:group_state] %>"><%= day.day %></span>
             <% end %>
           <% end %>
         </tr>
