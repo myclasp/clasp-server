@@ -16,6 +16,6 @@
 //= require bootstrap
 //= require leaflet
 //= require leaflet.markercluster
-//= require chartjs
 //= require momentjs
+//= require chartjs
 //= require_tree .
