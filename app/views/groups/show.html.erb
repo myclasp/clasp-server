@@ -50,11 +50,11 @@
   };
 
   var hour_datasets = [
-    { label: 'Ups', fill: false, backgroundColor: "orange", borderColor: "silver", data: generateData(24) }
+    { label: 'Up/Down Ratio', fill: false, backgroundColor: "orange", borderColor: "silver", data: generateData(24) }
   ];
 
   <% if user_signed_in? %>
-    hour_datasets.push({ label: 'My Ups', fill: false, backgroundColor: "orange", 
+    hour_datasets.push({ label: 'My Ratio', fill: false, backgroundColor: "orange", 
       borderColor: "silver", data: generateData(24,0), 
       borderDash: [10.0, 10.0], borderDashOffset: 1.0
     });
@@ -80,12 +80,12 @@
 
   // WEEK LINE
   var week_datasets = [
-    { label: 'Ups', fill: false, backgroundColor: "orange", 
+    { label: 'Up/Down Ratio', fill: false, backgroundColor: "orange", 
       borderColor: "silver", data: generateData(7) }
   ];
 
   <% if user_signed_in? %>
-    week_datasets.push({ label: 'My Ups', fill: false, backgroundColor: "orange", 
+    week_datasets.push({ label: 'My Up/Down Ratio', fill: false, backgroundColor: "orange", 
       borderColor: "silver", data: generateData(7,0), 
       borderDash: [10.0, 10.0], borderDashOffset: 1.0
     });
