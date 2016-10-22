@@ -1,9 +1,12 @@
-<h3>Pavilion Cafe</h3>
+<% moment = marker[:moment] %>
+<div class="marker-popup" id="popup-<%= moment.id %>">
+<h3>Datamark</h3>
 <hr/> 
 
-<%= moment.latitude %>,  <%= moment.longitude %>
+<%= moment.latitude %>, <%= moment.longitude %>
 <br/> identifier: <%= moment.identifier %>
 <br/> state: <%= moment.state %>
 <br/> timestamp: <%=  moment.timestamp %>
 
-<%= link_to('Edit', '#') %>
+<%= content_tag(:button, '#', class: "edit", data: { moment: moment.id }) if marker[:is_mine] %>
+</div>

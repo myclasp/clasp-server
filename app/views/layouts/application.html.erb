@@ -41,6 +41,8 @@
   </body>
 
   <%= javascript_tag do %>
+  $(document).ready(function(){ 
     <%= yield :script %>
+  });
   <% end %>
 </html>
