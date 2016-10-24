@@ -17,7 +17,7 @@ var MomentMap = (function () {
 
     watchMapPopups: function () {
       console.log("watchMapPopups");
-      $('div.marker-popup .edit').off().click((e) => {
+      $('div.marker-popup .edit').off().click(function(e){
         console.log($(e.currentTarget).attr('data-moment'));
       });
     }
