@@ -3,7 +3,10 @@ class GroupsController < ApplicationController
   def show
     @group = Group.find(params[:id])
     @markers = []
+    
     @calendar_moments = build_calendar_moments(@group,DateTime.now)
+    @hourly_moments = build_period_moments(@group, 1.day.ago.beginning_of_day, 24, :hour)
+    @week_moments = build_period_moments(@group, 1.week.ago.beginning_of_day, 7, :day)
 
     for moment in @group.moments
       next unless moment.has_location?
@@ -34,21 +37,29 @@ class GroupsController < ApplicationController
 
   private
 
-  def build_period_moments(start_time, points, interval)
-    period_moments = {}
+  def build_period_moments(group, start_time, points, interval)
+    period_moments = []
     points.times do |point_idx|
       start_range = start_time + point_idx.send(interval)  #e.g. time + 1.send(:hour)
       end_range = start_time + (point_idx+1).send(interval)
       moments = group.moments(from: start_range, to: end_range)
 
-      group_point = { zeroes: moments.where(state: 0).count, ones: moments.where(state: 1).count }
-      user_point   = {}
+      zeroes = moments.where(state: 0).count
+      ones = moments.where(state: 1).count
+      ratio = 0.0
+      ratio = (ones-zeroes)/(ones+zeroes).to_f unless (ones+zeroes).eql?(0)
+      group_point = { zeroes: zeroes, ones: ones, ratio: ratio }
+
+      user_point = {}
       if current_user
-        user_point = { zeroes: moments.where({ state: 0, user_id: current_user.id }).count, 
-          ones: moments.where({ state: 1, user_id: current_user.id }).count }
+        user_zeroes = moments.where({ state: 0, user_id: current_user.id })
+        user_ones   = moments.where({ state: 1, user_id: current_user.id })
+        user_ratio  = 0.0
+        user_ratio  = (user_ones-user_zeroes)/(user_ones+user_zeroes).to_f unless (user_ones+user_zeroes).eql?(0)
+        user_point  = { zeroes: user_zeroes, ones: user_ones, ratio: user_ratio }
       end
 
-      period_moments.merge!(point_idx => { group: group_point, user: user_point })
+      period_moments << ({ group: group_point, user: user_point })
     end
     return period_moments
   end

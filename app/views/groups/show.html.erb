@@ -49,13 +49,23 @@
     return d;
   };
 
+  function prepForGraph(data, key){
+    var d = [];
+    data.forEach(function(point, i){
+      d.push({ x: i, y: (point[key].ratio * 100) });
+    });
+    return d;
+  };
+
+  var hourlyData = <%= @hourly_moments.to_json.html_safe %>;
+
   var hour_datasets = [
-    { label: 'Up/Down Ratio', fill: false, backgroundColor: "orange", borderColor: "silver", data: generateData(24), lineTension: 0.2 }
+    { label: 'Up/Down Ratio', fill: false, backgroundColor: "orange", borderColor: "silver", data: prepForGraph(hourlyData, 'group'), lineTension: 0.2 }
   ];
 
   <% if user_signed_in? %>
     hour_datasets.push({ label: 'My Ratio', fill: false, backgroundColor: "orange", 
-      borderColor: "silver", data: generateData(24,0), 
+      borderColor: "silver", data: prepForGraph(hourlyData, 'user'), 
       borderDash: [10.0, 10.0], borderDashOffset: 1.0, lineTension: 0.2
     });
   <% end %>
@@ -66,27 +76,29 @@
     data: { datasets: hour_datasets },
     options: {
       scales: { 
-        xAxes: [{ type: 'linear', position: 'bottom', ticks: { min: 0, max: 24 } }],
+        xAxes: [{ type: 'linear', position: 'bottom', ticks: { min: 0, max: 23 } }],
         yAxes: [{ ticks: { max: 100, min: -100 } }]
       }
     }
   });
 
 
-  console.log(hourChart.chart.controller);
+  //console.log(hourChart.chart.controller);
   //hourChart.chart.controller.boxes[2] //xaxis
   //hourChart.chart.controller.boxes[3] //xaxis
   //hourChart.render(1000, false)
 
   // WEEK LINE
+
+  var weekData = <%= @week_moments.to_json.html_safe %>;
+
   var week_datasets = [
-    { label: 'Up/Down Ratio', fill: false, backgroundColor: "orange", 
-      borderColor: "silver", data: generateData(7), lineTension: 0.2 }
+    { label: 'Up/Down Ratio', fill: false, backgroundColor: "orange", borderColor: "silver", data: prepForGraph(weekData, 'group'), lineTension: 0.2 }
   ];
 
   <% if user_signed_in? %>
     week_datasets.push({ label: 'My Up/Down Ratio', fill: false, backgroundColor: "orange", 
-      borderColor: "silver", data: generateData(7,0), 
+      borderColor: "silver", data: prepForGraph(weekData, 'user'), 
       borderDash: [10.0, 10.0], borderDashOffset: 1.0, lineTension: 0.2
     });
   <% end %>
