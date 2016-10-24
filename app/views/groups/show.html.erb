@@ -133,10 +133,13 @@
 
   $('#next_day, #previous_day').click(function(e){
     var url = buildNextPrevUrl(e.currentTarget);
+    $('#next_day, #previous_day').prop('disabled', true);
+
     jQuery.getJSON(url, function(result) { 
       
       $('#next_day').attr('data-start', result.next_start);
       $('#previous_day').attr('data-start', result.previous_start);
+      $('#next_week, #previous_week').prop('disabled', false);
       
       hourChart.data.datasets[0].data = prepForGraph(result.data, 'group');
       if (result.data[0].user.ratio != undefined){ 
@@ -149,11 +152,14 @@
 
   $('#next_week, #previous_week').click(function(e){
     var url = buildNextPrevUrl(e.currentTarget);
+    $('#next_week, #previous_week').prop('disabled', true);
+
     jQuery.getJSON(url, function(result) { 
       
       $('#next_week').attr('data-start', result.next_start);
       $('#previous_week').attr('data-start', result.previous_start);
-      
+      $('#next_week, #previous_week').prop('disabled', false);
+
       weekChart.data.datasets[0].data = prepForGraph(result.data, 'group');
       if (result.data[0].user.ratio != undefined){ 
         weekChart.data.datasets[1].data = prepForGraph(result.data, 'user');
