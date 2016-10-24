@@ -69,8 +69,8 @@ class GroupsController < ApplicationController
 
       user_point = {}
       if current_user
-        user_zeroes = moments.where({ state: 0, user_id: current_user.id })
-        user_ones   = moments.where({ state: 1, user_id: current_user.id })
+        user_zeroes = moments.where({ state: 0, user_id: current_user.id }).count
+        user_ones   = moments.where({ state: 1, user_id: current_user.id }).count
         user_ratio  = 0.0
         user_ratio  = (user_ones-user_zeroes)/(user_ones+user_zeroes).to_f unless (user_ones+user_zeroes).eql?(0)
         user_point  = { zeroes: user_zeroes, ones: user_ones, ratio: user_ratio }
