@@ -1,13 +1,16 @@
 <div class="squares">
-<div class="col-sm-4 height-4 no-pad">
-  <div class="grids heading">
-    <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc elementum libero vestibulum ex feugiat, ac consequat ipsum ornare. Sed velit metus, congue dignissim risus at, sollicitudin ornare lectus.</h1>
+ <div class="col-sm-4 height-4 no-pad">
+   <div class="square-content heading">
+    <div class="padding">
+     <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc elementum libero vestibulum ex feugiat, ac consequat ipsum ornare. Sed velit metus, congue dignissim risus at, sollicitudin ornare lectus.</h1>
+    </div>
   </div>
 </div>
 <% for group in @groups %>
-<div class="col-sm-2 height-2 no-pad square" style="background-image: url('<%= group.image_url %>'); ">
-  <div class="grids">
-   <div style="display: block">
+<div class="col-sm-2 height-2 no-pad square color-four ">
+    <%= image_tag(group.image_url) unless group.image_url.blank? %>
+  <div class="square-content">
+   <div class="padding">
     <h2><%= group.name %></h2>
     <p><%= group.description %></p>
     <p><%= group.memberships.count %> members</p>
@@ -17,9 +20,10 @@
 </div>
 <% end %>
 <!-- Placeholder Groups -->
-<div class="col-sm-2 height-2 no-pad square" style="background-image: url('http://www.coldwater.org/images/images/WaterworksPark4.jpg'); ">
-  <div class="grids">
-   <div style="display: block">
+<div class="col-sm-2 height-2 no-pad square color-two">
+ <img src="http://www.coldwater.org/images/images/WaterworksPark4.jpg" />
+  <div class="square-content">
+   <div class="padding">
     <h2>Example Group</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec elit est. Phasellus congue, mi in iaculis eleifend  metus sodales.</p>
     <p>XX members</p>
@@ -27,9 +31,10 @@
   </div>
   </div>
 </div>
-<div class="col-sm-2 height-2 no-pad square" style="background-image: url('http://www.edinburghfixedgear.co.uk/wp-content/uploads/2016/03/Cycling.jpg'); ">
-  <div class="grids">
-   <div style="display: block">
+<div class="col-sm-2 height-2 no-pad square color-three">
+ <img src="http://www.edinburghfixedgear.co.uk/wp-content/uploads/2016/03/Cycling.jpg" />
+  <div class="square-content">
+   <div class="padding">
     <h2>Example Group</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec elit est. Phasellus congue, mi in iaculis eleifend  metus sodales.</p>
     <p>XX members</p>
@@ -37,9 +42,10 @@
   </div>
   </div>
 </div>
-<div class="col-sm-2 height-2 no-pad square" style="background-image: url('https://s-media-cache-ak0.pinimg.com/736x/c4/28/ff/c428ff5a1e939f3780b0aff6095fa516.jpg'); ">
-  <div class="grids">
-   <div style="display: block">
+<div class="col-sm-2 height-2 no-pad square color-four">
+ <img src="https://s-media-cache-ak0.pinimg.com/736x/c4/28/ff/c428ff5a1e939f3780b0aff6095fa516.jpg" />
+  <div class="square-content">
+   <div class="padding">
     <h2>Example Group</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec elit est. Phasellus congue, mi in iaculis eleifend  metus sodales.</p>
     <p>XX members</p>
@@ -47,9 +53,9 @@
   </div>
   </div>
 </div>
-<div class="col-sm-2 height-2 no-pad square" style="background-image: url(''); ">
-  <div class="grids">
-   <div style="display: block">
+<div class="col-sm-2 height-2 no-pad square color-two">
+  <div class="square-content">
+   <div class="padding">
     <h2>Example Group</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec elit est. Phasellus congue, mi in iaculis eleifend  metus sodales.</p>
     <p>XX members</p>
@@ -57,9 +63,10 @@
   </div>
   </div>
 </div>
-<div class="col-sm-2 height-2 no-pad square" style="background-image: url('https://s-media-cache-ak0.pinimg.com/736x/c4/28/ff/c428ff5a1e939f3780b0aff6095fa516.jpg'); ">
-  <div class="grids">
-   <div style="display: block">
+<div class="col-sm-2 height-2 no-pad square color-one">
+ <img src="https://s-media-cache-ak0.pinimg.com/736x/c4/28/ff/c428ff5a1e939f3780b0aff6095fa516.jpg" />
+  <div class="square-content">
+   <div class="padding">
     <h2>Example Group</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec elit est. Phasellus congue, mi in iaculis eleifend  metus sodales.</p>
     <p>XX members</p>
@@ -67,9 +74,10 @@
   </div>
   </div>
 </div>
-<div class="col-sm-2 height-2 no-pad square" style="background-image: url('http://www.edinburghfixedgear.co.uk/wp-content/uploads/2016/03/Cycling.jpg'); ">
-  <div class="grids">
-   <div style="display: block">
+<div class="col-sm-2 height-2 no-pad square color-three">
+ <img src="http://www.edinburghfixedgear.co.uk/wp-content/uploads/2016/03/Cycling.jpg" />
+  <div class="square-content">
+   <div class="padding">
     <h2>Example Group</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec elit est. Phasellus congue, mi in iaculis eleifend  metus sodales.</p>
     <p>XX members</p>
@@ -77,9 +85,10 @@
   </div>
   </div>
 </div>
-<div class="col-sm-2 height-2 no-pad square" style="background-image: url('http://www.coldwater.org/images/images/WaterworksPark4.jpg'); ">
-  <div class="grids">
-   <div style="display: block">
+<div class="col-sm-2 height-2 no-pad square color-four">
+ <img src="http://www.coldwater.org/images/images/WaterworksPark4.jpg" />
+  <div class="square-content">
+   <div class="padding">
     <h2>Example Group</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec elit est. Phasellus congue, mi in iaculis eleifend  metus sodales.</p>
     <p>XX members</p>
@@ -87,9 +96,9 @@
   </div>
   </div>
 </div>
-<div class="col-sm-2 height-2 no-pad square" style="background-image: url(''); ">
-  <div class="grids">
-   <div style="display: block">
+<div class="col-sm-2 height-2 no-pad square color-three">
+  <div class="square-content">
+   <div class="padding">
     <h2>Example Group</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec elit est. Phasellus congue, mi in iaculis eleifend  metus sodales.</p>
     <p>XX members</p>
@@ -97,9 +106,9 @@
   </div>
   </div>
 </div>
-<div class="col-sm-2 height-2 no-pad square" style="background-image: url(''); ">
-  <div class="grids">
-   <div style="display: block">
+<div class="col-sm-2 height-2 no-pad square color-two">
+  <div class="square-content">
+   <div class="padding">
     <h2>Example Group</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec elit est. Phasellus congue, mi in iaculis eleifend  metus sodales.</p>
     <p>XX members</p>
@@ -107,9 +116,10 @@
   </div>
   </div>
 </div>
-<div class="col-sm-2 height-2 no-pad square" style="background-image: url('http://www.edinburghfixedgear.co.uk/wp-content/uploads/2016/03/Cycling.jpg'); ">
-  <div class="grids">
-   <div style="display: block">
+<div class="col-sm-2 height-2 no-pad square color-three">
+ <img src="http://www.edinburghfixedgear.co.uk/wp-content/uploads/2016/03/Cycling.jpg" />
+  <div class="square-content">
+   <div class="padding">
     <h2>Example Group</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec elit est. Phasellus congue, mi in iaculis eleifend  metus sodales.</p>
     <p>XX members</p>
@@ -117,9 +127,10 @@
   </div>
   </div>
 </div>
-<div class="col-sm-2 height-2 no-pad square" style="background-image: url('http://www.coldwater.org/images/images/WaterworksPark4.jpg'); ">
-  <div class="grids">
-   <div style="display: block">
+<div class="col-sm-2 height-2 no-pad square color-two">
+ <img src="http://www.coldwater.org/images/images/WaterworksPark4.jpg" />
+  <div class="square-content">
+   <div class="padding">
     <h2>Example Group</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec elit est. Phasellus congue, mi in iaculis eleifend  metus sodales.</p>
     <p>XX members</p>
@@ -127,9 +138,9 @@
   </div>
   </div>
 </div>
-<div class="col-sm-2 height-2 no-pad square" style="background-image: url(''); ">
-  <div class="grids">
-   <div style="display: block">
+<div class="col-sm-2 height-2 no-pad square color-one">
+  <div class="square-content">
+   <div class="padding">
     <h2>Example Group</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec elit est. Phasellus congue, mi in iaculis eleifend  metus sodales.</p>
     <p>XX members</p>

@@ -1,13 +1,12 @@
-.grids {
+.square-content {
   height: 100%;
   width: 100%;
   display: flex;
   align-items: top;
   justify-content: left;
-  padding: 15px;
 }
 @media(max-width: 480px) {
-  .grids {
+  .square-content {
     padding: 15px;
  } }
 .height-1 {
@@ -58,19 +57,48 @@
 @media(max-width: 480px) {
   .squares > div > div {
     height: auto; } }
-.no-pad {
+.no-pad { 
   padding-left: 0;
   padding-right: 0; }
 .square {
-  background-size: cover;
-}
-.grids {
+  background-size: cover;}
+.square-content {
+  position: relative; z-index: 100;
   transition: all 0.5s ease;
-  background: rgba(0,0,0, 0.25);
-  color: white;
+  color: white;}
+ 
+ .square-content.heading {
+  background: #81097A;
  }
- .grids h1 {
-  font-size: 26px; }
+ .square-content h1 {
+  font-size: 26px;
+  margin: 0; }
+ .square-content h2 {
+  font-size: 21px;
+  font-weight: 700;
+  margin: 0 0 5px 0; }
+  .square-content p {
+   font-size: 14px;
+   line-height: 1.2;
+  }
+ .square img {
+   position: absolute;
+   max-width: 100%;
+   height: 100%;
+   opacity: 0.25;
+  }
+ 
+ .padding {
+  padding: 15px;
+  display: block;
+ }
+
+.square.color-one { background-color: rgba(129, 9, 122, 1); } /* Purple */
+.square.color-two { background-color: rgba(111, 141, 9, 1); } /* Green */
+.square.color-three { background-color: rgba(234, 133, 17, 1); } /* Blue */
+.square.color-four { background-color: rgba(27, 117, 187, 1);}
+
+
 
 .heading {
   justify-content: flex-start; }
