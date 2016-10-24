@@ -36,8 +36,12 @@ class GroupsController < ApplicationController
 
   def period_moments
     group   = Group.find(params[:id])
-    period_moments = build_period_moments(group, Time.at(params[:start].to_i), params[:points].to_i, params[:interval].to_sym)
-    render json: period_moments
+    start = Time.at(params[:start].to_i)
+    points = params[:points].to_i
+    interval = params[:interval].to_sym
+    period_moments = build_period_moments(group, start, points, interval)
+    new_start = start + points.send(interval) 
+    render json: { new_start: new_start.to_i, data: period_moments } 
   end
 
   def update

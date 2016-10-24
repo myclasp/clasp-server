@@ -24,7 +24,7 @@
     </ul>
   </nav>
 
-  <h2 class="clear">Hour</h2>
+  <h2 class="clear">Hour <%= button_to 'next', '#', id: 'next_day', method: :get, remote: true, data: {start: (@hourly_moments_start + 1.day).to_i, points: 24, interval: 'hour' } %></h2>
   <canvas id="hour" width="300" height="100"></canvas>
 
   <h2>Week</h2>
@@ -80,6 +80,26 @@
         yAxes: [{ ticks: { max: 100, min: -100 } }]
       }
     }
+  });
+
+  $('#next_day').click(function(e){
+    var url = '<%= group_period_moments_url(@group) %>';
+    var interval = $(e.currentTarget).attr('data-interval');
+    var start    = $(e.currentTarget).attr('data-start');
+    var points   = $(e.currentTarget).attr('data-points');
+    
+    url = url + '?start=' + start + '&points=' + points + '&interval=' + interval;
+    
+    jQuery.getJSON(url, function(result) { 
+      $('#next_day').attr('data-start', result.new_start);
+      
+      hourChart.data.datasets[0].data = prepForGraph(result.data, 'group');
+      if (result.data[0].user.ratio != undefined){ 
+        hourChart.data.datasets[1].data = prepForGraph(result.data, 'user');
+      }
+
+      hourChart.update(); 
+    });
   });
 
 
