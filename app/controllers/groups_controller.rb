@@ -34,6 +34,25 @@ class GroupsController < ApplicationController
 
   private
 
+  def build_period_moments(start_time, points, interval)
+    period_moments = {}
+    points.times do |point_idx|
+      start_range = start_time + point_idx.send(interval)  #e.g. time + 1.send(:hour)
+      end_range = start_time + (point_idx+1).send(interval)
+      moments = group.moments(from: start_range, to: end_range)
+
+      group_point = { zeroes: moments.where(state: 0).count, ones: moments.where(state: 1).count }
+      user_point   = {}
+      if current_user
+        user_point = { zeroes: moments.where({ state: 0, user_id: current_user.id }).count, 
+          ones: moments.where({ state: 1, user_id: current_user.id }).count }
+      end
+
+      period_moments.merge!(point_idx => { group: group_point, user: user_point })
+    end
+    return period_moments
+  end
+
   def build_calendar_moments(group, month)
     range = month.beginning_of_month..month.end_of_month
     calendar_moments = {}
