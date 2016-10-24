@@ -47,19 +47,21 @@
 <%= content_for :script do %>
   //HOUR LINE
 
-  function generateData(points, baseline){
+  function generateData(points){
     var d = [];
     for (i=0; i<points; i++){
-      d.push({ x: i, y: (Math.floor(Math.random() * 201) - 100)  });
+      d.push( (Math.floor(Math.random() * 201) - 100));
     }
     return d;
   };
 
   function prepForGraph(data, key){
     var d = [];
+
     data.forEach(function(point, i){
-      d.push({ x: i, y: (point[key].ratio * 100) });
+      d.push(point[key].ratio * 100);
     });
+
     return d;
   };
 
@@ -76,13 +78,18 @@
     });
   <% end %>
 
+  <% hours = []; 24.times { |x| hours << (@week_moments_start + x.hour).strftime("%k") + "-" +
+      (@week_moments_start + (x+1).hour).strftime("%k") } %>
+
+  var labels = <%= hours.to_s.html_safe %>;
+
   var hourCanvas = document.getElementById("hour");
   var hourChart = new Chart(hourCanvas, {
     type: 'line',
-    data: { datasets: hour_datasets },
+    data: { labels: labels, datasets: hour_datasets },
     options: {
       scales: { 
-        xAxes: [{ type: 'linear', position: 'bottom', ticks: { min: 0, max: 23 } }],
+        xAxes: [{ position: 'bottom' }],
         yAxes: [{ ticks: { max: 100, min: -100 } }]
       }
     }
@@ -107,15 +114,19 @@
       borderDash: [10.0, 10.0], borderDashOffset: 1.0, lineTension: 0.2
     });
   <% end %>
-  
+    
+  <% days = []
+  7.times { |x| days << (@week_moments_start + x.day).strftime("%a") }; %>
+  var labels = <%= days.to_s.html_safe %>;
+
   var weekCanvas = document.getElementById("week");
+  
   var weekChart = new Chart(weekCanvas, {
     type: 'line',
-    data: { datasets: week_datasets },
+    data: { labels: labels,  datasets: week_datasets },
     options: {
       scales: {
-        xAxes: [{ type: 'linear', position: 'bottom' }],
-        //xAxes: [{ type: 'time', position: 'bottom', ticks: { isoWeekday: true } }],
+        xAxes: [{ position: 'bottom' }],
         yAxes: [{ ticks: { max: 100, min: -100 } }]
       }
     }
