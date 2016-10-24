@@ -16,6 +16,11 @@
  *= require leaflet
  *= require leaflet.markercluster
  */
+ 
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+}
 
 #map { height:75vh; }
 .clear { clear:both; }
