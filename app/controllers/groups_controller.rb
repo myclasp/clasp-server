@@ -5,8 +5,10 @@ class GroupsController < ApplicationController
     @markers = []
     
     @calendar_moments = build_calendar_moments(@group,DateTime.now)
-    @hourly_moments = build_period_moments(@group, 1.day.ago.beginning_of_day, 24, :hour)
-    @week_moments = build_period_moments(@group, 1.week.ago.beginning_of_day, 7, :day)
+    @hourly_moments_start = 1.day.ago.beginning_of_day
+    @hourly_moments = build_period_moments(@group, @hourly_moments_start, 24, :hour)
+    @week_moments_start = 1.week.ago.beginning_of_day
+    @week_moments = build_period_moments(@group, @week_moments_start, 7, :day)
 
     for moment in @group.moments
       next unless moment.has_location?
@@ -30,6 +32,12 @@ class GroupsController < ApplicationController
     month   = DateTime.strptime(params[:month],"%m-%Y")
     calendar_moments = build_calendar_moments(group,month)
     render  "_month.js.erb", locals: { month: month, group: group, calendar_moments: calendar_moments } 
+  end
+
+  def period_moments
+    group   = Group.find(params[:id])
+    period_moments = build_period_moments(group, Time.at(params[:start].to_i), params[:points].to_i, params[:interval].to_sym)
+    render json: period_moments
   end
 
   def update
