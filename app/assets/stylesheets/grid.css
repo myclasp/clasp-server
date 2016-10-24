@@ -1,0 +1,81 @@
+.grids {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: top;
+  justify-content: left;
+  padding: 15px;
+}
+@media(max-width: 480px) {
+  .grids {
+    padding: 15px;
+ } }
+.height-1 {
+  height: calc(100vw / 12 * 1 - 40px); }
+
+.height-2 {
+  height: calc(100vw / 12 * 2 - 20px); }
+
+.height-3 {
+  height: calc(100vw / 12 * 3 - 40px); }
+
+.height-4 {
+  height: calc(100vw / 12 * 4 - 40px); }
+
+.height-5 {
+  height: calc(100vw / 12 * 5 - 40px); }
+
+.height-6 {
+  height: calc(100vw / 12 * 6 - 40px); }
+
+.height-7 {
+  height: calc(100vw / 12 * 7 - 40px); }
+
+.height-8 {
+  height: calc(100vw / 12 * 8 - 40px); }
+
+.height-9 {
+  height: calc(100vw / 12 * 9 - 40px); }
+
+.height-10 {
+  height: calc(100vw / 12 * 10 - 40px); }
+
+.height-11 {
+  height: calc(100vw / 12 * 11 - 40px); }
+
+.height-12 {
+  height: calc(100vw - 40px); }
+
+.squares {
+  padding-bottom: 30px; }
+
+  .squares > div:first-child {
+    margin-top: 0; }
+@media(max-width: 480px) {
+  .squares > div {
+    height: auto; } }
+
+@media(max-width: 480px) {
+  .squares > div > div {
+    height: auto; } }
+.no-pad {
+  padding-left: 0;
+  padding-right: 0; }
+
+.grids {
+  transition: all 0.5s ease; }
+  .grids:hover {
+    background: #3498db; }
+    .grids:hover h1, .grids:hover h2, .grids:hover p {
+      color: white; }
+.grids h1 {
+ font-size: 26px; }
+
+.heading {
+  justify-content: flex-start; }
+  .heading h1 {
+    letter-spacing: 2px;
+    font-weight: 700; }
+@media(max-width: 480px) {
+  .heading h1 {
+    line-height: 5vh; } }
