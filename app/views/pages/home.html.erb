@@ -6,7 +6,7 @@
 </div>
 <% for group in @groups %>
 <div class="col-sm-2 height-2 no-pad">
-  <div class="grids" style="background: url'<%= group.image_url %>' ">   <div style="display: block">
+  <div class="grids" style="background-image: url('<%= group.image_url %>'); ">   <div style="display: block">
     <h2><%= group.name %></h2>
     <p><%= group.description %></p>
     <p><%= group.memberships.count %> members</p>
