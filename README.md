@@ -41,18 +41,28 @@ Then open in the browser with port 8000 e.g. `http://localhost:8000`
 
 When you are done, hit `CTRL+C` and `docker-compose down`
 
-### On osx:
 
-To start the app: `docker-compose up -d`
+### On OSx:
+
+To start the app: `docker-compose up` (add `-d` if you don't want to see logs) 
 
 Then check the ip: `docker-machine ip`
 
 Then open this ip in the browser with port 8000 e.g. `http://192.168.99.100:8000`
 
-When you are done, hit `Control+C` and `docker-compose down`
+When you are done, hit `Control+C` (in terminal) and `docker-compose down`
 
-If you get:  ERROR: Couldn't connect to Docker daemon - you might need to run `docker-machine start default`, and then `eval "$(docker-machine env default)"`
+#### Trouble starting
 
+If you get:  `ERROR: Couldn't connect to Docker daemon` - you might need to run `docker-machine start default`, and then `eval "$(docker-machine env default)"`
+
+If you pulled new code and the application fails to launch chances are it's missing some packages or gems, to fix you'll need to rebuild: 
+
+```
+docker-compose down
+docker-compose build
+docker-compose up
+``` 
 
 ### Running tests
 
