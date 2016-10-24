@@ -31,8 +31,8 @@
   <canvas id="hour" width="300" height="100"></canvas>
 
   <h2>Week</h2>
-  <%= button_to 'previous', '#', id: 'previous_week', method: :get, remote: true, data: {start: (@week_moments_start - 1.week).to_i, points: 24, interval: 'hour' } %>
-  <%= button_to 'next', '#', id: 'next_week', method: :get, remote: true, data: {start: (@week_moments_start + 1.week).to_i, points: 24, interval: 'hour' } %>
+  <%= button_to 'previous', '#', id: 'previous_week', method: :get, remote: true, data: {start: (@week_moments_start - 1.week).to_i, points: 7, interval: 'day' } %>
+  <%= button_to 'next', '#', id: 'next_week', method: :get, remote: true, data: {start: (@week_moments_start + 1.week).to_i, points: 7, interval: 'day' } %>
 
   <canvas id="week" width="300" height="100"></canvas>
 
