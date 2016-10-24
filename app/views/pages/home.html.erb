@@ -1,11 +1,20 @@
-<ul>
+<div class="squares">
+<div class="col-sm-4 height-4 no-pad">
+  <div class="grids heading">
+    <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc elementum libero vestibulum ex feugiat, ac consequat ipsum ornare. Sed velit metus, congue dignissim risus at, sollicitudin ornare lectus.</h1>
+  </div>
+</div>
 <% for group in @groups %>
-  <li>
+<div class="col-sm-2 height-2 no-pad">
+  <div class="grids" style="background: url'<%= group.image_url %>' ">   <div style="display: block">
     <h2><%= group.name %></h2>
     <p><%= group.description %></p>
     <p><%= group.memberships.count %> members</p>
-    <%= image_tag(group.image_url) unless group.image_url.blank? %>
+    
     <%= link_to "view", group_path(group) %>
-  </li>
+  </div>
+  </div>
+</div>
 <% end %>
-</ul>
+
+</div>
