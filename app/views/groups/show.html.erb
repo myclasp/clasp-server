@@ -143,6 +143,7 @@
 
 
   $('#next_day, #previous_day').click(function(e){
+  
     var url = buildNextPrevUrl(e.currentTarget);
     $('#next_day, #previous_day').prop('disabled', true);
 
@@ -150,7 +151,7 @@
       
       $('#next_day').attr('data-start', result.next_start);
       $('#previous_day').attr('data-start', result.previous_start);
-      $('#next_week, #previous_week').prop('disabled', false);
+      $('#next_day, #previous_day').prop('disabled', false);
       
       hourChart.data.datasets[0].data = prepForGraph(result.data, 'group');
       if (result.data[0].user.ratio != undefined){ 
