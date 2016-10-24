@@ -24,10 +24,16 @@
     </ul>
   </nav>
 
-  <h2 class="clear">Hour <%= button_to 'next', '#', id: 'next_day', method: :get, remote: true, data: {start: (@hourly_moments_start + 1.day).to_i, points: 24, interval: 'hour' } %></h2>
+  <h2 class="clear">Hour</h2>
+  <%= button_to 'previous', '#', id: 'previous_day', method: :get, remote: true, data: {start: (@hourly_moments_start - 1.day).to_i, points: 24, interval: 'hour' } %>
+  <%= button_to 'next', '#', id: 'next_day', method: :get, remote: true, data: {start: (@hourly_moments_start + 1.day).to_i, points: 24, interval: 'hour' } %>
+
   <canvas id="hour" width="300" height="100"></canvas>
 
   <h2>Week</h2>
+  <%= button_to 'previous', '#', id: 'previous_week', method: :get, remote: true, data: {start: (@week_moments_start - 1.week).to_i, points: 24, interval: 'hour' } %>
+  <%= button_to 'next', '#', id: 'next_week', method: :get, remote: true, data: {start: (@week_moments_start + 1.week).to_i, points: 24, interval: 'hour' } %>
+
   <canvas id="week" width="300" height="100"></canvas>
 
   <h2 class="clear">Month</h2>
@@ -82,27 +88,6 @@
     }
   });
 
-  $('#next_day').click(function(e){
-    var url = '<%= group_period_moments_url(@group) %>';
-    var interval = $(e.currentTarget).attr('data-interval');
-    var start    = $(e.currentTarget).attr('data-start');
-    var points   = $(e.currentTarget).attr('data-points');
-    
-    url = url + '?start=' + start + '&points=' + points + '&interval=' + interval;
-    
-    jQuery.getJSON(url, function(result) { 
-      $('#next_day').attr('data-start', result.new_start);
-      
-      hourChart.data.datasets[0].data = prepForGraph(result.data, 'group');
-      if (result.data[0].user.ratio != undefined){ 
-        hourChart.data.datasets[1].data = prepForGraph(result.data, 'user');
-      }
-
-      hourChart.update(); 
-    });
-  });
-
-
   //console.log(hourChart.chart.controller);
   //hourChart.chart.controller.boxes[2] //xaxis
   //hourChart.chart.controller.boxes[3] //xaxis
@@ -134,6 +119,48 @@
         yAxes: [{ ticks: { max: 100, min: -100 } }]
       }
     }
+  });
+
+  var buildNextPrevUrl = function(e){
+    var url = '<%= group_period_moments_url(@group) %>';
+    var interval = $(e).attr('data-interval');
+    var start    = $(e).attr('data-start');
+    var points   = $(e).attr('data-points');
+    url = url + '?start=' + start + '&points=' + points + '&interval=' + interval;
+    return url;
+  };
+
+
+  $('#next_day, #previous_day').click(function(e){
+    var url = buildNextPrevUrl(e.currentTarget);
+    jQuery.getJSON(url, function(result) { 
+      
+      $('#next_day').attr('data-start', result.next_start);
+      $('#previous_day').attr('data-start', result.previous_start);
+      
+      hourChart.data.datasets[0].data = prepForGraph(result.data, 'group');
+      if (result.data[0].user.ratio != undefined){ 
+        hourChart.data.datasets[1].data = prepForGraph(result.data, 'user');
+      }
+
+      hourChart.update(); 
+    });
+  });
+
+  $('#next_week, #previous_week').click(function(e){
+    var url = buildNextPrevUrl(e.currentTarget);
+    jQuery.getJSON(url, function(result) { 
+      
+      $('#next_week').attr('data-start', result.next_start);
+      $('#previous_week').attr('data-start', result.previous_start);
+      
+      weekChart.data.datasets[0].data = prepForGraph(result.data, 'group');
+      if (result.data[0].user.ratio != undefined){ 
+        weekChart.data.datasets[1].data = prepForGraph(result.data, 'user');
+      }
+
+      weekChart.update(); 
+    });
   });
 
 
