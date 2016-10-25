@@ -87,16 +87,20 @@
    height: 100%;
    opacity: 0.25;
   }
+  
+  .square a {
+   color: white;
+  }
  
  .padding {
   padding: 15px;
   display: block;
  }
 
-.square.color-one { background-color: rgba(129, 9, 122, 1); } /* Purple */
-.square.color-two { background-color: rgba(111, 141, 9, 1); } /* Green */
-.square.color-three { background-color: rgba(234, 133, 17, 1); } /* Blue */
-.square.color-four { background-color: rgba(27, 117, 187, 1);}
+.square.color-1 { background-color: rgba(129, 9, 122, 1); } /* Purple */
+.square.color-2 { background-color: rgba(111, 141, 9, 1); } /* Green */
+.square.color-3 { background-color: rgba(234, 133, 17, 1); } /* Blue */
+.square.color-4 { background-color: rgba(27, 117, 187, 1);}
 
 
 

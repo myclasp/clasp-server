@@ -1,9 +1,11 @@
 <div class="group">
-
-  <h1>
-  <%= @group.name %> / <%= pluralize @group.memberships.count, "member" %>
-  <%= link_to '(Edit)', edit_group_path(@group) if @group.is_admin?(current_user) %>
-  </h1>
+ 
+  <header>
+    <h1>
+    <%= @group.name %> / <%= pluralize @group.memberships.count, "member" %>
+    <%= link_to '(Edit)', edit_group_path(@group) if @group.is_admin?(current_user) %>
+    </h1>
+  </header>
 
   <div class="row">
     <div class="col-md-6">
