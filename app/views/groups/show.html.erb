@@ -1,52 +1,75 @@
-<div class="group">
+<header class="group-header bg-color-3">
+  <div class="container-fluid">
+    <h1>
+    <%= @group.name %> / <%= pluralize @group.memberships.count, "member" %>
+    <%= link_to '(Edit)', edit_group_path(@group) if @group.is_admin?(current_user) %>
+    </h1>
+  </div>
+</header>
+  
+<section id="visualisations"  class="group">
  
-  <header class="group-header bg-color-3">
+  <nav class="row">
     <div class="container-fluid">
-      <h1>
-      <%= @group.name %> / <%= pluralize @group.memberships.count, "member" %>
-      <%= link_to '(Edit)', edit_group_path(@group) if @group.is_admin?(current_user) %>
-      </h1>
+      <ul class="nav navbar-nav" style=""> 
+        <li><%= link_to 'Map', '#map' %></li>
+        <li><%= link_to 'Hour', '#hour' %></li>
+        <li><%= link_to 'Week', '#week' %></li>
+        <li><%= link_to 'Month', '#month' %></li>
+      </ul>
+      <ul id="" class="nav navbar-nav pull-right" style=""> 
+        <li><a href="">Next</a></li>
+        <li><a href="">Previous</a></li>
+      </ul>
     </div>
-  </header>
-
-  <div class="row">
-    <div class="col-md-6">
+  </nav>
+  
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-2">
+    <%= image_tag @group.image_url unless @group.image_url.blank? %>
     <p><%= @group.description%></p>
     </div>
 
-    <div class="col-md-6">
-    <%= image_tag @group.image_url unless @group.image_url.blank? %>
-    </div>
-  </div>
+    <div class="col-md-10">
+     <section class="tab-panel">
+      <header class="vis-header">
+      <h2 class="clear">Hour</h2>
+      <%= button_to 'previous', '#', id: 'previous_day', method: :get, remote: true, data: {start: (@hourly_moments_start - 1.day).to_i, points: 24, interval: 'hour' } %>
+      <%= button_to 'next', '#', id: 'next_day', method: :get, remote: true, data: {start: (@hourly_moments_start + 1.day).to_i, points: 24, interval: 'hour' } %>
+      </header>
+      <canvas id="hour" width="300" height="100"></canvas>
+     </section>
+
+     <section class="tab-panel">
+      <header class="vis-header">
+      <h2>Week</h2>
+      <%= button_to 'previous', '#', id: 'previous_week', method: :get, remote: true, data: {start: (@week_moments_start - 1.week).to_i, points: 7, interval: 'day' } %>
+      <%= button_to 'next', '#', id: 'next_week', method: :get, remote: true, data: {start: (@week_moments_start + 1.week).to_i, points: 7, interval: 'day' } %>
+      </header>
+      <canvas id="week" width="300" height="100"></canvas>
+     </section>
+     
+     
+     <section class="tab-panel">
+      <header class="vis-header">
+      <h2 class="clear">Month</h2>
+      </header>
+      <%= render partial: 'calendar', locals: { group: @group, calendar_moments: @calendar_moments } %>
+     </section>
+
+
+     <section class="tab-panel">
+      <header class="vis-header">    
+      <h2>Map</h2>
+      <div class="clear" id='map'></div>
+      </header>
+     </section>
   
-  <nav>
-    <ul class="nav navbar-nav" style=""> 
-      <li><%= link_to 'Map', '#map' %></li>
-      <li><%= link_to 'Hour', '#hour' %></li>
-      <li><%= link_to 'Week', '#week' %></li>
-      <li><%= link_to 'Month', '#month' %></li>
-    </ul>
-  </nav>
+    </div>
+    </div>
 
-  <h2 class="clear">Hour</h2>
-  <%= button_to 'previous', '#', id: 'previous_day', method: :get, remote: true, data: {start: (@hourly_moments_start - 1.day).to_i, points: 24, interval: 'hour' } %>
-  <%= button_to 'next', '#', id: 'next_day', method: :get, remote: true, data: {start: (@hourly_moments_start + 1.day).to_i, points: 24, interval: 'hour' } %>
-
-  <canvas id="hour" width="300" height="100"></canvas>
-
-  <h2>Week</h2>
-  <%= button_to 'previous', '#', id: 'previous_week', method: :get, remote: true, data: {start: (@week_moments_start - 1.week).to_i, points: 7, interval: 'day' } %>
-  <%= button_to 'next', '#', id: 'next_week', method: :get, remote: true, data: {start: (@week_moments_start + 1.week).to_i, points: 7, interval: 'day' } %>
-
-  <canvas id="week" width="300" height="100"></canvas>
-
-  <h2 class="clear">Month</h2>
-  <%= render partial: 'calendar', locals: { group: @group, calendar_moments: @calendar_moments } %>
-
-  <h2>Map</h2>
-  <div class="clear" id='map'></div>
-
-</div>
+</section>
 
 <%= content_for :script do %>
   //HOUR LINE
