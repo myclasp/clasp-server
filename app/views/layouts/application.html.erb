@@ -19,11 +19,11 @@
           <span class="icon-bar">Menu</span>
         </button>
 
-        <a href="/" class="navbar-brand"><%= image_tag "logo.png" %> SnApp</a>
+        <a href="/" class="navbar-brand"><%= image_tag "SnApp-Logo.png" %></a>
       </div> 
 
       <nav class="collapse navbar-collapse" id="">
-       <ul class="nav navbar-nav navbar-right" style="margin-right:1em;"> 
+       <ul class="nav navbar-nav navbar-right"> 
           <% if user_signed_in? %>
             <%= content_tag(:li, link_to('Group data', group_path(current_user.groups.first))) unless current_user.groups.blank? %>
             <li><%= link_to('Account settings', edit_user_registration_path) %></li>
@@ -37,7 +37,7 @@
     </header>
     </div>
 
-    <div class="container-fluid no-padding">
+    <div>
       <%= yield %>
     </div>
   </body>

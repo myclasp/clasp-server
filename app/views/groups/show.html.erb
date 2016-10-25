@@ -1,10 +1,12 @@
 <div class="group">
  
-  <header>
-    <h1>
-    <%= @group.name %> / <%= pluralize @group.memberships.count, "member" %>
-    <%= link_to '(Edit)', edit_group_path(@group) if @group.is_admin?(current_user) %>
-    </h1>
+  <header class="group-header bg-color-3">
+    <div class="container-fluid">
+      <h1>
+      <%= @group.name %> / <%= pluralize @group.memberships.count, "member" %>
+      <%= link_to '(Edit)', edit_group_path(@group) if @group.is_admin?(current_user) %>
+      </h1>
+    </div>
   </header>
 
   <div class="row">

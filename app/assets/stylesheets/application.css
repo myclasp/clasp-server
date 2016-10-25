@@ -16,11 +16,38 @@
  *= require leaflet
  *= require leaflet.markercluster
  */
- 
+
+
+/* Layout */ 
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
 }
+
+.navbar {
+ margin-bottom: 0;
+}
+
+ul.navbar-nav {
+ margin: 0.5em 0;
+ font-family: 'Open Sans Condensed', sans-serif;
+}
+
+/* Group Page */
+
+header.group-header h1 {
+ font-family: 'Open Sans Condensed', sans-serif;
+ font-size: 30px;
+ margin: 0.5em 0;
+ color: white;
+}
+
+/* Colours */
+.bg-color-1 { background-color: rgba(129, 9, 122, 1); } /* Purple */
+.bg-color-2 { background-color: rgba(111, 141, 9, 1); } /* Green */
+.bg-color-3 { background-color: rgba(234, 133, 17, 1); } /* Orange */
+.bg-color-4 { background-color: rgba(27, 117, 187, 1);} /* Blue */
+
 
 #map { height:75vh; }
 .clear { clear:both; }
@@ -37,3 +64,8 @@ a.navbar-brand {
 }
 
 a.navbar-brand img { height: 2em;  padding: 0.2em; padding-left: 0; display: inline-block; }
+
+.no-gutter {
+    padding-right:0;
+    padding-left:0;
+}
