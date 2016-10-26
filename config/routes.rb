@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'moments', to: 'moments#index', as: :moments
   get 'groups/:id', to: 'groups#show', as: :group 
   get 'groups/:id/edit', to: 'groups#edit', as: :edit_group
+  patch 'groups/:id', to: 'groups#update'
   get 'groups/:id/calendar_moments', to: 'groups#calendar_moments', as: :group_calendar_moments
   get 'groups/:id/period_moments', to: 'groups#period_moments', as: :group_period_moments
 

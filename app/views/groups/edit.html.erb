@@ -2,20 +2,40 @@
 <%= @group.name %> / <%= pluralize @group.memberships.count, "member" %>
 </h1>
 
-<div class="row">
-  <div class="col-md-6">
-  <p><%= @group.description%></p>
-  </div>
 
-  <div class="col-md-6">
-  <%= image_tag @group.image_url unless @group.image_url.blank? %>
+<%= form_for @group do |f| %>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <p><%= f.label :name %></p>
+      <%= f.text_field :name %>
+
+      <p><%= f.label :description %></p>
+      <%= f.text_area :description %>
+    </div>
+
+    <div class="col-md-6">
+      <p><%= f.label :image_url, "Cover image" %></p>
+      <%= f.text_field :image_url %>
+      
+      <p><%= check_box_tag "preferences[show_map]", true, @group.preferences[:show_map] %> <%= label_tag "preferences[show_map]", "Display map" %></p>  
+      
+      <p><%= f.check_box :is_private %> <%= f.label :is_private, "Private group" %></p>  
+      
+      <p><%= check_box_tag "preferences[is_open_data]", true, @group.preferences[:is_open_data] %> <%= label_tag "preferences[is_open_data]", "Open data licence" %></p>  
+      
+    </div>  
   </div>
-</div>
+  <br/>
+  <%= f.submit "Save" %>
+<% end %>
+
+<hr/>
 
 <h2>Members</h2>
 <ul>
 <%for user in @group.users%>
-<li><%=  user.email %></li>
+<li><%= user.email %></li>
 <%end%>
 </ul>
 

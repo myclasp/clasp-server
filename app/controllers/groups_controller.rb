@@ -35,7 +35,7 @@ class GroupsController < ApplicationController
   end
 
   def period_moments
-    group   = Group.find(params[:id])
+    group = Group.find(params[:id])
 
     start = Time.at(params[:start].to_i)
     points = params[:points].to_i
@@ -50,9 +50,20 @@ class GroupsController < ApplicationController
   end
 
   def update
+    @group = Group.find(params[:id])
+    params[:group][:preferences] = params[:preferences]
+    if @group.update_attributes(group_params)
+      redirect_to edit_group_path(@group, notice: "Group saved successfully.")
+    else
+      render :edit, notice: "There were errors."
+    end
   end
 
   private
+
+  def group_params
+    params.require(:group).permit(:name, :description, :image_url, :is_private, preferences: [:show_map, :is_open_data])
+  end
 
   def build_period_moments(group, start_time, points, interval)
     period_moments = []
