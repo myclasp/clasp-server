@@ -27,6 +27,7 @@ $green:             #6F8D09;
 $purple:            #81097A;
 $orange:            #EA8511;
 $light-grey:        #F7F7F7;
+$dark-grey:        #4A4A4A;
 
 /*    Fonts */
 $opensans:          'Open Sans', Helvetica, sans-serif;
@@ -59,13 +60,20 @@ img {max-width: 100%; height: auto;}
 .bg-color-3 { background-color: rgba(234, 133, 17, 1); } /* Orange */
 .bg-color-4 { background-color: rgba(27, 117, 187, 1);} /* Blue */
 
+/*--- Buttons ---*/
 
-
+a.rounded.button {
+ background: $purple;
+ color: white;
+ border: $purple 1px solid;
+ border-radius: 2em;
+ padding: 0.25em 1em;;
+}
 
 
 /*--- Specific Page Styles ---*/
 
-/*    Group Page    */
+/*--- Group Page ---*/
 
 header.group-header h1 {
  font-family: $opensanscondensed;
@@ -74,10 +82,57 @@ header.group-header h1 {
  color: white;
 }
 
-#visualisations {
- background: $light-grey;
- 
- nav {background: white;}
+#group-content {
+ background: $light-grey; 
+ nav {
+  border-bottom: 1px solid $light-grey;
+  padding: 0.5em 0;
+  a {
+   color: $dark-grey;
+   font-family: $opensans;
+   background: $light-grey;
+   border-radius: 5px;
+   margin-right: 0.5em;
+   padding: 0.5em 1em;
+   &.active, &:hover {
+    background: $blue;
+    color: white;
+   }
+   &.active {
+    font-weight: 800; 
+    &:hover {cursor: default;}
+    }
+  }
+ }
+ #visualisations {
+  background: white;
+   .vis-header {
+    text-align: center;
+    padding: 2em 0;
+    form, h2 {
+     display: inline-block;
+     margin: 0 0.25em;
+    }
+    input {
+      color: $dark-grey;
+      font-family: $opensans;
+      background: $light-grey;
+      border-radius: 5px;
+      border: none;
+      padding: 0.5em 1em;
+      position: relative;
+      top: -0.5em;
+    }
+   }
+  }
+
+ #about-group {
+  img { margin: 1em 0;}
+  a {
+   margin: 0.5em 0 0 0;
+   display: inline-block;
+  }
+ }
 }
 
 

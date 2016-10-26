@@ -3,14 +3,9 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .day span  { padding:0.5em; border-radius:1em; }
-.day span.up { background-color: orange; color:white; }
-.day span.down { background-color: blue; color:white; }
-.day span.split { background-color: red; color:white; }
-
-.day span.ringup { border: 4px solid orange; }
-.day span.ringdown { border: 4px solid blue; }
-.day span.ringsplit { border: 4px solid red; }
-
+.day span.up { background-color: #EA8511; color:white; }
+.day span.down { background-color: #1B75BB; color:white; }
+.day span.split { background-color: #81097A; color:white; }
 
 #map-legend {
   
@@ -23,18 +18,22 @@
   border-radius: 4px;
   z-index: 1000;
 
-  p { margin-top: 0.3em; margin-bottom: 0.3em; }
+  p { margin-top: 0.3em; margin-bottom: 0.3em; text-align: left; }
 
   .group-icon, .user-icon { 
     display: inline-block;
     height: 14px;
     width: 14px;
     border-radius: 1em;
-    background-color: orange;
-    border: 4px solid orange;
+    background-color: #EA8511;
+    border: 4px solid #EA8511;
     vertical-align: middle;
     margin-bottom: 3px;
   }
 
   .user-icon { background-color: white; }
 }
+
+.day span.ringup { border: 4px solid #EA8511; }
+.day span.ringdown { border: 4px solid #1B75BB; }
+.day span.ringsplit { border: 4px solid #81097A; }
