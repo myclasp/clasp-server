@@ -50,6 +50,18 @@ ul.navbar-nav {
  font-family: $opensanscondensed;
 }
 
+.page-header  {
+ background: $purple;
+ margin: 0;
+ padding: 0;
+ h1 {
+   font-family: $opensanscondensed;
+   font-size: 26px;
+   margin: 0.5em 0;
+   color: white;
+  }
+}
+
 
 /*--- Images  ---*/
 img {max-width: 100%; height: auto;}

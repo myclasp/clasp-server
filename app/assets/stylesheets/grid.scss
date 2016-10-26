@@ -19,7 +19,7 @@
   height: calc(100vw / 12 * 3 - 40px); }
 
 .height-4 {
-  height: calc(100vw / 12 * 4 - 40px); }
+  height: calc(100vw / 12 * 4 - 41px); }
 
 .height-5 {
   height: calc(100vw / 12 * 5 - 40px); }
@@ -48,6 +48,20 @@
 .squares {
   padding-bottom: 30px; }
 
+.squares #intro:after {
+    color: #81097A;
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    border-bottom: 5px solid #81097A;
+    border-bottom-color: inherit;
+    right: 0;
+    margin: 0 auto;
+    z-index: 100;
+    }
+  
   .squares > div:first-child {
     margin-top: 0; }
 @media(max-width: 480px) {
