@@ -7,7 +7,7 @@ class GroupsController < ApplicationController
     @calendar_moments = build_calendar_moments(@group,DateTime.now)
     @hourly_moments_start = 1.day.ago.beginning_of_day
     @hourly_moments = build_period_moments(@group, @hourly_moments_start, 24, :hour)
-    @week_moments_start = 1.week.ago.beginning_of_day
+    @week_moments_start = 1.week.ago.beginning_of_week.beginning_of_day
     @week_moments = build_period_moments(@group, @week_moments_start, 7, :day)
 
     for moment in @group.moments
