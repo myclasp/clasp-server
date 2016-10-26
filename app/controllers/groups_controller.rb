@@ -46,7 +46,7 @@ class GroupsController < ApplicationController
     next_start = start + points.send(interval)
     previous_start = start - points.send(interval)
 
-    render json: { previous_start: previous_start.to_i, next_start: next_start.to_i, data: period_moments } 
+    render json: { start: start.to_i,  previous_start: previous_start.to_i, next_start: next_start.to_i, data: period_moments } 
   end
 
   def update

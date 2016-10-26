@@ -34,7 +34,9 @@
     <div class="col-md-10">
      <section class="tab-panel">
       <header class="vis-header">
-      <h2 class="clear">Hour</h2>
+      <h2 class="clear">
+        <span id="hour_label"><%= @hourly_moments_start.strftime("%e %B %Y") %></span>
+      </h2>
       <%= button_to 'previous', '#', id: 'previous_day', method: :get, remote: true, data: {start: (@hourly_moments_start - 1.day).to_i, points: 24, interval: 'hour' } %>
       <%= button_to 'next', '#', id: 'next_day', method: :get, remote: true, data: {start: (@hourly_moments_start + 1.day).to_i, points: 24, interval: 'hour' } %>
       </header>
@@ -43,7 +45,7 @@
 
      <section class="tab-panel">
       <header class="vis-header">
-      <h2>Week</h2>
+      <h2><span id="week_label">Week beginning <%= @hourly_moments_start.strftime("%e %B %Y") %></span></h2>
       <%= button_to 'previous', '#', id: 'previous_week', method: :get, remote: true, data: {start: (@week_moments_start - 1.week).to_i, points: 7, interval: 'day' } %>
       <%= button_to 'next', '#', id: 'next_week', method: :get, remote: true, data: {start: (@week_moments_start + 1.week).to_i, points: 7, interval: 'day' } %>
       </header>
@@ -179,7 +181,8 @@
       $('#next_day').attr('data-start', result.next_start);
       $('#previous_day').attr('data-start', result.previous_start);
       $('#next_day, #previous_day').prop('disabled', false);
-      
+      $('#hour_label').text(moment(result.start * 1000).format('Do MMMM YYYY'));
+
       hourChart.data.datasets[0].data = prepForGraph(result.data, 'group');
       if (result.data[0].user.ratio != undefined){ 
         hourChart.data.datasets[1].data = prepForGraph(result.data, 'user');
@@ -198,6 +201,7 @@
       $('#next_week').attr('data-start', result.next_start);
       $('#previous_week').attr('data-start', result.previous_start);
       $('#next_week, #previous_week').prop('disabled', false);
+      $('#week_label').text('Week beginning '+ moment(result.start * 1000).format('Do MMMM YYYY'));
 
       weekChart.data.datasets[0].data = prepForGraph(result.data, 'group');
       if (result.data[0].user.ratio != undefined){ 
