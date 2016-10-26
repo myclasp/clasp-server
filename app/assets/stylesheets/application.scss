@@ -63,6 +63,12 @@ ul.navbar-nav {
 }
 
 
+/*--- Typography  ---*/
+
+h1,h2,h3,h4,h5,h6 {
+ font-family: $opensanscondensed;
+}
+
 /*--- Images  ---*/
 img {max-width: 100%; height: auto;}
 
@@ -147,6 +153,22 @@ header.group-header h1 {
  }
 }
 
+
+/*--- Group Admin ---*/
+
+input, textarea {
+ width: 100%;
+}
+
+ul#members-list {
+ margin: 0;
+ padding: 0;
+ li {
+  list-style: none;
+  padding: 0.5em 0;
+  border-bottom: 1px solid $light-grey;
+ }
+}
 
 
 #map { height:75vh; }

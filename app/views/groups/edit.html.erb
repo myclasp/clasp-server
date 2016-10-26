@@ -1,44 +1,50 @@
-<h1>
-<%= @group.name %> / <%= pluralize @group.memberships.count, "member" %>
-</h1>
-
-
-<%= form_for @group do |f| %>
-  
-  <div class="row">
-    <div class="col-md-6">
-      <p><%= f.label :name %></p>
-      <%= f.text_field :name %>
-
-      <p><%= f.label :description %></p>
-      <%= f.text_area :description %>
-    </div>
-
-    <div class="col-md-6">
-      <p><%= f.label :image_url, "Cover image" %></p>
-      <%= f.text_field :image_url %>
-      
-      <p><%= check_box_tag "preferences[show_map]", true, @group.preferences[:show_map] %> <%= label_tag "preferences[show_map]", "Display map" %></p>  
-      
-      <p><%= f.check_box :is_private %> <%= f.label :is_private, "Private group" %></p>  
-      
-      <p><%= check_box_tag "preferences[is_open_data]", true, @group.preferences[:is_open_data] %> <%= label_tag "preferences[is_open_data]", "Open data licence" %></p>  
-      
-    </div>  
+<header class="page-header bg-color-1">
+  <div class="container-fluid">
+   <h1><%= @group.name %> / <%= pluralize @group.memberships.count, "member" %></h1>
   </div>
-  <br/>
-  <%= f.submit "Save" %>
-<% end %>
+</header>
 
-<hr/>
+<div id="page-content">
+  <div class="container-fluid">
+   <div class="row">
+      
+      <%= form_for @group do |f| %>
+        
+          <div class="col-md-4">
+            <h2>Details</h2>
+            <p><%= f.label :name %></p>
+            <%= f.text_field :name %>
+      
+            <p><%= f.label :description %></p>
+            <%= f.text_area :description %>
 
-<h2>Members</h2>
-<ul>
-<%for user in @group.users%>
-<li><%= user.email %></li>
-<%end%>
-</ul>
+            <p><%= f.label :image_url, "Cover image" %></p>
+            <%= f.text_field :image_url %>
 
-<code>
-  <%= @group.inspect %>
-</code>
+          </div>
+      
+          <div class="col-md-4">
+            <h2>Settings</h2>
+            <p><%= check_box_tag "preferences[show_map]", true, @group.preferences[:show_map] %> <%= label_tag "preferences[show_map]", "Display map" %></p>  
+            
+            <p><%= f.check_box :is_private %> <%= f.label :is_private, "Private group" %></p>  
+            
+            <p><%= check_box_tag "preferences[is_open_data]", true, @group.preferences[:is_open_data] %> <%= label_tag "preferences[is_open_data]", "Open data licence" %></p>  
+        <%= f.submit "Save" %>
+            
+          </div>  
+      <% end %>
+      
+    <div class="col-sm-4">
+      
+      <h2>Members</h2>
+      <ul id="members-list">
+      <%for user in @group.users%>
+      <li><%= user.email %></li>
+      <%end%>
+      </ul>
+            
+      </div>
+    </div>
+  </div>
+</div>
