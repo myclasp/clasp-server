@@ -7,31 +7,33 @@
   </div>
 </header>
   
-<section id="visualisations"  class="group">
- 
-  <nav class="row">
-    <div class="container-fluid">
-      <ul class="nav navbar-nav" style=""> 
-        <li><%= link_to 'Map', '#map' %></li>
-        <li><%= link_to 'Hour', '#hour' %></li>
-        <li><%= link_to 'Week', '#week' %></li>
-        <li><%= link_to 'Month', '#month' %></li>
-      </ul>
-      <ul id="" class="nav navbar-nav pull-right" style=""> 
-        <li><a href="">Next</a></li>
-        <li><a href="">Previous</a></li>
-      </ul>
-    </div>
-  </nav>
-  
+<div id="group-content">
+   
   <div class="container-fluid">
    <div class="row">
     <div class="col-md-2">
-    <%= image_tag @group.image_url unless @group.image_url.blank? %>
-    <p><%= @group.description%></p>
+     <section id="about-group">
+      <%= image_tag @group.image_url unless @group.image_url.blank? %>
+      <p><%= @group.description%></p>
+      <a href="#" class="rounded button">Join this group </a>
+
+     </section>
     </div>
 
-    <div class="col-md-10">
+    <div id="visualisations" class="col-md-10">
+
+    <nav class="row">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav tabs" style=""> 
+          <li><%= link_to 'Map', '#map' , { :class=>"active" } %></li>
+          <li><%= link_to 'Hour', '#hour' %></li>
+          <li><%= link_to 'Week', '#week' %></li>
+          <li><%= link_to 'Month', '#month' %></li>
+        </ul>
+      </div>
+    </nav>
+
+
      <section class="tab-panel">
       <header class="vis-header">
       <h2 class="clear">
