@@ -36,19 +36,19 @@
 
      <section class="tab-panel">
       <header class="vis-header">
-      <h2 class="clear">
-        <span id="hour_label"><%= "#{@hourly_moments_start.day.ordinalize} #{@hourly_moments_start.strftime('%B %Y')}" %></span>
-      </h2>
-      <%= button_to 'previous', '#', id: 'previous_day', method: :get, remote: true, data: {start: (@hourly_moments_start - 1.day).to_i, points: 24, interval: 'hour' } %>
-      <%= button_to 'next', '#', id: 'next_day', method: :get, remote: true, data: {start: (@hourly_moments_start + 1.day).to_i, points: 24, interval: 'hour' } %>
+        <%= button_to 'previous', '#', id: 'previous_day', method: :get, remote: true, data: {start: (@hourly_moments_start - 1.day).to_i, points: 24, interval: 'hour' } %>
+        <h2 class="clear">
+          <span id="hour_label"><%= "#{@hourly_moments_start.day.ordinalize} #{@hourly_moments_start.strftime('%B %Y')}" %></span>
+        </h2>
+        <%= button_to 'next', '#', id: 'next_day', method: :get, remote: true, data: {start: (@hourly_moments_start + 1.day).to_i, points: 24, interval: 'hour' } %>
       </header>
       <canvas id="hour" width="300" height="100"></canvas>
      </section>
 
      <section class="tab-panel">
       <header class="vis-header">
-      <h2><span id="week_label">Week beginning <%= "#{@week_moments_start.day.ordinalize} #{@week_moments_start.strftime('%B %Y')}" %></span></h2>
       <%= button_to 'previous', '#', id: 'previous_week', method: :get, remote: true, data: {start: (@week_moments_start - 1.week).to_i, points: 7, interval: 'day' } %>
+      <h2><span id="week_label">Week beginning <%= "#{@week_moments_start.day.ordinalize} #{@week_moments_start.strftime('%B %Y')}" %></span></h2>
       <%= button_to 'next', '#', id: 'next_week', method: :get, remote: true, data: {start: (@week_moments_start + 1.week).to_i, points: 7, interval: 'day' } %>
       </header>
       <canvas id="week" width="300" height="100"></canvas>
