@@ -7,5 +7,8 @@
     <p class="answer">YES / NO</p>
   </div>
 
-  <%= button_to('Edit', '#', class: "edit", data: { moment: moment.id }) if marker[:is_mine] %>
+  <% if marker[:is_mine] %>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".edit-moment-<%= moment.id %>">Edit</button>
+  <% end %>
+
 </div>

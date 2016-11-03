@@ -82,8 +82,30 @@
 
   </div>
   </div>
-  
+
 </div>
+
+
+<div class="moment-modals">
+<% for marker in @markers %>
+<% next unless marker[:is_mine] %>
+
+<div class="modal fade edit-moment-<%= marker[:moment].id %>" tabindex="-1" role="dialog" aria-labelledby="editMomentModal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      
+      <h3>Edit Datamark</h3>
+      <%= label_tag :description %>
+      <%= text_field_tag :description %>
+      <%= submit_tag :save %>
+
+    </div>
+  </div>
+</div>
+
+<% end %>
+</div>
+
 
 <%= content_for :script do %>
   //HOUR LINE
@@ -188,6 +210,11 @@
     type: 'line',
     data: { labels: labels,  datasets: weekDatasets, momentData: weekMoments },
     options: {
+      legend: {
+        labels: {
+          fillStyle: 'rgb(255, 99, 132)'
+        }
+      },
       scales: {
         xAxes: [{ position: 'bottom' }],
         yAxes: [{ ticks: { max: 100, min: -100 } }]
