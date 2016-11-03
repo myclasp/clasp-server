@@ -104,15 +104,15 @@
     return d;
   };
 
-  var hourlyData = <%= @hourly_moments.to_json.html_safe %>;
+  var hourlyMoments = <%= @hourly_moments.to_json.html_safe %>;
 
-  var hour_datasets = [
-    { label: 'Up/Down Ratio', fill: false, backgroundColor: "orange", borderColor: "silver", data: prepForGraph(hourlyData, 'group'), lineTension: 0.2 }
+  var hourDatasets = [
+    { label: 'Up/Down Ratio', fill: false, backgroundColor: "orange", borderColor: "silver", data: prepForGraph(hourlyMoments, 'group'), lineTension: 0.2 }
   ];
 
   <% if user_signed_in? %>
-    hour_datasets.push({ label: 'My Ratio', fill: false, backgroundColor: "orange", 
-      borderColor: "silver", data: prepForGraph(hourlyData, 'user'), 
+    hourDatasets.push({ label: 'My Ratio', fill: false, backgroundColor: "orange", 
+      borderColor: "silver", data: prepForGraph(hourlyMoments, 'user'), 
       borderDash: [10.0, 10.0], borderDashOffset: 1.0, lineTension: 0.2
     });
   <% end %>
@@ -125,11 +125,33 @@
   var hourCanvas = document.getElementById("hour");
   var hourChart = new Chart(hourCanvas, {
     type: 'line',
-    data: { labels: labels, datasets: hour_datasets },
+    data: { labels: labels, datasets: hourDatasets, momentData: hourlyMoments },
     options: {
       scales: { 
         xAxes: [{ position: 'bottom' }],
         yAxes: [{ ticks: { max: 100, min: -100 } }]
+      },
+      tooltips: {
+        mode: 'single',
+        callbacks: {
+          label: function(tooltipItem, data) {
+            var idx = tooltipItem.index;
+            var point = this._data.momentData[idx];
+            var str = "Group ups: " + point.group.ones + ", downs: " + point.group.zeroes;
+            return str;
+          },
+          afterLabel: function(tooltipItem, data) {
+            <% if user_signed_in? %>
+              var idx = tooltipItem.index;
+              var point = this._data.momentData[idx];
+              var str = "User ups: " + point.user.ones + ", downs: " + point.user.zeroes;
+              return str;
+            <% else %>
+              return '';
+            <% end %>
+          }
+        },
+        footerFontStyle: 'normal'
       }
     }
   });
@@ -141,15 +163,15 @@
 
   // WEEK LINE
 
-  var weekData = <%= @week_moments.to_json.html_safe %>;
+  var weekMoments = <%= @week_moments.to_json.html_safe %>;
 
-  var week_datasets = [
-    { label: 'Up/Down Ratio', fill: false, backgroundColor: "orange", borderColor: "silver", data: prepForGraph(weekData, 'group'), lineTension: 0.2 }
+  var weekDatasets = [
+    { label: 'Up/Down Ratio', fill: false, backgroundColor: "orange", borderColor: "silver", data: prepForGraph(weekMoments, 'group'), lineTension: 0.2, momentData: weekMoments }
   ];
 
   <% if user_signed_in? %>
-    week_datasets.push({ label: 'My Up/Down Ratio', fill: false, backgroundColor: "orange", 
-      borderColor: "silver", data: prepForGraph(weekData, 'user'), 
+    weekDatasets.push({ label: 'My Up/Down Ratio', fill: false, backgroundColor: "orange", 
+      borderColor: "silver", data: prepForGraph(weekMoments, 'user'), 
       borderDash: [10.0, 10.0], borderDashOffset: 1.0, lineTension: 0.2
     });
   <% end %>
@@ -162,11 +184,33 @@
   
   var weekChart = new Chart(weekCanvas, {
     type: 'line',
-    data: { labels: labels,  datasets: week_datasets },
+    data: { labels: labels,  datasets: weekDatasets, momentData: weekMoments },
     options: {
       scales: {
         xAxes: [{ position: 'bottom' }],
         yAxes: [{ ticks: { max: 100, min: -100 } }]
+      },
+      tooltips: {
+        mode: 'single',
+        callbacks: {
+          label: function(tooltipItem, data) {
+            var idx = tooltipItem.index;
+            var point = this._data.momentData[idx];
+            var str = "Group ups: " + point.group.ones + ", downs: " + point.group.zeroes;
+            return str;
+          },
+          afterLabel: function(tooltipItem, data) {
+            <% if user_signed_in? %>
+              var idx = tooltipItem.index;
+              var point = this._data.momentData[idx];
+              var str = "User ups: " + point.user.ones + ", downs: " + point.user.zeroes;
+              return str;
+            <% else %>
+              return '';
+            <% end %>
+          }
+        },
+        footerFontStyle: 'normal'
       }
     }
   });
@@ -193,6 +237,8 @@
       $('#next_day, #previous_day').prop('disabled', false);
       $('#hour_label').text(moment(result.start * 1000).format('Do MMMM YYYY'));
 
+      hourChart.data.momentData = result.data;
+
       hourChart.data.datasets[0].data = prepForGraph(result.data, 'group');
       if (result.data[0].user.ratio != undefined){ 
         hourChart.data.datasets[1].data = prepForGraph(result.data, 'user');
@@ -212,6 +258,8 @@
       $('#previous_week').attr('data-start', result.previous_start);
       $('#next_week, #previous_week').prop('disabled', false);
       $('#week_label').text('Week beginning '+ moment(result.start * 1000).format('Do MMMM YYYY'));
+
+      weekChart.data.momentData = result.data;
 
       weekChart.data.datasets[0].data = prepForGraph(result.data, 'group');
       if (result.data[0].user.ratio != undefined){ 
