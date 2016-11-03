@@ -10,6 +10,9 @@ class GroupsController < ApplicationController
     @week_moments_start = 1.week.ago.beginning_of_week.beginning_of_day
     @week_moments = build_period_moments(@group, @week_moments_start, 7, :day)
 
+    @is_group_member = false
+    @is_group_member = @group.users.include?(current_user) if current_user
+
     for moment in @group.moments
       next unless moment.has_location?
 

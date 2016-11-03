@@ -68,7 +68,7 @@
       <h2>Map</h2>
       
       <div class="clear" id='map'>
-      <% if user_signed_in? %>
+      <% if @is_group_member %>
         <div id="map-legend">
           <p><span class="group-icon"></span> Group datamarks</p>
           <p><span class="user-icon"></span> My datamarks</p> 
@@ -134,7 +134,7 @@
     { label: 'Up/Down Ratio', fill: false, backgroundColor: "orange", borderColor: "silver", data: prepForGraph(hourlyMoments, 'group'), lineTension: 0.2 }
   ];
 
-  <% if user_signed_in? %>
+  <% if @is_group_member %>
     hourDatasets.push({ label: 'My Ratio', fill: false, backgroundColor: "orange", 
       borderColor: "silver", data: prepForGraph(hourlyMoments, 'user'), 
       borderDash: [10.0, 10.0], borderDashOffset: 1.0, lineTension: 0.2
@@ -165,7 +165,7 @@
             return str;
           },
           afterLabel: function(tooltipItem, data) {
-            <% if user_signed_in? %>
+            <% if @is_group_member %>
               var idx = tooltipItem.index;
               var point = this._data.momentData[idx];
               var str = "User ups: " + point.user.ones + ", downs: " + point.user.zeroes;
@@ -193,7 +193,7 @@
     { label: 'Up/Down Ratio', fill: false, backgroundColor: "orange", borderColor: "silver", data: prepForGraph(weekMoments, 'group'), lineTension: 0.2, momentData: weekMoments }
   ];
 
-  <% if user_signed_in? %>
+  <% if @is_group_member %>
     weekDatasets.push({ label: 'My Up/Down Ratio', fill: false, backgroundColor: "orange", 
       borderColor: "silver", data: prepForGraph(weekMoments, 'user'), 
       borderDash: [10.0, 10.0], borderDashOffset: 1.0, lineTension: 0.2
@@ -229,7 +229,7 @@
             return str;
           },
           afterLabel: function(tooltipItem, data) {
-            <% if user_signed_in? %>
+            <% if @is_group_member %>
               var idx = tooltipItem.index;
               var point = this._data.momentData[idx];
               var str = "User ups: " + point.user.ones + ", downs: " + point.user.zeroes;
