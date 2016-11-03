@@ -37,3 +37,5 @@
 .day span.ringup { border: 4px solid #EA8511; }
 .day span.ringdown { border: 4px solid #1B75BB; }
 .day span.ringsplit { border: 4px solid #81097A; }
+
+.leaflet-tile-pane .leaflet-layer { filter: grayscale(1); }
