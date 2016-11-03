@@ -26,3 +26,4 @@ docker-compose.yml
 .DS_Store
 
 /rory-resources/*
+/import/*
