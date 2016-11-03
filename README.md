@@ -64,6 +64,15 @@ docker-compose build
 docker-compose up
 ``` 
 
+### Importing
+
+You can import directly from mobile application export using this task: 
+
+`docker-compose run clasp rake snapp:import`
+
+The task will prompt you for the email address of the user to import the data for. It will also ask you for the location of the export file. The default location for the file is `/imports/clicks.txt` in the root of the project folder. 
+
+
 ### Running tests
 
 Run: `docker-compose clasp rake test`
