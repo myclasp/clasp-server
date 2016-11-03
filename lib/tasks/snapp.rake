@@ -40,4 +40,58 @@ namespace :snapp do
 
     puts "Dummy data imported"
   end
+
+
+  task :import => :environment do 
+    require 'csv'
+
+    STDOUT.puts "Please enter the user's email address: "
+
+    email = STDIN.gets.strip    
+    user = User.find_by(email: email)
+
+    unless user 
+      STDOUT.puts "Error: Couldn't find user with email '#{email}'."
+      next
+    end
+
+    STDOUT.puts "Please enter the location of the file to import (or use default 'import/clicks.txt'): "
+    filepath = STDIN.gets.strip
+    filepath = "import/clicks.txt" if filepath.blank?
+
+    arr_of_arrs = CSV.read(filepath)
+    arr_of_arrs.delete_at(0)
+    arr_of_arrs.delete_at(0)
+
+    STDOUT.puts "#{arr_of_arrs.size} moments found" 
+
+    for row in arr_of_arrs 
+      result = {}
+      result[:identifier] = row[0].to_i
+
+      if row[-1].eql?("1") #skip marked for delete
+        STDOUT.puts "Skipping marked for delete moment with id: #{result[:identifier]}"
+        next
+      end
+
+      result[:timestamp] = Time.at(row[-2].to_i)
+
+      clicks = row[1].to_i
+      state = 0 #meaning 'down'
+      state = 1 if clicks.eql?(1) #meaning 'up'
+      result[:state] = state
+
+      result[:longitude] = row[3].to_f
+      result[:latitude]  = row[2].to_f
+      
+      m = user.moments.create(result)
+
+      if m.valid? 
+        STDOUT.puts "Imported moment with id: #{result[:identifier]}"
+      else
+        STDOUT.puts "Failed to import moment with id: #{result[:identifier]}\n\t #{m.errors.messages.to_s}"
+      end
+    end
+
+  end
 end
