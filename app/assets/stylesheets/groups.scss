@@ -39,3 +39,7 @@
 .day span.ringsplit { border: 4px solid #81097A; }
 
 .leaflet-tile-pane .leaflet-layer { filter: grayscale(1); }
+.leaflet-popup-content .marker-popup p { margin: 1em 0; }
+.leaflet-popup-content .marker-popup p.question { font-weight: bold; }
+
+span.small { font-size:0.6em; }

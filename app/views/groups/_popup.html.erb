@@ -1,12 +1,11 @@
 <% moment = marker[:moment] %>
 <div class="marker-popup" id="popup-<%= moment.id %>">
-<h3>Datamark</h3>
-<hr/> 
+  <h3>Datamark <span class="small"><%= moment.timestamp.strftime("%k:%M %d/%m/%Y") %><span></h3>
+  <hr/> 
+  <p>Coordinates: <%= moment.latitude %>, <%= moment.longitude %></p>
+  <div class="hidden possible-location">
+    <p class="answer">YES / NO</p>
+  </div>
 
-<%= moment.latitude %>, <%= moment.longitude %>
-<br/> identifier: <%= moment.identifier %>
-<br/> state: <%= moment.state %>
-<br/> timestamp: <%=  moment.timestamp %>
-
-<%= content_tag(:button, '#', class: "edit", data: { moment: moment.id }) if marker[:is_mine] %>
+  <%= button_to('Edit', '#', class: "edit", data: { moment: moment.id }) if marker[:is_mine] %>
 </div>

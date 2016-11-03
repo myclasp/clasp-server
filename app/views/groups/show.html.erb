@@ -8,16 +8,16 @@
 </header>
   
 <div id="group-content">
-   
+
   <div class="container-fluid">
-   <div class="row">
+  <div class="row">   
+    
     <div class="col-md-2">
-     <section id="about-group">
+    <section id="about-group">
       <%= image_tag @group.image_url unless @group.image_url.blank? %>
       <p><%= @group.description%></p>
       <a href="#" class="rounded button">Join this group </a>
-
-     </section>
+    </section>
     </div>
 
     <div id="visualisations" class="col-md-10">
@@ -34,7 +34,7 @@
     </nav>
 
 
-     <section class="tab-panel">
+    <section class="tab-panel">
       <header class="vis-header">
         <%= button_to 'previous', '#', id: 'previous_day', method: :get, remote: true, data: {start: (@hourly_moments_start - 1.day).to_i, points: 24, interval: 'hour' } %>
         <h2 class="clear">
@@ -43,16 +43,16 @@
         <%= button_to 'next', '#', id: 'next_day', method: :get, remote: true, data: {start: (@hourly_moments_start + 1.day).to_i, points: 24, interval: 'hour' } %>
       </header>
       <canvas id="hour" width="300" height="100"></canvas>
-     </section>
+    </section>
 
-     <section class="tab-panel">
+    <section class="tab-panel">
       <header class="vis-header">
       <%= button_to 'previous', '#', id: 'previous_week', method: :get, remote: true, data: {start: (@week_moments_start - 1.week).to_i, points: 7, interval: 'day' } %>
       <h2><span id="week_label">Week beginning <%= "#{@week_moments_start.day.ordinalize} #{@week_moments_start.strftime('%B %Y')}" %></span></h2>
       <%= button_to 'next', '#', id: 'next_week', method: :get, remote: true, data: {start: (@week_moments_start + 1.week).to_i, points: 7, interval: 'day' } %>
       </header>
       <canvas id="week" width="300" height="100"></canvas>
-     </section>
+    </section>
      
      
      <section class="tab-panel">
@@ -78,10 +78,12 @@
       </header>
      </section>
   
-    </div>
-    </div>
+    </div> <!-- end of visualisations -->
 
-</section>
+  </div>
+  </div>
+  
+</div>
 
 <%= content_for :script do %>
   //HOUR LINE
@@ -294,20 +296,21 @@
   var marker;
   var opts = { latlng:[], color: "orange", fillColor: 'white', fillOpacity: 1, weight: 4 };
 
-  var MomentCircle = L.Circle.extend({ options: { latlng: [] } });
+  //var MomentCircle = L.Circle.extend({ options: { latlng: [] } });
 
   <% for marker in @markers %>
     opts.latlng = <%= marker[:latlng] %>;
     if (<%= marker[:state] %>){ opts.color = "orange"; } else { opts.color = "blue"; }
     if (<%= marker[:is_mine] %>){ opts.fillColor = "white"; } else { opts.fillColor = opts.color; }
-    marker = new MomentCircle(<%= marker[:latlng] %>, 5, opts);
-    marker.on('click', (e) => { console.log(e); });
-    marker.bindPopup('<%= escape_javascript(render partial: "popup", locals: { marker: marker }) %>'); 
+    marker = new L.Circle(<%= marker[:latlng] %>, 5, opts);
+    
+    var p = marker.bindPopup('<%= escape_javascript(render partial: "popup", locals: { marker: marker }) %>', { 
+      is_mine: <%= marker[:is_mine] %>, state: <%= marker[:state] %>, latlng: <%= marker[:latlng] %>, has_location: false }); 
+    
     markers.addLayer(marker);
   <% end %>
   
   map.addLayer(markers);
-  map.on('popupopen', (e) => { console.log(e);  MomentMap.watchMapPopups(); });
-
+  map.on('popupopen', function(e) { MomentMap.watchMapPopup(e); });
 
 <% end %>
