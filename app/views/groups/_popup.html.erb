@@ -4,15 +4,7 @@
   <hr/> 
   <p>Coordinates: <%= moment.latitude %>, <%= moment.longitude %></p>
 
-  <div class="hidden possible-location">
-
-    <%= form_for :feature, { url: moment_features_path(moment), remote: true, html: { class: "answer" } } do |f| %>
-      <%= f.text_area :data %>
-      <%= f.submit "Yes", class: "btn" %>
-      <%= f.submit "No", class: "btn" %>      
-    <% end %>
-
-  </div>
+  <%= render(partial: 'features/feature', locals: { moment: moment }) %>
 
   <% if marker[:is_mine] %>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".edit-moment-<%= moment.id %>">Edit</button>

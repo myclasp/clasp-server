@@ -6,16 +6,13 @@ class FeaturesController < ApplicationController
     if params[:commit].downcase.eql?("yes")
       data = JSON.parse(feature_params[:data])
       @feature = Feature.new(data: data, moment_id: @moment.id)
-
-      if @feature.save
-        render json: { success: true }
-      else
-        render json: { success: false, errors: @feature.errors.messages }
-      end
-    else
+      @feature.save
       @moment.update_attribute(:has_feature, true)
-      render json: { success: true }
+    else
+      @moment.update_attribute(:has_feature, false)
     end
+
+    render  "_show_feature.js.erb", locals: { moment: @moment }
   end
 
   private
