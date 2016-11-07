@@ -8,8 +8,23 @@ var MomentMap = (function () {
         
         console.log(result);
 
-        var str = '<p class="question">Does this location match the datamark?</p>';
-        str = str + '<p class="result">' + result.display_name + '</p>';
+        var str = '<p class="question">Does this location match the datamark?</p><p class="result">';
+
+        var keys = Object.keys(result.address);
+        var nkeys = keys.filter(function(el) {
+          return !["road", "neighbourhood", "suburb", "city", "county", "state_district", "state", "postcode", "country", "country_code"].includes(el);
+        });
+
+        var type = "road";  var title = "";
+
+        if (nkeys.length > 0) { 
+          type = nkeys[0]; 
+          title = '<b>' + result.address[type] + " ("+ type + ')</b>, ' + result.address.road + ", ";
+        } else {
+          title = '<b>' + result.address.road + '</b>, ' 
+        }
+
+        str = str + title + result.address.city + '</p>';
 
         $(popup._contentNode).find('.possible-feature textarea').text(JSON.stringify(result));
         $(popup._contentNode).find('.possible-feature').removeClass('hidden');
@@ -34,6 +49,10 @@ var MomentMap = (function () {
       $(e.popup._contentNode).find('.edit').click(function(e){
         console.log($(e.currentTarget).attr('data-moment'));
       });
+
+      /*
+        TODO disable submit buttons on click and add spinner
+      */
     }
 
   };

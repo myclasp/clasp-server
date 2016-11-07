@@ -10,7 +10,7 @@
 
 <% elsif moment.has_feature %>
   
-  <code><%= moment.feature.inspect %></code>
+  <p class="feature bold"><%= "#{moment.feature.name} (#{moment.feature.ftype})" %></p>
 
 <% else %>
   
