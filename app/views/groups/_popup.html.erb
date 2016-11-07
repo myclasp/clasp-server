@@ -3,8 +3,15 @@
   <h3>Datamark <span class="small"><%= moment.timestamp.strftime("%k:%M %d/%m/%Y") %><span></h3>
   <hr/> 
   <p>Coordinates: <%= moment.latitude %>, <%= moment.longitude %></p>
+
   <div class="hidden possible-location">
-    <p class="answer">YES / NO</p>
+
+    <%= form_for :feature, { url: moment_features_path(moment), remote: true, html: { class: "answer" } } do |f| %>
+      <%= f.text_area :data %>
+      <%= f.submit "Yes", class: "btn" %>
+      <%= f.submit "No", class: "btn" %>      
+    <% end %>
+
   </div>
 
   <% if marker[:is_mine] %>
