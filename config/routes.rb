@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
 
   get 'moments', to: 'moments#index', as: :moments
-  post 'moments/:id/features', to: 'features#create', as: :moment_features
+  post 'moments/:moment_id/features', to: 'features#create', as: :moment_features
 
   get 'groups/:id', to: 'groups#show', as: :group 
   get 'groups/:id/edit', to: 'groups#edit', as: :edit_group
