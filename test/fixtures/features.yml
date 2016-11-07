@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  moment: one
+  data: MyText
+  name: MyString
+  ftype: MyString
+
+two:
+  moment: two
+  data: MyText
+  name: MyString
+  ftype: MyString

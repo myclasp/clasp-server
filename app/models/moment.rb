@@ -4,6 +4,7 @@ class Moment < ApplicationRecord
   validates :user_id, presence: true
   
   belongs_to :user
+  has_one :feature, dependent: :destroy
 
   default_scope { order('timestamp') } 
 
