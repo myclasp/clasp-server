@@ -24,13 +24,10 @@ var MomentMap = (function () {
       jQuery.getJSON(url, function(result) { console.log(result); });
     },
 
-    watchMapPopup: function (e) {
-      console.log(e.popup.options);
-     
+    watchMapPopup: function (e) {   
       $('div.marker-popup .edit').off();
 
-      if ((e.popup.options.is_mine) && (!e.popup.options.has_location)){
-        console.log("Getting locations");
+      if ((e.popup.options.is_mine) && (e.popup.options.needs_feature)){
         MomentMap.reverseGeocode(e.popup);
       }
 

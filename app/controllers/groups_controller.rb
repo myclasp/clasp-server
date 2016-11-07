@@ -20,7 +20,8 @@ class GroupsController < ApplicationController
         moment: moment,
         latlng: [moment.latitude, moment.longitude],
         state: moment.state,
-        is_mine: moment.user.eql?(current_user)
+        is_mine: moment.user.eql?(current_user),
+        needs_feature: moment.has_feature.blank?
       })
     end
 
