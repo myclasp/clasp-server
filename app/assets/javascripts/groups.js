@@ -5,10 +5,14 @@ var MomentMap = (function () {
       var latlng = popup.options.latlng;
       var url = 'http://nominatim.openstreetmap.org/reverse.php?format=json&lat='+latlng[0]+'&lon='+latlng[1]+'&zoom=18&extratags=1';
       jQuery.getJSON(url, function(result) { 
+        
         console.log(result);
+
         var str = '<p class="question">Does this location match the datamark?</p>';
         str = str + '<p class="result">' + result.display_name + '</p>';
-        $(popup._contentNode).find('.possible-location').removeClass('hidden')
+
+        $(popup._contentNode).find('.possible-location textarea').text(JSON.stringify(result));
+        $(popup._contentNode).find('.possible-location').removeClass('hidden');
         $(popup._contentNode).find('.possible-location .answer').before(str);
       });
     },
