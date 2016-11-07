@@ -15,6 +15,11 @@ class FeaturesController < ApplicationController
     render  "_show_feature.js.erb", locals: { moment: @moment }
   end
 
+  def show
+    @moment = Moment.find(params[:moment_id])
+    render "_show_feature.js.erb", locals: { moment: @moment }
+  end
+
   private
 
   def feature_params

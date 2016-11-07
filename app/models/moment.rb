@@ -21,4 +21,8 @@ class Moment < ApplicationRecord
     return false if (latitude.eql?(0.0) and longitude.eql?(0.0))
     return true
   end
+
+  def latlng
+    [latitude, longitude]
+  end
 end

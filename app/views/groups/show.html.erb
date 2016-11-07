@@ -332,12 +332,12 @@
     marker = new L.Circle(<%= marker[:latlng] %>, 5, opts);
     
     var p = marker.bindPopup('<%= escape_javascript(render partial: "popup", locals: { marker: marker }) %>', { 
-      is_mine: <%= marker[:is_mine] %>, state: <%= marker[:state] %>, latlng: <%= marker[:latlng] %>, needs_feature: <%= marker[:needs_feature] %> }); 
+      is_mine: <%= marker[:is_mine] %>, state: <%= marker[:state] %>, latlng: <%= marker[:latlng] %>, feature_url: '<%= marker[:feature_url] %>' }); 
     
     markers.addLayer(marker);
   <% end %>
   
   map.addLayer(markers);
-  map.on('popupopen', function(e) { MomentMap.watchMapPopup(e); });
+  map.on('popupopen', function(e) { MomentMap.handlePopup(e); });
 
 <% end %>

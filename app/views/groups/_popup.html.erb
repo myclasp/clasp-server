@@ -4,7 +4,9 @@
   <hr/> 
   <p>Coordinates: <%= moment.latitude %>, <%= moment.longitude %></p>
 
-  <%= render(partial: 'features/feature', locals: { moment: moment }) %>
+  <div class = "feature">
+    <%= render(partial: 'features/feature', locals: { moment: moment }) %>
+  </div>
 
   <% if marker[:is_mine] %>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".edit-moment-<%= moment.id %>">Edit</button>

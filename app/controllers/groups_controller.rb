@@ -21,7 +21,7 @@ class GroupsController < ApplicationController
         latlng: [moment.latitude, moment.longitude],
         state: moment.state,
         is_mine: moment.user.eql?(current_user),
-        needs_feature: moment.has_feature.nil?
+        feature_url: moment_features_url(moment)
       })
     end
 

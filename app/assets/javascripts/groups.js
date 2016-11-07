@@ -1,8 +1,7 @@
 var MomentMap = (function () {
   return {
 
-    reverseGeocode: function (popup) {
-      var latlng = popup.options.latlng;
+    reverseGeocode: function (popup, latlng) {
       var url = 'http://nominatim.openstreetmap.org/reverse.php?format=json&lat='+latlng[0]+'&lon='+latlng[1]+'&zoom=18&extratags=1';
       jQuery.getJSON(url, function(result) { 
         
@@ -26,9 +25,9 @@ var MomentMap = (function () {
 
         str = str + title + result.address.city + '</p>';
 
-        $(popup._contentNode).find('.possible-feature textarea').text(JSON.stringify(result));
-        $(popup._contentNode).find('.possible-feature').removeClass('hidden');
-        $(popup._contentNode).find('.possible-feature .answer').before(str);
+        $(popup).find('.possible-feature textarea').text(JSON.stringify(result));
+        $(popup).find('.possible-feature').removeClass('hidden');
+        $(popup).find('.possible-feature .answer').before(str);
       });
     },
 
@@ -39,16 +38,9 @@ var MomentMap = (function () {
       jQuery.getJSON(url, function(result) { console.log(result); });
     },
 
-    watchMapPopup: function (e) {   
-      $('div.marker-popup .edit').off();
-
-      if ((e.popup.options.is_mine) && (e.popup.options.needs_feature)){
-        MomentMap.reverseGeocode(e.popup);
-      }
-
-      $(e.popup._contentNode).find('.edit').click(function(e){
-        console.log($(e.currentTarget).attr('data-moment'));
-      });
+    handlePopup: function (e) {   
+      
+      jQuery.get(e.popup.options.feature_url, function(result){});
 
       /*
         TODO disable submit buttons on click and add spinner
