@@ -11,9 +11,9 @@ var MomentMap = (function () {
         var str = '<p class="question">Does this location match the datamark?</p>';
         str = str + '<p class="result">' + result.display_name + '</p>';
 
-        $(popup._contentNode).find('.possible-location textarea').text(JSON.stringify(result));
-        $(popup._contentNode).find('.possible-location').removeClass('hidden');
-        $(popup._contentNode).find('.possible-location .answer').before(str);
+        $(popup._contentNode).find('.possible-feature textarea').text(JSON.stringify(result));
+        $(popup._contentNode).find('.possible-feature').removeClass('hidden');
+        $(popup._contentNode).find('.possible-feature .answer').before(str);
       });
     },
 
