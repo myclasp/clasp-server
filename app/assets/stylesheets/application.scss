@@ -131,11 +131,11 @@ header.group-header h1 {
    .vis-header {
     text-align: center;
     padding: 2em 0;
-    form, h2 {
+    form, h2, a {
      display: inline-block;
      margin: 0 0.25em;
     }
-    input {
+    a, input {
       color: $dark-grey;
       font-family: $opensans;
       background: $light-grey;

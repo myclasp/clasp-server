@@ -1,13 +1,13 @@
 <div id="month" class="simple-calendar">
-  <div class="calendar-heading">
+  <header class="vis-header">
     <% range = defined?(month) ? date_range(month) : date_range() %>
 
-    <%= link_to 'Previous', group_calendar_moments_path(group, month: range[0].advance(months:-1).strftime('%m-%Y')), method: :get, remote: true %>
+    <%= link_to '&#9664;'.html_safe, group_calendar_moments_path(group, month: range[0].advance(months:-1).strftime('%m-%Y')), method: :get, remote: true %>
     
-    <%= content_tag :h3, range[0].strftime('%B %Y'), title: range[0].strftime('%d %b %Y'), class: "calendar-title"  %>
+    <%= content_tag :h2, range[0].strftime('%B %Y'), title: range[0].strftime('%d %b %Y'), class: "calendar-title"  %>
 
-    <%= link_to 'Next', group_calendar_moments_path(group, month: range[0].advance(months:1).strftime('%m-%Y')), method: :get, remote: true %>
-  </div>
+    <%= link_to '&#9658;'.html_safe, group_calendar_moments_path(group, month: range[0].advance(months:1).strftime('%m-%Y')), method: :get, remote: true %>
+  </header>
 
   <table class="table table-striped">
     <thead>
