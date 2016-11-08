@@ -21,63 +21,62 @@
     </div>
 
     <div id="visualisations" class="col-md-10">
-     
-       <ul id="groupTabs" class="nav nav-pills" style=""> 
-         <li class="active"><a href="#map-panel" class="" aria-controls="home" role="tab" data-toggle="tab">Map</a></li>
-         <li class=""><a href="#hour-panel" class="" aria-controls="hour" role="tab" data-toggle="tab">Hour</a></li>
-         <li class=""><a href="#week-panel" class="" aria-controls="week" role="tab" data-toggle="tab">Week</a></li>
-         <li class=""><a href="#month-panel" class="" aria-controls="month" role="tab" data-toggle="tab">Month</a></li>
-       </ul>
 
-
-    <!--  
-    <ul id="myTabs" class="nav navbar-nav tabs" style=""> 
-      <li><%= link_to 'Map', '#map-panel' , { :class=>"active" } %></li>
-      <li><%= link_to 'Hour', '#hour-panel' %></li>
-      <li><%= link_to 'Week', '#week-panel' %></li>
-      <li><%= link_to 'Month', '#month-panel' %></li>
-    </ul> -->
-
-    <div class="tab-content">
-
-      <div id="hour-panel" class="tab-pane" role="tabpanel">
-        <header class="vis-header">
-          <%= button_to 'previous', '#', id: 'previous_day', method: :get, remote: true, data: {start: (@hourly_moments_start - 1.day).to_i, points: 24, interval: 'hour' } %>
-          <h2 class="clear">
-            <span id="hour_label"><%= "#{@hourly_moments_start.day.ordinalize} #{@hourly_moments_start.strftime('%B %Y')}" %></span>
-          </h2>
-          <%= button_to 'next', '#', id: 'next_day', method: :get, remote: true, data: {start: (@hourly_moments_start + 1.day).to_i, points: 24, interval: 'hour' } %>
-        </header>
-        <canvas id="hour" width="300" height="100"></canvas>
+    <nav class="row">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav tabs" style=""> 
+          <li><%= link_to 'Map', '#map' , { :class=>"active" } %></li>
+          <li><%= link_to 'Hour', '#hour' %></li>
+          <li><%= link_to 'Week', '#week' %></li>
+          <li><%= link_to 'Month', '#month' %></li>
+        </ul>
       </div>
-  
-      <div id="week-panel" class="tab-pane" role="tabpanel">
-        <header class="vis-header">
-        <%= button_to 'previous', '#', id: 'previous_week', method: :get, remote: true, data: {start: (@week_moments_start - 1.week).to_i, points: 7, interval: 'day' } %>
-        <h2><span id="week_label">Week beginning <%= "#{@week_moments_start.day.ordinalize} #{@week_moments_start.strftime('%B %Y')}" %></span></h2>
-        <%= button_to 'next', '#', id: 'next_week', method: :get, remote: true, data: {start: (@week_moments_start + 1.week).to_i, points: 7, interval: 'day' } %>
-        </header>
-        <canvas id="week" width="300" height="100"></canvas>
-      </div>
-       
-       
-       <div id="month-panel" class="tab-pane" role="tabpanel">
-         <%= render partial: 'calendar', locals: { group: @group, calendar_moments: @calendar_moments } %>
-       </div>
-  
-  
-       <div id="map-panel" class="tab-pane active" role="tabpanel">         
-         <div class="clear" id='map'>
-         <% if @is_group_member %>
-           <div id="map-legend">
-             <p><span class="group-icon"></span> Group datamarks</p>
-             <p><span class="user-icon"></span> My datamarks</p> 
-           </div>
-         <% end %>
-         </div>
-       </div>
+    </nav>
+
+
+    <section class="tab-panel">
+      <header class="vis-header">
+        <%= button_to 'previous', '#', id: 'previous_day', method: :get, remote: true, data: {start: (@hourly_moments_start - 1.day).to_i, points: 24, interval: 'hour' } %>
+        <h2 class="clear">
+          <span id="hour_label"><%= "#{@hourly_moments_start.day.ordinalize} #{@hourly_moments_start.strftime('%B %Y')}" %></span>
+        </h2>
+        <%= button_to 'next', '#', id: 'next_day', method: :get, remote: true, data: {start: (@hourly_moments_start + 1.day).to_i, points: 24, interval: 'hour' } %>
+      </header>
+      <canvas id="hour" width="300" height="100"></canvas>
+    </section>
+
+    <section class="tab-panel">
+      <header class="vis-header">
+      <%= button_to 'previous', '#', id: 'previous_week', method: :get, remote: true, data: {start: (@week_moments_start - 1.week).to_i, points: 7, interval: 'day' } %>
+      <h2><span id="week_label">Week beginning <%= "#{@week_moments_start.day.ordinalize} #{@week_moments_start.strftime('%B %Y')}" %></span></h2>
+      <%= button_to 'next', '#', id: 'next_week', method: :get, remote: true, data: {start: (@week_moments_start + 1.week).to_i, points: 7, interval: 'day' } %>
+      </header>
+      <canvas id="week" width="300" height="100"></canvas>
+    </section>
      
-     </div>
+     
+     <section class="tab-panel">
+      <header class="vis-header">
+      <h2 class="clear">Month</h2>
+      </header>
+      <%= render partial: 'calendar', locals: { group: @group, calendar_moments: @calendar_moments } %>
+     </section>
+
+
+     <section class="tab-panel">
+      <header class="vis-header">    
+      <h2>Map</h2>
+      
+      <div class="clear" id='map'>
+      <% if @is_group_member %>
+        <div id="map-legend">
+          <p><span class="group-icon"></span> Group datamarks</p>
+          <p><span class="user-icon"></span> My datamarks</p> 
+        </div>
+      <% end %>
+      </div>
+      </header>
+     </section>
   
     </div> <!-- end of visualisations -->
 
