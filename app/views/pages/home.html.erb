@@ -14,7 +14,7 @@
     <h2><%= group.name %></h2>
     <p><%= group.description %></p>
     <p><%= group.memberships.count %> members</p>
-    <%= link_to "View group", group_path(group) %>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".group-<%= group.id %>">View group</button>
   </div>
   </div>
 </div>
@@ -215,4 +215,23 @@
 
 <!-- End Placeholder Groups -->
 
+</div>
+
+
+<div class="group-modals">
+<% for group in @groups %>
+
+<div class="modal fade group-<%= group.id %>" tabindex="-1" role="dialog" aria-labelledby="editGroupModal">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <%= image_tag(group.image_url) unless group.image_url.blank? %>
+      <h3>Group</h3>
+      <p><%= group.description %></p>
+      <%= link_to 'See group data', '#', class: "btn" %>
+      <%= link_to 'Join group', '#', class: "btn" %>
+    </div>
+  </div>
+</div>
+
+<% end %>
 </div>
