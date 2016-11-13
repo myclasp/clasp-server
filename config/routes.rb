@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   end
 
   get 'moments', to: 'moments#index', as: :moments
-  
+  patch 'moments/:id', to: 'moments#update', as: :moment
+
   post 'moments/:moment_id/features', to: 'features#create', as: :moment_features
   get 'moments/:moment_id/features', to: 'features#show'
 

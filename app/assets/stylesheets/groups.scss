@@ -51,3 +51,45 @@ span.small { font-size:0.6em; }
 form.answer { width:100% }
 form.answer input { width:45%; display:inline-block; }
 .answer textarea { display:none; }
+
+div.moment-editor {
+  display: none;
+  position: absolute;
+  top: 0px;
+  z-index: 1000;
+  right: 0px;
+  height: 100%;
+  background-color: white;
+  width: 47%;
+  padding: 2%;
+}
+
+div.moment-editor.active { display:block; }
+
+.arrow_box {
+  position: relative;
+  background: #ffffff;
+  border-left: 2px solid #e6e6e6;
+}
+.arrow_box:after, .arrow_box:before {
+  right: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.arrow_box:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-right-color: #ffffff;
+  border-width: 13px;
+  margin-top: -13px;
+}
+.arrow_box:before {
+  border-color: rgba(230, 230, 230, 0);
+  border-right-color: #e6e6e6;
+  border-width: 16px;
+  margin-top: -16px;
+}

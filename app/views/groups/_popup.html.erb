@@ -9,7 +9,6 @@
   </div>
 
   <% if marker[:is_mine] %>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".edit-moment-<%= moment.id %>">Edit</button>
+    <button type="button" class="btn edit btn-primary" data-target="#edit-moment-<%= moment.id %>">Edit</button>
   <% end %>
-
 </div>

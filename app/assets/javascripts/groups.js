@@ -38,15 +38,19 @@ var MomentMap = (function () {
       jQuery.getJSON(url, function(result) { console.log(result); });
     },
 
-    handlePopup: function (e) {   
-      
+    handlePopup: function(e) {
       jQuery.get(e.popup.options.feature_url, function(result){});
+      
+      var popup = e.popup;
+      popup._map.panTo(popup._latlng);
 
-      /*
-        TODO disable submit buttons on click and add spinner
-      */
+      $(e.popup._contentNode).find('.edit').click(function(e){
+        popup._map.panTo(popup._latlng);
+        popup._map.closePopup();
+        var t = $(e.currentTarget).attr('data-target');
+        $(t).addClass('active');
+      });
     }
-
   };
 })();
 

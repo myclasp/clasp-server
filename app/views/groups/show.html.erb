@@ -23,13 +23,12 @@
 
     <div id="visualisations" class="col-md-10">
      
-       <ul id="groupTabs" class="nav nav-pills" style=""> 
-         <li class="active"><a href="#map-panel" class="" aria-controls="home" role="tab" data-toggle="tab">Map</a></li>
-         <li class=""><a href="#hour-panel" class="" aria-controls="hour" role="tab" data-toggle="tab">Hour</a></li>
-         <li class=""><a href="#week-panel" class="" aria-controls="week" role="tab" data-toggle="tab">Week</a></li>
-         <li class=""><a href="#month-panel" class="" aria-controls="month" role="tab" data-toggle="tab">Month</a></li>
-       </ul>
-
+      <ul id="groupTabs" class="nav nav-pills" style=""> 
+        <li class="active"><a href="#map-panel" class="" aria-controls="home" role="tab" data-toggle="tab">Map</a></li>
+        <li class=""><a href="#hour-panel" class="" aria-controls="hour" role="tab" data-toggle="tab">Hour</a></li>
+        <li class=""><a href="#week-panel" class="" aria-controls="week" role="tab" data-toggle="tab">Week</a></li>
+        <li class=""><a href="#month-panel" class="" aria-controls="month" role="tab" data-toggle="tab">Month</a></li>
+      </ul>
 
     <!--  
     <ul id="myTabs" class="nav navbar-nav tabs" style=""> 
@@ -62,50 +61,43 @@
       </div>
        
        
-       <div id="month-panel" class="tab-pane" role="tabpanel">
-         <%= render partial: 'calendar', locals: { group: @group, calendar_moments: @calendar_moments } %>
-       </div>
+      <div id="month-panel" class="tab-pane" role="tabpanel">
+        <%= render partial: 'calendar', locals: { group: @group, calendar_moments: @calendar_moments } %>
+      </div>
   
-  
-       <div id="map-panel" class="tab-pane active" role="tabpanel">         
-         <div class="clear" id='map'>
-         <% if @is_group_member %>
-           <div id="map-legend">
-             <p><span class="group-icon"></span> Group datamarks</p>
-             <p><span class="user-icon"></span> My datamarks</p> 
-           </div>
-         <% end %>
-         </div>
-       </div>
-     
-     </div>
-  
+      <div id="map-panel" class="tab-pane active" role="tabpanel">         
+        <div class="clear" id='map'>
+        <% if @is_group_member %>
+
+          <div id="map-legend">
+            <p><span class="group-icon"></span> Group datamarks</p>
+            <p><span class="user-icon"></span> My datamarks</p> 
+          </div>
+
+          <div class="moment-editors">
+            <% for marker in @markers %>
+            <% next unless marker[:is_mine] %>
+            <div class="moment-editor arrow_box" id="edit-moment-<%= marker[:moment].id %>" tabindex="-1" role="dialog">
+              <h3>Edit Datamark</h3>
+              <%= form_for marker[:moment] do |f| %>
+                <%= f.label :description %>
+                <%= f.text_field :description %>
+                <%= f.submit :save %>
+              <% end %>
+            </div>
+            <% end %>
+          </div>
+
+        <% end %>
+        </div>
+      </div>
+
+    </div>
     </div> <!-- end of visualisations -->
 
   </div>
   </div>
 
-</div>
-
-
-<div class="moment-modals">
-<% for marker in @markers %>
-<% next unless marker[:is_mine] %>
-
-<div class="modal fade edit-moment-<%= marker[:moment].id %>" tabindex="-1" role="dialog" aria-labelledby="editMomentModal">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      
-      <h3>Edit Datamark</h3>
-      <%= label_tag :description %>
-      <%= text_field_tag :description %>
-      <%= submit_tag :save %>
-
-    </div>
-  </div>
-</div>
-
-<% end %>
 </div>
 
 
@@ -341,5 +333,6 @@
   
   map.addLayer(markers);
   map.on('popupopen', function(e) { MomentMap.handlePopup(e); });
+  map.on('movestart', function(e) { $('div.moment-editor').removeClass('active'); });
 
 <% end %>
