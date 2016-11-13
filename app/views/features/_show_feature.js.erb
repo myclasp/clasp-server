@@ -1,5 +1,5 @@
 $('#popup-<%= @moment.id %> .possible-feature').replaceWith('<%= j render(partial: "feature", locals: { moment: @moment }) %>');
 
-<% if @moment.has_feature.nil? %>
+<% if current_user and moment.user.eql?(current_user) and moment.has_feature.nil? %>
   MomentMap.reverseGeocode('#popup-<%= @moment.id %>', <%= @moment.latlng %>);
 <% end %>

@@ -1,4 +1,4 @@
-<% if moment.has_feature.nil? %>
+<% if current_user and moment.user.eql?(current_user) and moment.has_feature.nil? %>
 
   <div class="hidden possible-feature">
     <%= form_for :feature, { url: moment_features_path(moment), remote: true, html: { class: "answer" } } do |f| %>
