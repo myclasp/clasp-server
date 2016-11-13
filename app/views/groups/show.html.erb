@@ -16,7 +16,8 @@
     <section id="about-group">
       <%= image_tag @group.image_url unless @group.image_url.blank? %>
       <p><%= @group.description%></p>
-      <a href="#" class="rounded button">Join this group </a>
+
+      <%= button_to('Join group', group_add_user_path(@group), class: "rounded button btn") if current_user and current_user.groups.blank? %>
     </section>
     </div>
 

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "registrations"}
   
   scope 'v1' do
     post 'auth_user', to: 'authentication#authenticate_user'

@@ -227,12 +227,12 @@
       <%= image_tag(group.image_url) unless group.image_url.blank? %>
       <h3>Group</h3>
       <p><%= group.description %></p>
-      <%= link_to 'See group data', '#', class: "btn" %>
+      <%= link_to 'See group data', group_path(group), class: "btn" %>
 
       <% if current_user and current_user.groups.count.eql?(0) %>
         <%= button_to 'Join group', group_add_user_path(group), class: "btn" %>
       <% elsif !user_signed_in? %>
-        <%= link_to 'Join group', new_user_registration_path(group: group.id), class: "btn" %>
+        <%= link_to 'Join group', new_user_registration_path(group_id: group.id), class: "btn" %>
       <% end %>
 
     </div>

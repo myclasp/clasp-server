@@ -68,7 +68,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @group.users << current_user
     flash[:notice] = "Joined group successfully."
-    redirect_to group_path(@group) 
+    redirect_to group_path(@group)
   end
 
   private
