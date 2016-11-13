@@ -65,7 +65,17 @@ class MomentsController < ApplicationController
     render json: { success: success, passed: passed, failed: failed, errors: errors }    
   end
 
+  def update
+    @moment = Moment.find(params[:id])
+    @moment.update_attributes(moment_params)
+    render  "_update.js.erb", locals: { moment: @moment }
+  end
+
   private
+
+  def moment_params
+    params.require(:moment).permit(:description)
+  end
 
   def rescue_from_moments_format_error(e)
     render :status => 400, json: { success: false, message: "Request doesn't meet required format: " + e.message }

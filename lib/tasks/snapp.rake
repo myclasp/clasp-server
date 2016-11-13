@@ -24,7 +24,7 @@ namespace :snapp do
         m[:latitude]   = m[:latitude] + ((rand(2) * 2 - 1) * (rand(10)/10000.0))
         m[:longitude]  = m[:longitude] + ((rand(2) * 2 - 1) * (rand(10)/10000.0))
         m[:timestamp]  = Time.now-(rand(1000000))
-        m[:identifier] = 1
+        m[:identifier] = i
         m[:state]   = rand.round
         u.moments.create(m)
       end

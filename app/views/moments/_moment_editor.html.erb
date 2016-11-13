@@ -1,0 +1,8 @@
+<div class="moment-editor arrow_box" id="edit-moment-<%= moment.id %>" role="dialog">
+  <h3>Edit Datamark</h3>
+  <%= form_for moment, remote: true do |f| %>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+    <%= f.submit "Save" %>
+  <% end %>
+</div>

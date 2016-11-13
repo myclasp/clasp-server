@@ -77,14 +77,7 @@
           <div class="moment-editors">
             <% for marker in @markers %>
             <% next unless marker[:is_mine] %>
-            <div class="moment-editor arrow_box" id="edit-moment-<%= marker[:moment].id %>" tabindex="-1" role="dialog">
-              <h3>Edit Datamark</h3>
-              <%= form_for marker[:moment] do |f| %>
-                <%= f.label :description %>
-                <%= f.text_field :description %>
-                <%= f.submit :save %>
-              <% end %>
-            </div>
+            <%= render partial: 'moments/moment_editor', locals: { moment: marker[:moment] } %>
             <% end %>
           </div>
 
