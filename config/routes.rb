@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   post 'moments/:moment_id/features', to: 'features#create', as: :moment_features
   get 'moments/:moment_id/features', to: 'features#show'
 
-  get 'groups/:id', to: 'groups#show', as: :group 
+  get 'groups/:id', to: 'groups#show', as: :group
+  post 'groups/:id/users', to: 'groups#add_user', as: :group_add_user 
   get 'groups/:id/edit', to: 'groups#edit', as: :edit_group
   patch 'groups/:id', to: 'groups#update'
   get 'groups/:id/calendar_moments', to: 'groups#calendar_moments', as: :group_calendar_moments

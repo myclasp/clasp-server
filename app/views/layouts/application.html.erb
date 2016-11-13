@@ -11,6 +11,10 @@
   </head>
 
   <body>
+    <% flash.each do |name, msg| -%>
+      <%= content_tag :div, msg, class: "flash #{name}" %>
+    <% end -%>
+
     <div class="container-fluid">
     <header class="bs-docs-nav navbar navbar-static-top" id="top"> 
       <div class="navbar-header">

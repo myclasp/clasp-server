@@ -195,3 +195,14 @@ a.navbar-brand img { height: 2em;  padding: 0.2em; padding-left: 0; display: inl
     padding-right:0;
     padding-left:0;
 }
+
+div.flash {
+  position: absolute;
+  left: 40%;
+  padding: 1%;
+  width: 20%;
+  background: #EEE;
+  border-radius: 5px;
+  text-align: center;
+  top: 5px;
+}

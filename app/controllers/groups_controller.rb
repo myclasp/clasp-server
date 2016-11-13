@@ -59,8 +59,16 @@ class GroupsController < ApplicationController
     if @group.update_attributes(group_params)
       redirect_to edit_group_path(@group, notice: "Group saved successfully.")
     else
-      render :edit, notice: "There were errors."
+      flash.now[:error] = "There were errors."
+      render :edit
     end
+  end
+
+  def add_user
+    @group = Group.find(params[:id])
+    @group.users << current_user
+    flash[:notice] = "Joined group successfully."
+    redirect_to group_path(@group) 
   end
 
   private
