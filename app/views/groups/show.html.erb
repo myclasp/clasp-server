@@ -345,5 +345,6 @@
   map.addLayer(markers);
   map.on('popupopen', function(e) { MomentMap.handlePopup(e); });
   map.on('movestart', function(e) { $('div.moment-editor').removeClass('active'); });
-
+  MomentMap.setMap(map);
+  
 <% end %>

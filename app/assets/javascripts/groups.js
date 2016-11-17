@@ -1,5 +1,11 @@
 var MomentMap = (function () {
+  
+  var mapObj = undefined;
+
   return {
+  
+    getMap: function (){ return mapObj },
+    setMap: function (map){ mapObj = map; return mapObj },
 
     reverseGeocode: function (popup, latlng) {
       var url = 'http://nominatim.openstreetmap.org/reverse.php?format=json&lat='+latlng[0]+'&lon='+latlng[1]+'&zoom=18&extratags=1';
