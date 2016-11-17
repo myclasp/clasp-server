@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
 
-  before_filter :authorize, :only => [:edit, :update, :create, :new]
+  
 
   def show
     @group = Group.find(params[:id])
@@ -53,6 +53,7 @@ class GroupsController < ApplicationController
 
   def edit
     @group = Group.find(params[:id])
+    authorize_user
   end
 
   def calendar_moments
@@ -79,6 +80,7 @@ class GroupsController < ApplicationController
 
   def update
     @group = Group.find(params[:id])
+    authorize_user
     params[:group][:preferences] = params[:preferences]
     if @group.update_attributes(group_params)
       flash[:notice] = "Group saved successfully."
@@ -98,7 +100,7 @@ class GroupsController < ApplicationController
 
   private
 
-  def authorize
+  def authorize_user
     unless current_user and @group.is_admin?(current_user)
       flash[:notice] = "You're not authorised to view this page."
       redirect_to root_path 
