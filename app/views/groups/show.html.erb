@@ -288,6 +288,8 @@
 
 
   //MAP
+  //TODO: Disable zoom on scroll 
+
   var map = L.map('map');
   map.setView([40.0, 0.0], 2);
 
@@ -331,21 +333,16 @@
     }
   });
 
-   // leaflet-marker-icon marker-cluster-up leaflet-zoom-animated leaflet-interactive
-  //  leaflet-marker-icon marker-cluster marker-cluster-up leaflet-zoom-animated leaflet-interactive
-
   var str = '';
   var marker;
   var opts = { latlng:[], state: '', color: "orange", fillColor: 'white', fillOpacity: 1, weight: 4 };
-
-  //var MomentCircle = L.Circle.extend({ options: { latlng: [] } });
 
   <% for marker in @markers %>
     opts.latlng = <%= marker[:latlng] %>;
     opts.state = <%= marker[:state] %>;
     if (<%= marker[:state] %>){ opts.color = "orange"; } else { opts.color = "blue"; }
     if (<%= marker[:is_mine] %>){ opts.fillColor = "white"; } else { opts.fillColor = opts.color; }
-    marker = new L.Circle(<%= marker[:latlng] %>, 5, opts);
+    marker = new L.circleMarker(<%= marker[:latlng] %>, opts);
     
     var p = marker.bindPopup('<%= escape_javascript(render partial: "popup", locals: { marker: marker }) %>', { 
       is_mine: <%= marker[:is_mine] %>, state: <%= marker[:state] %>, latlng: <%= marker[:latlng] %>, feature_url: '<%= marker[:feature_url] %>' }); 
