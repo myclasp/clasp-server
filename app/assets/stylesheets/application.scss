@@ -50,6 +50,13 @@ ul.navbar-nav {
  font-family: $opensanscondensed;
 }
 
+ul.navbar-nav a:hover,
+ul.navbar-nav a:active,
+ul.navbar-nav a:focus{
+ background: transparent;
+ color: $purple;
+}
+
 .page-header  {
  background: $purple;
  margin: 0;
@@ -80,12 +87,19 @@ img {max-width: 100%; height: auto;}
 
 /*--- Buttons ---*/
 
-a.rounded.button {
+a.rounded.button,
+input[type='submit'] {
  background: $purple;
  color: white;
  border: $purple 1px solid;
  border-radius: 2em;
  padding: 0.25em 1em;;
+}
+
+a.rounded.button:hover,
+input[type='submit']:hover {
+ background: $blue;
+ border-color: $blue;
 }
 
 

@@ -178,6 +178,41 @@ legend {
     border-bottom: 1px solid #e5e5e5;
 }
 
+/* Sign In & Regsiter Forms */
+
+form.new_user {
+ padding: 2em;
+ margin: 2em 0;
+ background: #f7f7f7;
+}
+
+form.new_user div {
+ padding-bottom: 0.5em;
+}
+
+form.new_user input[type='submit'] {
+ width: auto;
+ margin-top: 0.5em;
+}
+
+form.new_user input[type='checkbox'] {
+ display: inline-block;
+ width: auto;
+}
+
+
+form.new_user .actions .remember_me {
+ float: left;
+}
+
+form.new_user .actions input[type='submit'] {
+ float: right;
+}
+
+form.new_user .alt-actions a {
+ margin-right: 1em;
+}
+
 
 @media only screen and (max-width : 480px) {
     button[type="submit"] {
