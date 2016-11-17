@@ -1,5 +1,5 @@
 <div class="moment-editor arrow_box" id="edit-moment-<%= moment.id %>" role="dialog">
-  <h3>Edit Datamark <span class="small"><%= moment.timestamp.strftime("%k:%M %d/%m/%Y") %><span></h3>
+  <h3>Edit Datamark <span class="small"><%= moment.timestamp.strftime("%a %k:%M %d/%m/%Y") %><span></h3>
   <p>Coordinates: <%= moment.latitude %>, <%= moment.longitude %></p>
   <hr/>
   <%= form_for moment, remote: true do |f| %>

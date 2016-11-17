@@ -1,6 +1,6 @@
 <% moment = marker[:moment] %>
 <div class="marker-popup" id="popup-<%= moment.id %>">
-  <h3>Datamark <span class="small"><%= moment.timestamp.strftime("%k:%M %d/%m/%Y") %><span></h3>
+  <h3>Datamark <span class="small"><%= moment.timestamp.strftime("%a %k:%M %d/%m/%Y") %><span></h3>
   <hr/> 
   <p>Coordinates: <%= moment.latitude %>, <%= moment.longitude %></p>
 
@@ -8,7 +8,7 @@
     <%= render(partial: 'features/feature', locals: { moment: moment }) %>
   </div>
 
-  <%= content_tag :p, moment.description %>
+  <%= content_tag :p, moment.description, id: "#{moment.id}-description" %>
 
   <% if marker[:is_mine] %>
     <button type="button" class="btn edit btn-primary" data-target="#edit-moment-<%= moment.id %>">Edit</button>
