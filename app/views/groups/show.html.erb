@@ -12,16 +12,22 @@
   <div class="container-fluid">
   <div class="row">   
     
-    <div class="col-md-2">
+    <div class="col-sm-2">
     <section id="about-group">
+     <div class="row">
+     <div class="col-xs-2 col-sm-12">
       <%= image_tag @group.image_url unless @group.image_url.blank? %>
+     </div>
+     <div class="col-xs-6 col-sm-12 no-padding-xs">
       <p><%= @group.description%></p>
+     </div>
+     </div>
 
       <%= button_to('Join group', group_add_user_path(@group), class: "rounded button btn") if current_user and current_user.groups.blank? %>
     </section>
     </div>
 
-    <div id="visualisations" class="col-md-10">
+    <div id="visualisations" class="col-sm-10">
      
       <ul id="groupTabs" class="nav nav-pills" style=""> 
         <li class="active"><a href="#map-panel" class="" aria-controls="home" role="tab" data-toggle="tab">Map</a></li>
