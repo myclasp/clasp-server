@@ -304,16 +304,52 @@
     shadowSize: [41, 41],
     shadowAnchor: [13, 41]
   });
+  /*
+  var counts = _.countBy(childMarkers, function(marker) {
+        // class at icon level
+        //return marker.options.icon.options.className;
+        // class inside html
+        return $(marker.options.icon.options.html).attr('class');
+      });
+  */
+  var markers = L.markerClusterGroup({ spiderfyOnMaxZoom: false, disableClusteringAtZoom: 16, 
+    iconCreateFunction: function (cluster) {
+      var childMarkers = cluster.getAllChildMarkers();
+      // count how many there are of each class
+      
+      // get the class with the highest count
+      // select class
+      var counts = { zeroes: 0, ones: 0 };
+      childMarkers.forEach(function(m){
+        if (m.options.state){ counts.ones++; } else { counts.zeroes++; } 
+      });
 
-  var markers = L.markerClusterGroup({ spiderfyOnMaxZoom: false, disableClusteringAtZoom: 16 });  
+      var clusterClass = 'marker-cluster ';
+      if (counts.ones == counts.zeroes) {
+        clusterClass = clusterClass + 'equal-amount';
+      } else if (counts.ones > counts.zeroes) {
+        clusterClass = clusterClass + 'more-ones';
+      } else {
+        clusterClass = clusterClass + 'more-zeroes';
+      }
+      
+      var clusterHtml = '<div><span>' + cluster.getChildCount()+ '</span></div>';
+      return L.divIcon({ html: clusterHtml, className: clusterClass });
+    }
+  });
+
+   // leaflet-marker-icon marker-cluster-up leaflet-zoom-animated leaflet-interactive
+  //  leaflet-marker-icon marker-cluster marker-cluster-up leaflet-zoom-animated leaflet-interactive
+
   var str = '';
   var marker;
-  var opts = { latlng:[], color: "orange", fillColor: 'white', fillOpacity: 1, weight: 4 };
+  var opts = { latlng:[], state: '', color: "orange", fillColor: 'white', fillOpacity: 1, weight: 4 };
 
   //var MomentCircle = L.Circle.extend({ options: { latlng: [] } });
 
   <% for marker in @markers %>
     opts.latlng = <%= marker[:latlng] %>;
+    opts.state = <%= marker[:state] %>;
     if (<%= marker[:state] %>){ opts.color = "orange"; } else { opts.color = "blue"; }
     if (<%= marker[:is_mine] %>){ opts.fillColor = "white"; } else { opts.fillColor = opts.color; }
     marker = new L.Circle(<%= marker[:latlng] %>, 5, opts);
