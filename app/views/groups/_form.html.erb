@@ -1,0 +1,21 @@
+<div class="col-md-4">
+  <h2>Details</h2>
+  <p><%= f.label :name %></p>
+  <%= f.text_field :name %>
+
+  <p><%= f.label :description %></p>
+  <%= f.text_area :description %>
+
+  <p><%= f.label :image_url, "Cover image" %></p>
+  <%= f.text_field :image_url %>
+</div>
+
+<div class="col-md-4">
+  <h2>Settings</h2>
+  <p><%= check_box_tag "preferences[show_map]", true, group.preferences[:show_map] %> <%= label_tag "preferences[show_map]", "Display map" %></p>
+
+  <p><%= f.check_box :is_private %> <%= f.label :is_private, "Private group" %></p>  
+  
+  <p><%= check_box_tag "preferences[is_open_data]", true, group.preferences[:is_open_data] %> <%= label_tag "preferences[is_open_data]", "Open data licence" %></p>  
+  <%= f.submit "Save" %>
+</div>

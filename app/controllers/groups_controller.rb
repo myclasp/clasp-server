@@ -1,7 +1,16 @@
 class GroupsController < ApplicationController
 
+  before_filter :authorize, :only => [:edit, :update, :create, :new]
+
   def show
     @group = Group.find(params[:id])
+
+    if @group.is_private
+      accessible = current_user and current_user.groups.includes?(@group)
+      flash[:notice] = "You're not authorised to view this page."
+      redirect_to root_path unless accessible
+    end
+
     @markers = []
     
     @calendar_moments = build_calendar_moments(@group,DateTime.now)
@@ -24,7 +33,22 @@ class GroupsController < ApplicationController
         feature_url: moment_features_url(moment)
       })
     end
+  end
 
+  def new
+    @group = Group.new
+  end
+
+  def create
+    params[:group][:preferences] = params[:preferences]
+    @group = Group.new(group_params)
+    if @group.save
+      flash[:notice] = "Group saved successfully."
+      redirect_to edit_group_path(@group)
+    else
+      flash.now[:error] = "Unable to save group."
+      render :new
+    end
   end
 
   def edit
@@ -57,7 +81,8 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     params[:group][:preferences] = params[:preferences]
     if @group.update_attributes(group_params)
-      redirect_to edit_group_path(@group, notice: "Group saved successfully.")
+      flash[:notice] = "Group saved successfully."
+      redirect_to edit_group_path(@group)
     else
       flash.now[:error] = "There were errors."
       render :edit
@@ -72,6 +97,13 @@ class GroupsController < ApplicationController
   end
 
   private
+
+  def authorize
+    unless current_user and @group.is_admin?(current_user)
+      flash[:notice] = "You're not authorised to view this page."
+      redirect_to root_path 
+    end
+  end
 
   def group_params
     params.require(:group).permit(:name, :description, :image_url, :is_private, preferences: [:show_map, :is_open_data])

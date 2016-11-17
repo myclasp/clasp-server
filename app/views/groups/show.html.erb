@@ -121,6 +121,46 @@
     return d;
   };
 
+  var scalesOptions = {
+    xAxes: [{ position: 'bottom' }],
+    yAxes: [{ 
+      ticks: { max: 100, min: -100, callback: function(value, index, values) {
+        if (value == 100){
+          return "100% up";
+        } else if (value == 0) {
+          return "50:50 up/down";
+        } else if (value == -100){
+          return "100% down";
+        }
+        return "";
+      } },
+      scaleLabel: { display: false, labelString: 'Ratio of ups to downs' }
+    }]
+  };
+
+  var tooltipOptions =  {
+    mode: 'single',
+    callbacks: {
+      label: function(tooltipItem, data) {
+        var idx = tooltipItem.index;
+        var point = this._data.momentData[idx];
+        var str = "Group ups: " + point.group.ones + ", downs: " + point.group.zeroes;
+        return str;
+      },
+      afterLabel: function(tooltipItem, data) {
+        <% if @is_group_member %>
+          var idx = tooltipItem.index;
+          var point = this._data.momentData[idx];
+          var str = "User ups: " + point.user.ones + ", downs: " + point.user.zeroes;
+          return str;
+        <% else %>
+          return '';
+        <% end %>
+      }
+    },
+    footerFontStyle: 'normal'
+  };
+
   var hourlyMoments = <%= @hourly_moments.to_json.html_safe %>;
 
   var hourDatasets = [
@@ -144,32 +184,8 @@
     type: 'line',
     data: { labels: labels, datasets: hourDatasets, momentData: hourlyMoments },
     options: {
-      scales: { 
-        xAxes: [{ position: 'bottom' }],
-        yAxes: [{ ticks: { max: 100, min: -100 } }]
-      },
-      tooltips: {
-        mode: 'single',
-        callbacks: {
-          label: function(tooltipItem, data) {
-            var idx = tooltipItem.index;
-            var point = this._data.momentData[idx];
-            var str = "Group ups: " + point.group.ones + ", downs: " + point.group.zeroes;
-            return str;
-          },
-          afterLabel: function(tooltipItem, data) {
-            <% if @is_group_member %>
-              var idx = tooltipItem.index;
-              var point = this._data.momentData[idx];
-              var str = "User ups: " + point.user.ones + ", downs: " + point.user.zeroes;
-              return str;
-            <% else %>
-              return '';
-            <% end %>
-          }
-        },
-        footerFontStyle: 'normal'
-      }
+      scales: scalesOptions,
+      tooltips: tooltipOptions
     }
   });
 
@@ -201,39 +217,15 @@
   
   var weekChart = new Chart(weekCanvas, {
     type: 'line',
-    data: { labels: labels,  datasets: weekDatasets, momentData: weekMoments },
+    data: { xLabels: labels, yLabels: ["100", "0", "100"], datasets: weekDatasets, momentData: weekMoments },
     options: {
       legend: {
         labels: {
           fillStyle: 'rgb(255, 99, 132)'
         }
       },
-      scales: {
-        xAxes: [{ position: 'bottom' }],
-        yAxes: [{ ticks: { max: 100, min: -100 } }]
-      },
-      tooltips: {
-        mode: 'single',
-        callbacks: {
-          label: function(tooltipItem, data) {
-            var idx = tooltipItem.index;
-            var point = this._data.momentData[idx];
-            var str = "Group ups: " + point.group.ones + ", downs: " + point.group.zeroes;
-            return str;
-          },
-          afterLabel: function(tooltipItem, data) {
-            <% if @is_group_member %>
-              var idx = tooltipItem.index;
-              var point = this._data.momentData[idx];
-              var str = "User ups: " + point.user.ones + ", downs: " + point.user.zeroes;
-              return str;
-            <% else %>
-              return '';
-            <% end %>
-          }
-        },
-        footerFontStyle: 'normal'
-      }
+      scales: scalesOptions,
+      tooltips: tooltipOptions
     }
   });
 
@@ -294,6 +286,8 @@
 
 
   //MAP
+  //TODO: Disable zoom on scroll 
+
   var map = L.map('map');
   map.setView([40.0, 0.0], 2);
 
@@ -310,14 +304,7 @@
     shadowSize: [41, 41],
     shadowAnchor: [13, 41]
   });
-  /*
-  var counts = _.countBy(childMarkers, function(marker) {
-        // class at icon level
-        //return marker.options.icon.options.className;
-        // class inside html
-        return $(marker.options.icon.options.html).attr('class');
-      });
-  */
+
   var markers = L.markerClusterGroup({ spiderfyOnMaxZoom: false, disableClusteringAtZoom: 16, 
     iconCreateFunction: function (cluster) {
       var childMarkers = cluster.getAllChildMarkers();
@@ -338,27 +325,22 @@
       } else {
         clusterClass = clusterClass + 'more-zeroes';
       }
-      
+
       var clusterHtml = '<div><span>' + cluster.getChildCount()+ '</span></div>';
       return L.divIcon({ html: clusterHtml, className: clusterClass });
     }
   });
 
-   // leaflet-marker-icon marker-cluster-up leaflet-zoom-animated leaflet-interactive
-  //  leaflet-marker-icon marker-cluster marker-cluster-up leaflet-zoom-animated leaflet-interactive
-
   var str = '';
   var marker;
   var opts = { latlng:[], state: '', color: "orange", fillColor: 'white', fillOpacity: 1, weight: 4 };
-
-  //var MomentCircle = L.Circle.extend({ options: { latlng: [] } });
 
   <% for marker in @markers %>
     opts.latlng = <%= marker[:latlng] %>;
     opts.state = <%= marker[:state] %>;
     if (<%= marker[:state] %>){ opts.color = "orange"; } else { opts.color = "blue"; }
     if (<%= marker[:is_mine] %>){ opts.fillColor = "white"; } else { opts.fillColor = opts.color; }
-    marker = new L.Circle(<%= marker[:latlng] %>, 5, opts);
+    marker = new L.circleMarker(<%= marker[:latlng] %>, opts);
     
     var p = marker.bindPopup('<%= escape_javascript(render partial: "popup", locals: { marker: marker }) %>', { 
       is_mine: <%= marker[:is_mine] %>, state: <%= marker[:state] %>, latlng: <%= marker[:latlng] %>, feature_url: '<%= marker[:feature_url] %>' }); 
