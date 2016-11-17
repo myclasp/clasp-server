@@ -2,6 +2,13 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+
+    if @group.is_private
+      accessible = current_user and current_user.groups.includes?(@group)
+      flash[:notice] = "You're not authorised to view this page."
+      redirect_to root_path 
+    end
+
     @markers = []
     
     @calendar_moments = build_calendar_moments(@group,DateTime.now)
@@ -34,10 +41,11 @@ class GroupsController < ApplicationController
     params[:group][:preferences] = params[:preferences]
     @group = Group.new(group_params)
     if @group.save
-      redirect_to edit_group_path(@group, notice: "Group saved successfully.")
+      flash[:notice] = "Group saved successfully."
+      redirect_to edit_group_path(@group)
     else
-      flash.now[:error] = "There were errors."
-      render :edit
+      flash.now[:error] = "Unable to save group."
+      render :new
     end
   end
 
@@ -71,7 +79,8 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     params[:group][:preferences] = params[:preferences]
     if @group.update_attributes(group_params)
-      redirect_to edit_group_path(@group, notice: "Group saved successfully.")
+      flash[:notice] = "Group saved successfully."
+      redirect_to edit_group_path(@group)
     else
       flash.now[:error] = "There were errors."
       render :edit

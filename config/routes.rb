@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   get 'groups/new', to: 'groups#new', as: :new_group
   get 'groups/:id', to: 'groups#show', as: :group
-  post 'groups', to: 'groups#show', as: :groups
+  post 'groups', to: 'groups#create', as: :groups
 
   post 'groups/:id/users', to: 'groups#add_user', as: :group_add_user 
   get 'groups/:id/edit', to: 'groups#edit', as: :edit_group
