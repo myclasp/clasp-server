@@ -115,6 +115,46 @@
     return d;
   };
 
+  var scalesOptions = {
+    xAxes: [{ position: 'bottom' }],
+    yAxes: [{ 
+      ticks: { max: 100, min: -100, callback: function(value, index, values) {
+        if (value == 100){
+          return "100% up";
+        } else if (value == 0) {
+          return "up/down ratio";
+        } else if (value == -100){
+          return "100% down";
+        }
+        return "";
+      } },
+      scaleLabel: { display: false, labelString: 'Ratio of ups to downs' }
+    }]
+  };
+
+  var tooltipOptions =  {
+    mode: 'single',
+    callbacks: {
+      label: function(tooltipItem, data) {
+        var idx = tooltipItem.index;
+        var point = this._data.momentData[idx];
+        var str = "Group ups: " + point.group.ones + ", downs: " + point.group.zeroes;
+        return str;
+      },
+      afterLabel: function(tooltipItem, data) {
+        <% if @is_group_member %>
+          var idx = tooltipItem.index;
+          var point = this._data.momentData[idx];
+          var str = "User ups: " + point.user.ones + ", downs: " + point.user.zeroes;
+          return str;
+        <% else %>
+          return '';
+        <% end %>
+      }
+    },
+    footerFontStyle: 'normal'
+  };
+
   var hourlyMoments = <%= @hourly_moments.to_json.html_safe %>;
 
   var hourDatasets = [
@@ -138,32 +178,8 @@
     type: 'line',
     data: { labels: labels, datasets: hourDatasets, momentData: hourlyMoments },
     options: {
-      scales: { 
-        xAxes: [{ position: 'bottom' }],
-        yAxes: [{ ticks: { max: 100, min: -100 }, scaleLabel: { display: true, labelString: 'Ratio of ups to downs' } }]
-      },
-      tooltips: {
-        mode: 'single',
-        callbacks: {
-          label: function(tooltipItem, data) {
-            var idx = tooltipItem.index;
-            var point = this._data.momentData[idx];
-            var str = "Group ups: " + point.group.ones + ", downs: " + point.group.zeroes;
-            return str;
-          },
-          afterLabel: function(tooltipItem, data) {
-            <% if @is_group_member %>
-              var idx = tooltipItem.index;
-              var point = this._data.momentData[idx];
-              var str = "User ups: " + point.user.ones + ", downs: " + point.user.zeroes;
-              return str;
-            <% else %>
-              return '';
-            <% end %>
-          }
-        },
-        footerFontStyle: 'normal'
-      }
+      scales: scalesOptions,
+      tooltips: tooltipOptions
     }
   });
 
@@ -202,32 +218,8 @@
           fillStyle: 'rgb(255, 99, 132)'
         }
       },
-      scales: {
-        xAxes: [{ position: 'bottom' }],
-        yAxes: [{ ticks: { max: 100, min: -100 }, scaleLabel: { display: true, labelString: 'Ratio of ups to downs' } }]
-      },
-      tooltips: {
-        mode: 'single',
-        callbacks: {
-          label: function(tooltipItem, data) {
-            var idx = tooltipItem.index;
-            var point = this._data.momentData[idx];
-            var str = "Group ups: " + point.group.ones + ", downs: " + point.group.zeroes;
-            return str;
-          },
-          afterLabel: function(tooltipItem, data) {
-            <% if @is_group_member %>
-              var idx = tooltipItem.index;
-              var point = this._data.momentData[idx];
-              var str = "User ups: " + point.user.ones + ", downs: " + point.user.zeroes;
-              return str;
-            <% else %>
-              return '';
-            <% end %>
-          }
-        },
-        footerFontStyle: 'normal'
-      }
+      scales: scalesOptions,
+      tooltips: tooltipOptions
     }
   });
 
