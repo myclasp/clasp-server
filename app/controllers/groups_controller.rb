@@ -1,12 +1,14 @@
 class GroupsController < ApplicationController
 
+  before_filter :authorize, :only => [:edit, :update, :create, :new]
+
   def show
     @group = Group.find(params[:id])
 
     if @group.is_private
       accessible = current_user and current_user.groups.includes?(@group)
       flash[:notice] = "You're not authorised to view this page."
-      redirect_to root_path 
+      redirect_to root_path unless accessible
     end
 
     @markers = []
@@ -33,7 +35,7 @@ class GroupsController < ApplicationController
     end
   end
 
-  def new 
+  def new
     @group = Group.new
   end
 
@@ -95,6 +97,13 @@ class GroupsController < ApplicationController
   end
 
   private
+
+  def authorize
+    unless current_user and @group.is_admin?(current_user)
+      flash[:notice] = "You're not authorised to view this page."
+      redirect_to root_path 
+    end
+  end
 
   def group_params
     params.require(:group).permit(:name, :description, :image_url, :is_private, preferences: [:show_map, :is_open_data])
