@@ -24,7 +24,21 @@ class GroupsController < ApplicationController
         feature_url: moment_features_url(moment)
       })
     end
+  end
 
+  def new 
+    @group = Group.new
+  end
+
+  def create
+    params[:group][:preferences] = params[:preferences]
+    @group = Group.new(group_params)
+    if @group.save
+      redirect_to edit_group_path(@group, notice: "Group saved successfully.")
+    else
+      flash.now[:error] = "There were errors."
+      render :edit
+    end
   end
 
   def edit

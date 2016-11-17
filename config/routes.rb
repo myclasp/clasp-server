@@ -16,7 +16,10 @@ Rails.application.routes.draw do
   post 'moments/:moment_id/features', to: 'features#create', as: :moment_features
   get 'moments/:moment_id/features', to: 'features#show'
 
+  get 'groups/new', to: 'groups#new', as: :new_group
   get 'groups/:id', to: 'groups#show', as: :group
+  post 'groups', to: 'groups#show', as: :groups
+
   post 'groups/:id/users', to: 'groups#add_user', as: :group_add_user 
   get 'groups/:id/edit', to: 'groups#edit', as: :edit_group
   patch 'groups/:id', to: 'groups#update'
