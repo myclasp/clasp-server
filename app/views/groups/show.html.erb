@@ -140,7 +140,7 @@
     options: {
       scales: { 
         xAxes: [{ position: 'bottom' }],
-        yAxes: [{ ticks: { max: 100, min: -100 } }]
+        yAxes: [{ ticks: { max: 100, min: -100 }, scaleLabel: { display: true, labelString: 'Ratio of ups to downs' } }]
       },
       tooltips: {
         mode: 'single',
@@ -195,7 +195,7 @@
   
   var weekChart = new Chart(weekCanvas, {
     type: 'line',
-    data: { labels: labels,  datasets: weekDatasets, momentData: weekMoments },
+    data: { xLabels: labels, yLabels: ["100", "0", "100"], datasets: weekDatasets, momentData: weekMoments },
     options: {
       legend: {
         labels: {
@@ -204,7 +204,7 @@
       },
       scales: {
         xAxes: [{ position: 'bottom' }],
-        yAxes: [{ ticks: { max: 100, min: -100 } }]
+        yAxes: [{ ticks: { max: 100, min: -100 }, scaleLabel: { display: true, labelString: 'Ratio of ups to downs' } }]
       },
       tooltips: {
         mode: 'single',
@@ -304,14 +304,7 @@
     shadowSize: [41, 41],
     shadowAnchor: [13, 41]
   });
-  /*
-  var counts = _.countBy(childMarkers, function(marker) {
-        // class at icon level
-        //return marker.options.icon.options.className;
-        // class inside html
-        return $(marker.options.icon.options.html).attr('class');
-      });
-  */
+
   var markers = L.markerClusterGroup({ spiderfyOnMaxZoom: false, disableClusteringAtZoom: 16, 
     iconCreateFunction: function (cluster) {
       var childMarkers = cluster.getAllChildMarkers();
@@ -332,7 +325,7 @@
       } else {
         clusterClass = clusterClass + 'more-zeroes';
       }
-      
+
       var clusterHtml = '<div><span>' + cluster.getChildCount()+ '</span></div>';
       return L.divIcon({ html: clusterHtml, className: clusterClass });
     }
