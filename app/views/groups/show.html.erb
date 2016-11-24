@@ -288,7 +288,8 @@
     shadowAnchor: [13, 41]
   });
 
-  var markers = L.markerClusterGroup({ spiderfyOnMaxZoom: false, disableClusteringAtZoom: 16, 
+  var mcgLayerSupportGroup = L.markerClusterGroup.layerSupport({ 
+    spiderfyOnMaxZoom: false, disableClusteringAtZoom: 16, 
     iconCreateFunction: function (cluster) {
       var childMarkers = cluster.getAllChildMarkers();
       // count how many there are of each class
@@ -317,22 +318,42 @@
 
   var str = '';
   var marker;
+  var markers = [];
   var opts = { latlng:[], state: '', color: "orange", fillColor: 'white', fillOpacity: 1, weight: 4 };
 
   <% for marker in @markers %>
     opts.latlng = <%= marker[:latlng] %>;
     opts.state = <%= marker[:state] %>;
+    opts.time = '<%= marker[:time] %>';
+
     if (<%= marker[:state] %>){ opts.color = "orange"; } else { opts.color = "blue"; }
     if (<%= marker[:is_mine] %>){ opts.fillColor = "white"; } else { opts.fillColor = opts.color; }
+
     marker = new L.circleMarker(<%= marker[:latlng] %>, opts);
-    
-    var p = marker.bindPopup('<%= escape_javascript(render partial: "popup", locals: { marker: marker }) %>', { 
+    marker.bindPopup('<%= escape_javascript(render partial: "popup", locals: { marker: marker }) %>', { 
       is_mine: <%= marker[:is_mine] %>, state: <%= marker[:state] %>, latlng: <%= marker[:latlng] %>, feature_url: '<%= marker[:feature_url] %>' }); 
     
-    markers.addLayer(marker);
+    markers.push(marker);
   <% end %>
-  
-  map.addLayer(markers);
+
+  var myLayerGroup = L.layerGroup(markers);
+  mcgLayerSupportGroup.addTo(map);
+  mcgLayerSupportGroup.checkIn(myLayerGroup);
+  myLayerGroup.addTo(map);
+
+  var sliderControl = L.control.sliderControl({
+    position: "topright",
+    layer: myLayerGroup,
+    range: true
+  });
+
+  //Make sure to add the slider to the map ;-)
+  map.addControl(sliderControl);
+  //And initialize the slider
+  sliderControl.startSlider();
+
+  $('div.slider.leaflet-control').prepend('<p>Timespan</p>')
+
   map.on('popupopen', function(e) { MomentMap.handlePopup(e); });
   map.on('movestart', function(e) { $('div.moment-editor').removeClass('active'); });
   MomentMap.setMap(map);
