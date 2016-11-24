@@ -321,7 +321,9 @@
       }
 
       var clusterHtml = '<div><span>' + cluster.getChildCount()+ '</span></div>';
-      return L.divIcon({ html: clusterHtml, className: clusterClass });
+      var d = L.divIcon({ html: clusterHtml, className: clusterClass, iconSize:null });
+      console.log(d);
+      return d;
     }
   });
 

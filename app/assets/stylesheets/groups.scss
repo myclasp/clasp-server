@@ -45,11 +45,16 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea8511', endColorstr='#0000ff', GradientType=0 );
 }
 
+.marker-cluster div {
+  margin-left: 3px;
+  margin-top: 3px;
+}
+
 .marker-cluster-up, 
 .marker-cluster-down,
 .more-ones,
 .more-zeroes,
-.equal-amount { width: 40px; height: 40px; 
+.equal-amount { width: 36px; height: 36px; 
   div span { color: white; font-size: 1.4em; }
 }
 
