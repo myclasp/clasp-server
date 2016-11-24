@@ -3,7 +3,7 @@ require 'test_helper'
 class MomentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create moments" do
-    new_moments = [{ identifier:1, timestamp: Time.now, state: 0, latitude: 12.00, longitude: -12.00 }]
+    new_moments = [{ identifier: Time.now.to_i, timestamp: Time.now, state: 0, latitude: 12.00, longitude: -12.00, accuracy: 20.0 }]
     expected = Moment.count+new_moments.size
 
     post "/v1/users/#{User.first.uuid}/moments",

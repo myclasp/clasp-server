@@ -49,7 +49,7 @@ class MomentsController < ApplicationController
     errors = {}
 
     moments.each do |moment|
-      moment_attributes = moment.permit([:identifier, :timestamp, :state, :latitude, :longitude])
+      moment_attributes = moment.permit([:identifier, :timestamp, :state, :latitude, :longitude, :accuracy])
       m = user.moments.create(moment_attributes)
       raise MomentsFormatError.new("Blank identifier for moment.") if m.identifier.blank?
       
