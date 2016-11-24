@@ -11,6 +11,13 @@
   <%= content_tag :p, moment.description, id: "#{moment.id}-description" %>
 
   <% if marker[:is_mine] %>
-    <button type="button" class="btn edit btn-primary" data-target="#edit-moment-<%= moment.id %>">Edit</button>
+    <button type="button" class="btn edit btn-primary" data-target="#edit-moment-<%= moment.id %>">
+      <% if moment.description.blank? %>
+        Add a note
+      <% else %>
+        Edit note
+      <% end %>
+    </button>
   <% end %>
+  
 </div>

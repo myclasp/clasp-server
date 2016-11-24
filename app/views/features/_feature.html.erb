@@ -4,12 +4,12 @@
     <%= form_for :feature, { url: moment_features_path(moment), remote: true, html: { class: "answer" } } do |f| %>
       <%= f.text_area :data %>
       <%= f.submit "Yes", class: "btn" %>
-      <%= f.submit "No", class: "btn" %>      
+      <%= f.submit "No", class: "btn" %>
     <% end %>
   </div>
 
 <% elsif moment.has_feature %>
   
-  <p class="feature bold"><%= "#{moment.feature.name} (#{moment.feature.ftype})" %></p>
+  <p class="feature"><%= "#{moment.feature.short_address}" %></p>
 
 <% end %>

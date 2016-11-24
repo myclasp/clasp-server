@@ -3,7 +3,7 @@ class FeaturesController < ApplicationController
   def create
     @moment = Moment.find(params[:moment_id])
 
-    if params[:commit].downcase.eql?("yes")
+    if params[:commit].nil? or params[:commit].downcase.eql?("yes")
       data = JSON.parse(feature_params[:data])
       @feature = Feature.new(data: data, moment_id: @moment.id)
       @feature.save

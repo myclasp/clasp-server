@@ -1,10 +1,17 @@
 <div class="moment-editor arrow_box" id="edit-moment-<%= moment.id %>" role="dialog">
   <h3>Edit Datamark <span class="small"><%= moment.timestamp.strftime("%a %k:%M %d/%m/%Y") %><span></h3>
+  
+  <% if moment.has_feature %>  
+    <p class="feature"><%= "#{moment.feature.short_address}" %></p>
+  <% end %>
+
   <p>Coordinates: <%= moment.latitude %>, <%= moment.longitude %></p>
+
   <hr/>
   <%= form_for moment, remote: true do |f| %>
     <%= f.label :description, "Note" %>
-    <%= f.text_field :description %>
+    <%= f.text_area :description %>
+    <br/>
     <%= f.submit "Save" %>
   <% end %>
 </div>

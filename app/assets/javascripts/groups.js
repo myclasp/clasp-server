@@ -13,7 +13,7 @@ var MomentMap = (function () {
         
         console.log(result);
 
-        var str = '<p class="question">Does this location match the datamark?</p><p class="result">';
+        var str = '';
 
         var keys = Object.keys(result.address);
         var nkeys = keys.filter(function(el) {
@@ -32,8 +32,9 @@ var MomentMap = (function () {
         str = str + title + result.address.city + '</p>';
 
         $(popup).find('.possible-feature textarea').text(JSON.stringify(result));
-        $(popup).find('.possible-feature').removeClass('hidden');
+        //$(popup).find('.possible-feature').removeClass('hidden');
         $(popup).find('.possible-feature .answer').before(str);
+        $(popup).find('.possible-feature form').submit();
       });
     },
 

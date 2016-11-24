@@ -15,4 +15,17 @@ class Feature < ApplicationRecord
     self.ftype = feature_type[0] 
     self.name = data["address"][ftype]
   end
+
+  def short_address
+    address = data["address"]
+    arr = []
+    arr << address["road"]
+    arr << address["suburb"]
+    arr << address["hamlet"]
+    arr << address["town"]
+    arr << address["city"]
+    arr << address["postcode"]
+    arr.delete(nil)
+    arr.join(", ")
+  end
 end
