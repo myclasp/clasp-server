@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
 
     if @group.is_private
-      accessible = current_user and current_user.groups.includes?(@group)
+      accessible = @group.is_visible_to(current_user)
       flash[:notice] = "You're not authorised to view this page."
       redirect_to root_path unless accessible
     end
@@ -35,11 +35,14 @@ class GroupsController < ApplicationController
 
   def new
     @group = Group.new
+    authorize_user
   end
 
   def create
     params[:group][:preferences] = params[:preferences]
     @group = Group.new(group_params)
+    authorize_user
+
     if @group.save
       flash[:notice] = "Group saved successfully."
       redirect_to edit_group_path(@group)
@@ -99,7 +102,7 @@ class GroupsController < ApplicationController
   private
 
   def authorize_user
-    unless current_user and @group.is_admin?(current_user)
+    unless current_user and (current_user.is_admin or @group.is_admin?(current_user))
       flash[:notice] = "You're not authorised to view this page."
       redirect_to root_path 
     end

@@ -229,6 +229,8 @@
       <p><%= group.description %></p>
       <%= link_to 'See group data', group_path(group), class: "btn" %>
 
+      <%= link_to('Edit group', edit_group_path(group), class: "btn") if group.is_admin?(current_user) %>
+
       <% if current_user and current_user.groups.count.eql?(0) %>
         <%= button_to 'Join group', group_add_user_path(group), class: "btn" %>
       <% elsif !user_signed_in? %>
