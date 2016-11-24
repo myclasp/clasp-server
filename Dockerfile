@@ -1,5 +1,5 @@
-# Use the barebones version of Ruby 2.2.4.
-FROM ruby:2.2.4-slim
+# Use the barebones version of Ruby 2.2.6.
+FROM ruby:2.2.6-slim
 
 # Install dependencies:
 # - build-essential: To ensure certain gems can be compiled
