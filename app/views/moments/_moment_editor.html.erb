@@ -3,7 +3,7 @@
   <p>Coordinates: <%= moment.latitude %>, <%= moment.longitude %></p>
   <hr/>
   <%= form_for moment, remote: true do |f| %>
-    <%= f.label :description %>
+    <%= f.label :description, "Note" %>
     <%= f.text_field :description %>
     <%= f.submit "Save" %>
   <% end %>
