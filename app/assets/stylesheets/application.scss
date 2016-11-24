@@ -13,10 +13,10 @@
  * It is generally better to create a new file per style scope.
  *
  *= require bootstrap
- *= require_tree .
- *= require_self
  *= require leaflet
  *= require leaflet.markercluster
+ *= require_tree .
+ *= require_self
  */
 
 /*--- Variables ---*/
