@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def home
-    if current_user.is_admin
+    if current_user.try(:is_admin)
       @groups = Group.all
     elsif current_user
       @groups = current_user.groups.all
