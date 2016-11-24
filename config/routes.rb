@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'admin', to: 'admin#index', as: :admin
+
   devise_for :users, :controllers => {:registrations => "registrations"}
   
   scope 'v1' do

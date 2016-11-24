@@ -29,6 +29,7 @@
       <nav class="collapse navbar-collapse" id="">
        <ul class="nav navbar-nav navbar-right"> 
           <% if user_signed_in? %>
+            <li><%= link_to('Admin', admin_path) if current_user.is_admin %></li>
             <%= content_tag(:li, link_to('Group data', group_path(current_user.groups.first))) unless current_user.groups.blank? %>
             <li><%= link_to('Account settings', edit_user_registration_path) %></li>
             <li><%= link_to('Sign out', destroy_user_session_path, :method => :delete) %></li>
