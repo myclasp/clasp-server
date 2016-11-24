@@ -158,11 +158,11 @@
   var hourlyMoments = <%= @hourly_moments.to_json.html_safe %>;
 
   var hourDatasets = [
-    { label: 'Up/Down Ratio', fill: false, backgroundColor: "orange", borderColor: "silver", data: prepForGraph(hourlyMoments, 'group'), lineTension: 0.2 }
+    { label: 'Up/Down Ratio', fill: false, backgroundColor: undefined, borderColor: "silver", data: prepForGraph(hourlyMoments, 'group'), lineTension: 0.2 }
   ];
 
   <% if @is_group_member %>
-    hourDatasets.push({ label: 'My Ratio', fill: false, backgroundColor: "orange", 
+    hourDatasets.push({ label: 'My Ratio', fill: false, backgroundColor: undefined, 
       borderColor: "silver", data: prepForGraph(hourlyMoments, 'user'), 
       borderDash: [10.0, 10.0], borderDashOffset: 1.0, lineTension: 0.2
     });
@@ -183,28 +183,23 @@
     }
   });
 
-  //console.log(hourChart.chart.controller);
-  //hourChart.chart.controller.boxes[2] //xaxis
-  //hourChart.chart.controller.boxes[3] //xaxis
-  //hourChart.render(1000, false)
-
   // WEEK LINE
 
   var weekMoments = <%= @week_moments.to_json.html_safe %>;
 
   var weekDatasets = [
-    { label: 'Up/Down Ratio', fill: false, backgroundColor: "orange", borderColor: "silver", data: prepForGraph(weekMoments, 'group'), lineTension: 0.2, momentData: weekMoments }
+    { label: 'Up/Down Ratio', fill: false, backgroundColor: undefined, borderColor: "silver", data: prepForGraph(weekMoments, 'group'), lineTension: 0.2, momentData: weekMoments }
   ];
 
   <% if @is_group_member %>
-    weekDatasets.push({ label: 'My Up/Down Ratio', fill: false, backgroundColor: "orange", 
+    weekDatasets.push({ label: 'My Up/Down Ratio', fill: false, backgroundColor: undefined, 
       borderColor: "silver", data: prepForGraph(weekMoments, 'user'), 
       borderDash: [10.0, 10.0], borderDashOffset: 1.0, lineTension: 0.2
     });
   <% end %>
     
   <% days = []
-  7.times { |x| days << (@week_moments_start + x.day).strftime("%a") }; %>
+  7.times { |x| time = @week_moments_start + x.day; days << time.strftime("%a #{time.day.ordinalize}") }; %>
   var labels = <%= days.to_s.html_safe %>;
 
   var weekCanvas = document.getElementById("week");
@@ -213,11 +208,6 @@
     type: 'line',
     data: { xLabels: labels, yLabels: ["100", "0", "100"], datasets: weekDatasets, momentData: weekMoments },
     options: {
-      legend: {
-        labels: {
-          fillStyle: 'rgb(255, 99, 132)'
-        }
-      },
       scales: scalesOptions,
       tooltips: tooltipOptions
     }
@@ -232,9 +222,8 @@
     return url;
   };
 
-
+  //CHART CONTROLS
   $('#next_day, #previous_day').click(function(e){
-  
     var url = buildNextPrevUrl(e.currentTarget);
     $('#next_day, #previous_day').prop('disabled', true);
 
