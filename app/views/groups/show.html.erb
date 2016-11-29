@@ -320,6 +320,7 @@
   var marker;
   var markers = [];
   var opts = { latlng:[], state: '', color: "orange", fillColor: 'white', fillOpacity: 1, weight: 4 };
+  var popups = {};
 
   <% for marker in @markers %>
     opts.latlng = <%= marker[:latlng] %>;
@@ -330,9 +331,11 @@
     if (<%= marker[:is_mine] %>){ opts.fillColor = "white"; } else { opts.fillColor = opts.color; }
 
     marker = new L.circleMarker(<%= marker[:latlng] %>, opts);
-    marker.bindPopup('<%= escape_javascript(render partial: "popup", locals: { marker: marker }) %>', { 
+    var p = marker.bindPopup('<%= escape_javascript(render partial: "popup", locals: { marker: marker }) %>', { 
       is_mine: <%= marker[:is_mine] %>, state: <%= marker[:state] %>, latlng: <%= marker[:latlng] %>, feature_url: '<%= marker[:feature_url] %>' }); 
     
+    popups[<%= marker[:moment].id %>] = p;
+
     markers.push(marker);
   <% end %>
 
@@ -355,7 +358,37 @@
   $('div.slider.leaflet-control').prepend('<p>Timespan</p>')
 
   map.on('popupopen', function(e) { MomentMap.handlePopup(e); });
-  map.on('movestart', function(e) { $('div.moment-editor').removeClass('active'); });
+  map.on('move', function(e) { 
+    //$('div.moment-editor').removeClass('active');
+    if ($('div.moment-editor.active').length > 0){
+      L.DomEvent.stop(e);
+      map.dragging.disable();
+    }
+  });
+
+  map.on('dblclick', function(e) { 
+    if ($('div.moment-editor.active').length > 0){
+      L.DomEvent.stop(e);
+      map.doubleClickZoom.disable();
+    }
+  });
+
+  map.on('click', function(e) { 
+    if ($('div.moment-editor.active').length == 0){ 
+      map.dragging.enable(); 
+      map.doubleClickZoom.enable();
+    } else {
+      L.DomEvent.stop(e);
+      map.doubleClickZoom.disable();
+    }
+  });
+
+  $('div.moment-editor .cancel').click(function(e){
+    e.stopPropagation();
+    $('.moment-editor.active').removeClass('active');
+  });
+
   MomentMap.setMap(map);
+  MomentMap.setPopups(popups);
   
 <% end %>

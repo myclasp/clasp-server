@@ -1,11 +1,15 @@
 var MomentMap = (function () {
   
   var mapObj = undefined;
+  var popupsObj = undefined; 
 
   return {
   
     getMap: function (){ return mapObj },
     setMap: function (map){ mapObj = map; return mapObj },
+    
+    getPopups: function (){ return popupsObj },
+    setPopups: function (popups){ popupsObj = popups; return popupsObj },
 
     reverseGeocode: function (popup, latlng) {
       var url = 'http://nominatim.openstreetmap.org/reverse.php?format=json&lat='+latlng[0]+'&lon='+latlng[1]+'&zoom=18&extratags=1';
@@ -56,6 +60,7 @@ var MomentMap = (function () {
         popup._map.closePopup();
         var t = $(e.currentTarget).attr('data-target');
         $(t).addClass('active');
+        mapObj.dragging.disable();
       });
     }
   };
@@ -64,11 +69,11 @@ var MomentMap = (function () {
 /* Tabs */
 
 $('#groupTabs a').click(function (e) {
-    var tab = $(this);
-    if(tab.parent('li').hasClass('active')){
-        window.setTimeout(function(){
-            $(".tab-pane").removeClass('active');
-            tab.parent('li').removeClass('active');
-        },1);
-    }
+  var tab = $(this);
+  if(tab.parent('li').hasClass('active')){
+    window.setTimeout(function(){
+        $(".tab-pane").removeClass('active');
+        tab.parent('li').removeClass('active');
+    },1);
+  }
 });
