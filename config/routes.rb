@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get 'groups/:id/period_moments', to: 'groups#period_moments', as: :group_period_moments
 
   patch 'memberships/:id', to: 'memberships#update', as: :membership
+  post 'groups/:group_id/memberships', to: 'memberships#create', as: :group_memberships
 
   get '/pages/home', as: :pages_home
   root to: 'pages#home'

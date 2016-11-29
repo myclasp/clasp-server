@@ -8,6 +8,26 @@ class MembershipsController < ApplicationController
     render  "_update.js.erb", locals: { membership: @membership }
   end
 
+  def create
+    @group = Group.find(params[:group_id])
+    @membership = @group.memberships.build(role: "member")
+    authorize_user
+
+    user = User.find_by(email: params[:email])
+
+    notice = "Couldn't add user"
+    notice = "Couldn't find user with email #{params[:email]}" if user.blank?
+
+    @membership.user = user
+    
+    if @membership.save
+      redirect_to edit_group_path(@group)
+    else
+      flash[:notice] = notice
+      redirect_to edit_group_path(@group)
+    end
+  end
+
   private
 
   def authorize_user
