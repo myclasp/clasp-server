@@ -154,4 +154,17 @@ div.slider.leaflet-control {
   position: relative;
   box-shadow: 0px 0px 4px 1px gray;
 }
-  
+
+ul#members-list li { 
+    
+  span { 
+    padding: 0.25em 0em;
+    display:inline-block;
+  }
+
+  input[type="submit"] { 
+    float: right;
+    width: 40%;
+    min-width: 10em;
+  }
+}

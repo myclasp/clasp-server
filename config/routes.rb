@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   get 'groups/:id/calendar_moments', to: 'groups#calendar_moments', as: :group_calendar_moments
   get 'groups/:id/period_moments', to: 'groups#period_moments', as: :group_period_moments
 
+  patch 'memberships/:id', to: 'memberships#update', as: :membership
+
   get '/pages/home', as: :pages_home
   root to: 'pages#home'
   

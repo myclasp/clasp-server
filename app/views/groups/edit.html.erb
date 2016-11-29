@@ -9,21 +9,22 @@
    <div class="row">
       
       <%= form_for @group do |f| %>
-      
         <%= render partial: 'form', locals: { f: f, group: @group } %>
-
       <% end %>
       
-    <div class="col-sm-4">
+      <div class="col-sm-4">
       
-      <h2>Members</h2>
-      <ul id="members-list">
-      <%for user in @group.users%>
-      <li><%= user.email %></li>
-      <%end%>
-      </ul>
-            
+        <h2>Members</h2>
+        <ul id="members-list">
+        <% for membership in @group.memberships %>
+          <li>
+            <%= render partial: 'memberships/form', locals: { membership: membership } %>
+            <span><%= membership.user.email %></span>
+          </li>
+        <% end %>
+        </ul>
+      
       </div>
-    </div>
+   </div>
   </div>
 </div>
