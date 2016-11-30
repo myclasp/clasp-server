@@ -1,12 +1,10 @@
 class GroupsController < ApplicationController
 
-  before_filter :authorize, :only => [:edit, :update, :create, :new]
-
   def show
     @group = Group.find(params[:id])
 
     if @group.is_private
-      accessible = current_user and current_user.groups.includes?(@group)
+      accessible = @group.is_visible_to(current_user)
       flash[:notice] = "You're not authorised to view this page."
       redirect_to root_path unless accessible
     end
@@ -30,18 +28,22 @@ class GroupsController < ApplicationController
         latlng: [moment.latitude, moment.longitude],
         state: moment.state,
         is_mine: moment.user.eql?(current_user),
-        feature_url: moment_features_url(moment)
+        feature_url: moment_features_url(moment),
+        time: moment.timestamp
       })
     end
   end
 
   def new
     @group = Group.new
+    authorize_user
   end
 
   def create
     params[:group][:preferences] = params[:preferences]
     @group = Group.new(group_params)
+    authorize_user
+
     if @group.save
       flash[:notice] = "Group saved successfully."
       redirect_to edit_group_path(@group)
@@ -53,6 +55,7 @@ class GroupsController < ApplicationController
 
   def edit
     @group = Group.find(params[:id])
+    authorize_user
   end
 
   def calendar_moments
@@ -79,6 +82,7 @@ class GroupsController < ApplicationController
 
   def update
     @group = Group.find(params[:id])
+    authorize_user
     params[:group][:preferences] = params[:preferences]
     if @group.update_attributes(group_params)
       flash[:notice] = "Group saved successfully."
@@ -98,8 +102,8 @@ class GroupsController < ApplicationController
 
   private
 
-  def authorize
-    unless current_user and @group.is_admin?(current_user)
+  def authorize_user
+    unless current_user and (current_user.is_admin or @group.is_admin?(current_user))
       flash[:notice] = "You're not authorised to view this page."
       redirect_to root_path 
     end

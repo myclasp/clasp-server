@@ -164,11 +164,11 @@
   var hourlyMoments = <%= @hourly_moments.to_json.html_safe %>;
 
   var hourDatasets = [
-    { label: 'Up/Down Ratio', fill: false, backgroundColor: "orange", borderColor: "silver", data: prepForGraph(hourlyMoments, 'group'), lineTension: 0.2 }
+    { label: 'Up/Down Ratio', fill: false, backgroundColor: undefined, borderColor: "silver", data: prepForGraph(hourlyMoments, 'group'), lineTension: 0.2 }
   ];
 
   <% if @is_group_member %>
-    hourDatasets.push({ label: 'My Ratio', fill: false, backgroundColor: "orange", 
+    hourDatasets.push({ label: 'My Ratio', fill: false, backgroundColor: undefined, 
       borderColor: "silver", data: prepForGraph(hourlyMoments, 'user'), 
       borderDash: [10.0, 10.0], borderDashOffset: 1.0, lineTension: 0.2
     });
@@ -189,28 +189,23 @@
     }
   });
 
-  //console.log(hourChart.chart.controller);
-  //hourChart.chart.controller.boxes[2] //xaxis
-  //hourChart.chart.controller.boxes[3] //xaxis
-  //hourChart.render(1000, false)
-
   // WEEK LINE
 
   var weekMoments = <%= @week_moments.to_json.html_safe %>;
 
   var weekDatasets = [
-    { label: 'Up/Down Ratio', fill: false, backgroundColor: "orange", borderColor: "silver", data: prepForGraph(weekMoments, 'group'), lineTension: 0.2, momentData: weekMoments }
+    { label: 'Up/Down Ratio', fill: false, backgroundColor: undefined, borderColor: "silver", data: prepForGraph(weekMoments, 'group'), lineTension: 0.2, momentData: weekMoments }
   ];
 
   <% if @is_group_member %>
-    weekDatasets.push({ label: 'My Up/Down Ratio', fill: false, backgroundColor: "orange", 
+    weekDatasets.push({ label: 'My Up/Down Ratio', fill: false, backgroundColor: undefined, 
       borderColor: "silver", data: prepForGraph(weekMoments, 'user'), 
       borderDash: [10.0, 10.0], borderDashOffset: 1.0, lineTension: 0.2
     });
   <% end %>
     
   <% days = []
-  7.times { |x| days << (@week_moments_start + x.day).strftime("%a") }; %>
+  7.times { |x| time = @week_moments_start + x.day; days << time.strftime("%a #{time.day.ordinalize}") }; %>
   var labels = <%= days.to_s.html_safe %>;
 
   var weekCanvas = document.getElementById("week");
@@ -219,11 +214,6 @@
     type: 'line',
     data: { xLabels: labels, yLabels: ["100", "0", "100"], datasets: weekDatasets, momentData: weekMoments },
     options: {
-      legend: {
-        labels: {
-          fillStyle: 'rgb(255, 99, 132)'
-        }
-      },
       scales: scalesOptions,
       tooltips: tooltipOptions
     }
@@ -238,9 +228,8 @@
     return url;
   };
 
-
+  //CHART CONTROLS
   $('#next_day, #previous_day').click(function(e){
-  
     var url = buildNextPrevUrl(e.currentTarget);
     $('#next_day, #previous_day').prop('disabled', true);
 
@@ -305,7 +294,8 @@
     shadowAnchor: [13, 41]
   });
 
-  var markers = L.markerClusterGroup({ spiderfyOnMaxZoom: false, disableClusteringAtZoom: 16, 
+  var mcgLayerSupportGroup = L.markerClusterGroup.layerSupport({ 
+    spiderfyOnMaxZoom: false, disableClusteringAtZoom: 16, 
     iconCreateFunction: function (cluster) {
       var childMarkers = cluster.getAllChildMarkers();
       // count how many there are of each class
@@ -327,29 +317,84 @@
       }
 
       var clusterHtml = '<div><span>' + cluster.getChildCount()+ '</span></div>';
-      return L.divIcon({ html: clusterHtml, className: clusterClass });
+      var d = L.divIcon({ html: clusterHtml, className: clusterClass, iconSize:null });
+      return d;
     }
   });
 
   var str = '';
   var marker;
+  var markers = [];
   var opts = { latlng:[], state: '', color: "orange", fillColor: 'white', fillOpacity: 1, weight: 4 };
+  var popups = {};
 
   <% for marker in @markers %>
     opts.latlng = <%= marker[:latlng] %>;
     opts.state = <%= marker[:state] %>;
+    opts.time = '<%= marker[:time] %>';
+
     if (<%= marker[:state] %>){ opts.color = "orange"; } else { opts.color = "blue"; }
     if (<%= marker[:is_mine] %>){ opts.fillColor = "white"; } else { opts.fillColor = opts.color; }
+
     marker = new L.circleMarker(<%= marker[:latlng] %>, opts);
-    
     var p = marker.bindPopup('<%= escape_javascript(render partial: "popup", locals: { marker: marker }) %>', { 
       is_mine: <%= marker[:is_mine] %>, state: <%= marker[:state] %>, latlng: <%= marker[:latlng] %>, feature_url: '<%= marker[:feature_url] %>' }); 
     
-    markers.addLayer(marker);
-  <% end %>
-  
-  map.addLayer(markers);
-  map.on('popupopen', function(e) { MomentMap.handlePopup(e); });
-  map.on('movestart', function(e) { $('div.moment-editor').removeClass('active'); });
+    popups[<%= marker[:moment].id %>] = p;
 
+    markers.push(marker);
+  <% end %>
+
+  var myLayerGroup = L.layerGroup(markers);
+  mcgLayerSupportGroup.addTo(map);
+  mcgLayerSupportGroup.checkIn(myLayerGroup);
+  myLayerGroup.addTo(map);
+
+  var sliderControl = L.control.sliderControl({
+    position: "topright",
+    layer: myLayerGroup,
+    range: true
+  });
+
+  //Make sure to add the slider to the map ;-)
+  map.addControl(sliderControl);
+  //And initialize the slider
+  sliderControl.startSlider();
+
+  $('div.slider.leaflet-control').prepend('<p>Timespan</p>')
+
+  map.on('popupopen', function(e) { MomentMap.handlePopup(e); });
+  map.on('move', function(e) { 
+    //$('div.moment-editor').removeClass('active');
+    if ($('div.moment-editor.active').length > 0){
+      L.DomEvent.stop(e);
+      map.dragging.disable();
+    }
+  });
+
+  map.on('dblclick', function(e) { 
+    if ($('div.moment-editor.active').length > 0){
+      L.DomEvent.stop(e);
+      map.doubleClickZoom.disable();
+    }
+  });
+
+  map.on('click', function(e) { 
+    if ($('div.moment-editor.active').length == 0){ 
+      map.dragging.enable(); 
+      map.doubleClickZoom.enable();
+    } else {
+      L.DomEvent.stop(e);
+      map.doubleClickZoom.disable();
+    }
+  });
+
+  $('div.moment-editor .cancel').click(function(e){
+    e.stopPropagation();
+    $('.moment-editor.active').removeClass('active');
+  });
+
+  MomentMap.setMap(map);
+  MomentMap.setPopups(popups);
+  
 <% end %>

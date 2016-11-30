@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'admin', to: 'admin#index', as: :admin
+
   devise_for :users, :controllers => {:registrations => "registrations"}
   
   scope 'v1' do
@@ -25,6 +27,9 @@ Rails.application.routes.draw do
   patch 'groups/:id', to: 'groups#update'
   get 'groups/:id/calendar_moments', to: 'groups#calendar_moments', as: :group_calendar_moments
   get 'groups/:id/period_moments', to: 'groups#period_moments', as: :group_period_moments
+
+  patch 'memberships/:id', to: 'memberships#update', as: :membership
+  post 'groups/:group_id/memberships', to: 'memberships#create', as: :group_memberships
 
   get '/pages/home', as: :pages_home
   root to: 'pages#home'

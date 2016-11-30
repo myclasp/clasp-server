@@ -46,6 +46,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'unicorn', '~> 4.9'
 gem 'pg', '~> 0.18.3'
 gem 'devise'
+gem 'jquery-ui-rails'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'
@@ -53,4 +54,5 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-leaflet.markercluster'
   gem 'rails-assets-chartjs'
   gem 'rails-assets-momentjs'
+  gem 'rails-assets-leaflet-slider'
 end

@@ -1,4 +1,11 @@
 $('#edit-moment-<%= @moment.id %>').removeClass('active');
-//TODO: update and open popup
-console.log('<%= @moment.inspect.to_s %>'); 
-console.log("#edit-moment-<%= @moment.id %> Saved");
+
+var popups = MomentMap.getPopups();
+var map = MomentMap.getMap();
+
+popups[<%= @moment.id %>]._popup.setContent("<%= j render(partial: 'groups/popup', locals: { marker: @marker }) %>");
+
+map.openPopup(popups[<%= @moment.id %>]._popup);
+
+//var e = '#<%= @moment.id %>-description';
+//$(e).text('<%= @moment.description %>');

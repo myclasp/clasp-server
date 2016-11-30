@@ -1,5 +1,15 @@
 var MomentMap = (function () {
+  
+  var mapObj = undefined;
+  var popupsObj = undefined; 
+
   return {
+  
+    getMap: function (){ return mapObj },
+    setMap: function (map){ mapObj = map; return mapObj },
+    
+    getPopups: function (){ return popupsObj },
+    setPopups: function (popups){ popupsObj = popups; return popupsObj },
 
     reverseGeocode: function (popup, latlng) {
       var url = 'http://nominatim.openstreetmap.org/reverse.php?format=json&lat='+latlng[0]+'&lon='+latlng[1]+'&zoom=18&extratags=1';
@@ -7,7 +17,7 @@ var MomentMap = (function () {
         
         console.log(result);
 
-        var str = '<p class="question">Does this location match the datamark?</p><p class="result">';
+        var str = '';
 
         var keys = Object.keys(result.address);
         var nkeys = keys.filter(function(el) {
@@ -26,8 +36,9 @@ var MomentMap = (function () {
         str = str + title + result.address.city + '</p>';
 
         $(popup).find('.possible-feature textarea').text(JSON.stringify(result));
-        $(popup).find('.possible-feature').removeClass('hidden');
+        //$(popup).find('.possible-feature').removeClass('hidden');
         $(popup).find('.possible-feature .answer').before(str);
+        $(popup).find('.possible-feature form').submit();
       });
     },
 
@@ -49,6 +60,7 @@ var MomentMap = (function () {
         popup._map.closePopup();
         var t = $(e.currentTarget).attr('data-target');
         $(t).addClass('active');
+        mapObj.dragging.disable();
       });
     }
   };
@@ -57,11 +69,11 @@ var MomentMap = (function () {
 /* Tabs */
 
 $('#groupTabs a').click(function (e) {
-    var tab = $(this);
-    if(tab.parent('li').hasClass('active')){
-        window.setTimeout(function(){
-            $(".tab-pane").removeClass('active');
-            tab.parent('li').removeClass('active');
-        },1);
-    }
+  var tab = $(this);
+  if(tab.parent('li').hasClass('active')){
+    window.setTimeout(function(){
+        $(".tab-pane").removeClass('active');
+        tab.parent('li').removeClass('active');
+    },1);
+  }
 });

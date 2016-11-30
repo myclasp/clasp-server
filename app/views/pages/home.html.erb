@@ -2,7 +2,7 @@
  <div id="intro" class="col-15-2 height-4 no-pad">
    <div class="square-content heading">
     <div class="padding">
-     <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc elementum libero vestibulum ex feugiat, ac consequat ipsum ornare. Sed velit metus, congue dignissim risus at, sollicitudin ornare lectus.</h1>
+     <h1>Blurb</h1>
     </div>
   </div>
 </div>
@@ -228,6 +228,8 @@
       <h3>Group</h3>
       <p><%= group.description %></p>
       <%= link_to 'See group data', group_path(group), class: "btn" %>
+
+      <%= link_to('Edit group', edit_group_path(group), class: "btn") if group.is_admin?(current_user) %>
 
       <% if current_user and current_user.groups.count.eql?(0) %>
         <%= button_to 'Join group', group_add_user_path(group), class: "btn" %>

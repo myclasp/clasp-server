@@ -13,10 +13,11 @@
  * It is generally better to create a new file per style scope.
  *
  *= require bootstrap
- *= require_tree .
- *= require_self
  *= require leaflet
  *= require leaflet.markercluster
+ *= require jquery-ui
+ *= require_tree .
+ *= require_self
  */
 
 /*--- Variables ---*/
@@ -231,4 +232,8 @@ div.flash {
   text-align: center;
   top: 5px;
   z-index: 86;
+}
+
+.modal-content img { 
+  max-height: 40vh;
 }

@@ -1,0 +1,6 @@
+<%= form_for membership, remote: true do |f| %>
+  <% rolestr = membership.role.eql?("admin") ? "member" : "admin" %>
+  <%= f.hidden_field :role, value: rolestr %> 
+  <% btnstr = membership.role.eql?("admin") ? "Revoke admin" : "Make admin" %>
+  <%= f.submit btnstr %>
+<% end %>

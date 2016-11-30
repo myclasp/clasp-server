@@ -10,15 +10,15 @@
 #map-legend {
   
   position: absolute;
-  top: 1%;
-  right: 1%;
+  top: 10px;
+  left: 42px;
   background-color: white;
-  padding: 1%;
+  padding: 8px;
   box-shadow: 0px 0px 4px 1px gray;
   border-radius: 4px;
   z-index: 1000;
 
-  p { margin-top: 0.3em; margin-bottom: 0.3em; text-align: left; }
+  p { margin: 0em; text-align: left; }
 
   .group-icon, .user-icon { 
     display: inline-block;
@@ -45,11 +45,16 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea8511', endColorstr='#0000ff', GradientType=0 );
 }
 
+.marker-cluster div {
+  margin-left: 3px;
+  margin-top: 3px;
+}
+
 .marker-cluster-up, 
 .marker-cluster-down,
 .more-ones,
 .more-zeroes,
-.equal-amount { width: 40px; height: 40px; 
+.equal-amount { width: 36px; height: 36px; 
   div span { color: white; font-size: 1.4em; }
 }
 
@@ -93,7 +98,7 @@ div.moment-editor {
   display: none;
   position: absolute;
   top: 0px;
-  z-index: 1000;
+  z-index: 1010;
   right: 0px;
   height: 100%;
   background-color: white;
@@ -129,4 +134,37 @@ div.moment-editor.active { display:block; }
   border-right-color: #aaa;
   border-width: 20px;
   margin-top: -20px;
+}
+
+div.slider.leaflet-control { 
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0px 0px 4px 1px gray;
+  border-radius: 4px;
+  padding-left: 15px;
+
+  p { margin: 0px;
+    margin-bottom: 3px;
+    left: -5px;
+    position: relative; }
+}
+
+#slider-timestamp {
+  top: 6px;
+  position: relative;
+  box-shadow: 0px 0px 4px 1px gray;
+}
+
+ul#members-list li { 
+    
+  span { 
+    padding: 0.25em 0em;
+    display:inline-block;
+  }
+
+  input[type="submit"] { 
+    float: right;
+    width: 40%;
+    min-width: 10em;
+  }
 }

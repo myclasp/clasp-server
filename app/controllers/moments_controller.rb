@@ -49,7 +49,7 @@ class MomentsController < ApplicationController
     errors = {}
 
     moments.each do |moment|
-      moment_attributes = moment.permit([:identifier, :timestamp, :state, :latitude, :longitude])
+      moment_attributes = moment.permit([:identifier, :timestamp, :state, :latitude, :longitude, :accuracy])
       m = user.moments.create(moment_attributes)
       raise MomentsFormatError.new("Blank identifier for moment.") if m.identifier.blank?
       
@@ -68,7 +68,16 @@ class MomentsController < ApplicationController
   def update
     @moment = Moment.find(params[:id])
     @moment.update_attributes(moment_params)
-    render  "_update.js.erb", locals: { moment: @moment }
+    @marker = {
+      moment: @moment,
+      latlng: [@moment.latitude, @moment.longitude],
+      state: @moment.state,
+      is_mine: @moment.user.eql?(current_user),
+      feature_url: moment_features_url(@moment),
+      time: @moment.timestamp
+    }
+
+    render  "_update.js.erb", locals: { moment: @moment, marker: @marker }
   end
 
   private

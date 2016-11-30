@@ -12,10 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require turbolinks
 //= require bootstrap
 //= require leaflet
 //= require leaflet.markercluster
+//= require leaflet-slider
 //= require momentjs
 //= require chartjs
 //= require_tree .

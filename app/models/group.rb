@@ -25,7 +25,16 @@ class Group < ApplicationRecord
   end
 
   def is_admin?(user)
+    admins.include?(user) or user.try(:is_admin)
+  end
+
+  def is_group_admin?(user)
     admins.include?(user)
+  end
+
+  def is_visible_to(user)
+    visible = user and (user.groups.include?(self) or user.is_admin)
+    visible
   end
 
   def self.open
