@@ -222,21 +222,24 @@
 <% for group in @groups %>
 
 <div class="modal fade group-<%= group.id %>" tabindex="-1" role="dialog" aria-labelledby="editGroupModal">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content row">
+     <div class="col-sm-6 no-padding">
       <%= image_tag(group.image_url) unless group.image_url.blank? %>
-      <h3>Group</h3>
+     </div>
+     <div class="col-sm-6">
+      <h3><%= group.name %></h3>
       <p><%= group.description %></p>
-      <%= link_to 'See group data', group_path(group), class: "btn" %>
+      <%= link_to 'See group data', group_path(group), class: "button" %>
 
-      <%= link_to('Edit group', edit_group_path(group), class: "btn") if group.is_admin?(current_user) %>
+      <%= link_to('Edit group', edit_group_path(group), class: "button") if group.is_admin?(current_user) %>
 
       <% if current_user and current_user.groups.count.eql?(0) %>
-        <%= button_to 'Join group', group_add_user_path(group), class: "btn" %>
+        <%= button_to 'Join group', group_add_user_path(group), class: "button" %>
       <% elsif !user_signed_in? %>
-        <%= link_to 'Join group', new_user_registration_path(group_id: group.id), class: "btn" %>
+        <%= link_to 'Join group', new_user_registration_path(group_id: group.id), class: "button" %>
       <% end %>
-
+      </div>
     </div>
   </div>
 </div>
