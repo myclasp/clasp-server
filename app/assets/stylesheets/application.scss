@@ -237,6 +237,7 @@ header.group-header h1 {
       &:hover {
        background: $blue;
        color: white;
+       text-decoration: none;
       }
     }
    }
@@ -248,8 +249,12 @@ header.group-header h1 {
    margin: 0.5em 0 0 0;
    display: inline-block;
   }
-  p {margin: 1em 0;}
+  p {margin: 0 0 1em 0;}
  }
+}
+
+@media all and (max-width: 767px) {
+  #group-content #about-group p { margin: 1em 0 0 0 }
 }
 
 
