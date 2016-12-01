@@ -28,7 +28,7 @@ $green:             #6F8D09;
 $purple:            #81097A;
 $orange:            #EA8511;
 $light-grey:        #F7F7F7;
-$dark-grey:        #4A4A4A;
+$dark-grey:         #4A4A4A;
 
 
 $color-1 : $purple;
@@ -109,7 +109,7 @@ input[type='submit'] {
  border-radius: 2em;
  padding: 0.25em 1em;
  
- &:hover {
+ &:hover, &:active, &:focus {
  background: white;
  color: $purple;
  text-decoration: none;

@@ -325,7 +325,7 @@
   var str = '';
   var marker;
   var markers = [];
-  var opts = { latlng:[], state: '', color: "orange", fillColor: 'white', fillOpacity: 1, weight: 4 };
+  var opts = { latlng:[], state: '', color: "#EA8511", fillColor: 'white', fillOpacity: 1, weight: 4 };
   var popups = {};
 
   <% for marker in @markers %>
@@ -333,7 +333,7 @@
     opts.state = <%= marker[:state] %>;
     opts.time = '<%= marker[:time] %>';
 
-    if (<%= marker[:state] %>){ opts.color = "orange"; } else { opts.color = "blue"; }
+    if (<%= marker[:state] %>){ opts.color = "#EA8511"; } else { opts.color = "#1B75BB"; }
     if (<%= marker[:is_mine] %>){ opts.fillColor = "white"; } else { opts.fillColor = opts.color; }
 
     marker = new L.circleMarker(<%= marker[:latlng] %>, opts);
