@@ -1,39 +1,94 @@
-.col-15 {
+.home-col {
     position: relative;
     min-height: 1px;
     padding-right: 10px;
     padding-left: 10px;
 }
 
-.col-15-2 {
- width: 100%;
- float: left;
+.home-col-2 {
+    width: 100%;
+    float: left;
 }
 
-@media (min-width: 768px) {
-.col-15,
-.col-15-2  {
-        width: 33.33%;
-        float: left;
-    }
-}
-@media (min-width: 992px) {
-    .col-15 {
-        width: 33.33%;
-        float: left;
-    }
-    .col-15-2 {
-     width: 33.33%
-    }
+
+
+/* over 1170 - desktop sizes */
+@media (min-width: 1170px) {
+  .home-col-2  {
+      width: 40%;
+      float: left;
+  }
+  
+  .home-col {
+      width: 20%;
+      float: left;
+   }
+
+.height-2 {
+  height: calc(100vw / 12 * 2 - 20px); }
+
+.height-4 {
+  height: calc(100vw / 12 * 4 - 41px); }
+  
+
 }
 
-    .col-15 {
-        width: 20%;
-        float: left;
-    }
-    .col-15-2 {
-     width: 40%
-    }
+/* up to 970 - desktop sizes */
+@media (max-width: 1170px) {
+  .home-col,
+  .home-col-2  {
+          width: 33.33%;
+          float: left;
+      }
+  
+  .height-2 {
+    height: calc(100vw / 12 * 3 - 20px); }
+  
+  .height-4 {
+    height: calc(100vw / 12 * 6 - 41px); }
+
+}
+
+
+/* up to 970 - desktop sizes */
+@media (max-width: 750px) {
+
+  .home-col-2  {
+          width: 100%;
+          float: none;
+      }
+
+
+  .home-col {
+          width: 50%;
+          float: left;
+      }
+  
+  .height-2 {
+    height: calc(100vw / 12 * 5 - 20px); }
+  
+  .height-4 {
+    height: auto }
+
+}
+
+
+
+/* up to 970 - desktop sizes */
+@media (max-width: 480px) {
+  .home-col,
+  .home-col-2  {
+          width: 100%;
+          float: none;
+      }
+  
+  .height-2 {
+    height: auto; }
+  
+  .height-4 {
+    height: auto; }
+
+}
 
 
 
@@ -49,36 +104,6 @@
   .square-content {
     padding: 15px;
  } }
-
-.height-2 {
-  height: calc(100vw / 12 * 2 - 20px); }
-
-.height-4 {
-  height: calc(100vw / 12 * 4 - 41px); }
-
-.height-5 {
-  height: calc(100vw / 12 * 5 - 40px); }
-
-.height-6 {
-  height: calc(100vw / 12 * 6 - 40px); }
-
-.height-7 {
-  height: calc(100vw / 12 * 7 - 40px); }
-
-.height-8 {
-  height: calc(100vw / 12 * 8 - 40px); }
-
-.height-9 {
-  height: calc(100vw / 12 * 9 - 40px); }
-
-.height-10 {
-  height: calc(100vw / 12 * 10 - 40px); }
-
-.height-11 {
-  height: calc(100vw / 12 * 11 - 40px); }
-
-.height-12 {
-  height: calc(100vw - 40px); }
 
 .squares > div:first-child {
   margin-top: 0; }
