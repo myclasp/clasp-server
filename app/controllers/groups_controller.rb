@@ -150,16 +150,19 @@ class GroupsController < ApplicationController
       group_ones    = moments.where(state: 1).count
       group_state  = calendar_state(group_zeroes, group_ones)
 
+      caption = "Groups ups: #{group_ones}, downs: #{group_zeroes}."
+
       if current_user
         user_zeroes = moments.where({ state: 0, user_id: current_user.id }).count
         user_ones   = moments.where({ state: 1, user_id: current_user.id }).count
         user_state  = calendar_state(user_zeroes, user_ones)
+        caption << " My ups: #{user_ones}, downs: #{user_zeroes}." 
       else
         user_state = ""
       end
-      
+
       calendar_moments.merge!(day.day => { 
-        user_state: user_state, group_state: group_state, group_ones: group_ones, group_zeroes: group_zeroes 
+        caption: caption, user_state: user_state, group_state: group_state, group_ones: group_ones, group_zeroes: group_zeroes 
       })
     end
     return calendar_moments

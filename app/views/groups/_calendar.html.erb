@@ -23,7 +23,9 @@
         <tr>
           <% week.each do |day| %>
             <%= content_tag :td, class: "day" do %>
-              <%= content_tag :span, day.day, class: "ring#{ calendar_moments[day.day][:user_state] } #{ calendar_moments[day.day][:group_state] }" %>
+              <% ringclass = "" %>
+              <% ringclass = "ring#{ calendar_moments[day.day][:user_state] }" unless calendar_moments[day.day][:user_state].blank? %> 
+              <%= content_tag :span, day.day, class: "#{ ringclass } #{ calendar_moments[day.day][:group_state] }", title: calendar_moments[day.day][:caption] %>
             <% end %>
           <% end %>
         </tr>
