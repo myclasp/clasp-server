@@ -17,9 +17,7 @@ class Group < ApplicationRecord
       prefs[key] = value if prefs[key].nil?
     end
     
-    prefs.symbolize_keys!
-    
-    return prefs
+    return prefs.symbolize_keys
   end
 
   def admins
