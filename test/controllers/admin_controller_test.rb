@@ -1,9 +1,9 @@
 require 'test_helper'
 
 class AdminControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get admin_index_url
-    assert_response :success
+  test "should redirect when not signed in"
+    get admin_url
+    assert_response :redirect
   end
 
 end
