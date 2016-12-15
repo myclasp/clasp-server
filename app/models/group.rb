@@ -17,6 +17,8 @@ class Group < ApplicationRecord
       prefs[key] = value if prefs[key].nil?
     end
     
+    prefs.symbolize_keys!
+    
     return prefs
   end
 
