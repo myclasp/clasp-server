@@ -4,6 +4,7 @@
     <%= @group.name %> / <%= pluralize @group.memberships.count, "member" %>
     <%= link_to '(Edit)', edit_group_path(@group) if @group.is_admin?(current_user) %>
     </h1>
+
   </div>
 </header>
   
@@ -20,6 +21,7 @@
      </div>
      <div class="col-xs-6 col-sm-12 no-padding-xs">
       <p><%= @group.description%></p>
+      <%= link_to '&#10515; Download datamarks as CSV'.html_safe, group_path(@group, format: 'csv') if @group.preferences[:is_open_data] %>
      </div>
      </div>
 
