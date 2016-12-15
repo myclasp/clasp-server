@@ -5,8 +5,10 @@ class GroupsController < ApplicationController
 
     if @group.is_private
       accessible = @group.is_visible_to(current_user)
-      flash[:notice] = "You're not authorised to view this page."
-      redirect_to root_path unless accessible
+      unless accessible
+        flash[:notice] = "You're not authorised to view this page."
+        redirect_to root_path
+      end
     end
 
     @markers = []
