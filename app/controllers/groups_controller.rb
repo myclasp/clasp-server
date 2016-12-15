@@ -32,6 +32,11 @@ class GroupsController < ApplicationController
         time: moment.timestamp
       })
     end
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @group.moments.to_csv }
+    end
   end
 
   def new
