@@ -1,3 +1,5 @@
+require 'csv'
+
 class Moment < ApplicationRecord
   validates :timestamp, presence: true
   validates :identifier, presence: true, uniqueness: { scope: :user_id }
@@ -14,6 +16,15 @@ class Moment < ApplicationRecord
 
   def self.to(t)
     where("moments.timestamp <= ?", t)
+  end
+
+  def self.to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << column_names
+      all.each do |moment|
+        csv << moment.attributes.values
+      end
+    end
   end
 
   def has_location?
